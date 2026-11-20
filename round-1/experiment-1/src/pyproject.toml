@@ -1,0 +1,35 @@
+[project]
+name = "benford-country-populations"
+version = "1.0.0"
+description = "How closely does Benford's law fit the leading digits of country populations? A harmonic-coordinate screen of four rival mechanisms."
+requires-python = ">=3.12"
+# Versions pinned to exactly what was installed and run.  `uv pip list
+# --python=.venv/bin/python` produced these on the run machine (macOS,
+# Python 3.12.10).
+dependencies = [
+    "numpy==2.5.5",
+    "scipy==1.18.1",
+    "pandas==3.1.1",
+    "matplotlib==3.11.2",
+    "loguru==0.8.0",
+    "psutil==7.2.2",
+    "requests==2.34.2",
+]
+
+# Transitive pins, recorded so a reader can reproduce the exact numerical
+# environment.  These are the versions `uv` resolved when the direct
+# dependencies above were installed.
+[tool.aii.pinned_transitive]
+certifi = "2026.10.23"
+charset-normalizer = "3.5.2"
+contourpy = "1.4.0"
+cycler = "0.12.1"
+fonttools = "4.68.0"
+idna = "3.20"
+kiwisolver = "1.5.1"
+packaging = "26.3"
+pillow = "13.0.0"
+pyparsing = "3.3.3"
+python-dateutil = "4.0.0"
+tzdata = "2026.6"
+urllib3 = "2.8.0"

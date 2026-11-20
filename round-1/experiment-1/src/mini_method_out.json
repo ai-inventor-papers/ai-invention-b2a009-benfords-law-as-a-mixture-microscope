@@ -1,0 +1,743 @@
+{
+  "metadata": {
+    "method_name": "harmonic-coordinate screen of four rival mechanisms of Benford deviation",
+    "description": "Fits five rival size laws to the country-population panel, converts each into its exact leading-digit law by periodizing the log-density, and scores four candidate mechanisms against the shared c_1 instrument, each against its own matched parametric-bootstrap null.",
+    "headline_answer": {
+      "question": "How closely does Benford's law fit the leading digits of country populations?",
+      "conventional_answer_exact_benford_baseline": {
+        "first_digit_mad": 0.009192823235407252,
+        "nigrini_band": "acceptable conformity",
+        "chi2": 83.22202590157137,
+        "chi2_df": 8,
+        "chi2_p_naive_iid": 1.095744238166342e-14,
+        "chi2_rejects_exact_benford_at_naive_iid": true,
+        "kuiper_V": 0.05614275974405136,
+        "reading": "on the conventional reading the panel is in Nigrini's 'acceptable conformity' band (MAD = 0.00919) and the naive chi-square does reject exact Benford (chi2 = 83.2 on 8 df, p = 1.1e-14). That p-value assumes independent rows and is reported here only because the field expects it."
+      },
+      "why_the_conventional_answer_is_not_trustworthy": {
+        "n_rows": 8732,
+        "n_effective": 246.1835891822753,
+        "design_effect": 35.469464187293134,
+        "rho_within_entity": 0.9574851163136981,
+        "noise_floor": 0.05648269250090719,
+        "two_sigma_threshold": 0.09013333659809927,
+        "observed_c1_amp": 0.07492631043347074,
+        "observed_over_floor": 1.32653574247133,
+        "observed_below_two_sigma": true,
+        "reading": "the nominal 8,732 country-years are 246 effectively independent observations: a country's mantissa barely moves across its 37 even years, so the design effect is 35.5 and any i.i.d. p-value is meaningless. In harmonic coordinates the observed |c1| = 0.0749 sits 1.33x the entity-cluster Rayleigh floor of 0.0565, i.e. BELOW the 2-sigma detection threshold of 0.0901."
+      },
+      "the_fitted_law_cannot_explain_it": {
+        "predicted_c1_from_mixture": 0.0354742044029885,
+        "observed_c1": 0.07492631043347074,
+        "orders_of_magnitude_short": 0.3247216832261393,
+        "reading": "the BIC-selected law predicts |c1| = 3.547e-02 against an observed 0.0749, within the amplitude-ratio window; the mechanism is not excluded by amplitude."
+      },
+      "answer": "The panel's first-digit MAD is 0.00919 (acceptable conformity), and the conventional exact-Benford chi-square rejects at the naive i.i.d. reading. But the nominal 8,732 rows correspond to only 246 effectively independent observations (design effect 35.5), and the observed harmonic amplitude |c1| = 0.0749 is inside the 2-sigma entity-cluster envelope, so the panel is consistent with exact Benford once the entity dependence is honoured. The BIC-selected size law's own prediction is 0.0355 against the observed 0.0749 (ratio 2.11), inside the amplitude-ratio window, so the static-mixture mechanism is not excluded by amplitude alone -- but its matched-null p and its adequacy score are in the verdict above. Verdict: Candidates A, D clear at least one level but none clears all pre-registered levels; the result is deferred rather than a survivor."
+    },
+    "constants": {
+      "seed": 20261119,
+      "alpha": 0.05,
+      "margin": 0.05,
+      "replicate_counts": {
+        "P": 10000,
+        "S1": 4000,
+        "S2": 4000,
+        "X": 4000
+      },
+      "panel_sha256": "6a2bf20b2aa69778ed215cd1171703f5c8972f9f88a6eaa001cbe29f85c25e7f",
+      "screen_sha256": "430cc62e6fc9390911023eed8ef6f9c0ad52fdfce33aad02284156c3663783f7",
+      "preregistration_written_at": "2026-11-19T20:49:11.614100-08:00",
+      "n_rows": 17464,
+      "n_entities": 236,
+      "n_even": 8732,
+      "n_odd": 8732,
+      "year_min": 1950,
+      "year_max": 2023,
+      "projection_boundary": 2024,
+      "runtime_seconds": 815.9,
+      "mode": "full",
+      "question": "How closely does Benford's law fit the leading digits of country populations?"
+    },
+    "verdict": {
+      "levels": {
+        "P": "pooled even fold",
+        "S1": "even years <= 1986",
+        "S2": "even years >= 1988",
+        "X": "entity cross-section (one row per country)"
+      },
+      "p_values": {
+        "P": {
+          "A": 0.26247375262473754,
+          "B": 0.15458454154584542,
+          "C": 0.9557044295570443,
+          "D": 0.004975124378109453
+        },
+        "S1": {
+          "A": 0.16195951012246937,
+          "B": 0.021494626343414147,
+          "C": 0.8867783054236441,
+          "D": 0.06965174129353234
+        },
+        "S2": {
+          "A": 0.38690327418145465,
+          "B": 0.2994251437140715,
+          "C": 0.47513121719570106,
+          "D": 0.004975124378109453
+        }
+      },
+      "q_values_P": {
+        "A": 0.12358764123587641,
+        "B": 0.8242351529694061,
+        "C": 0.0887911208879112,
+        "D": 0.009950248756218905
+      },
+      "ranking_at_P": [
+        "D",
+        "B",
+        "A",
+        "C"
+      ],
+      "margins": [
+        {
+          "first": "D",
+          "second": "B",
+          "log10_p_margin": 1.4923621197259325
+        },
+        {
+          "first": "B",
+          "second": "A",
+          "log10_p_margin": 0.22991981815966966
+        },
+        {
+          "first": "A",
+          "second": "C",
+          "log10_p_margin": 0.5612377184427993
+        }
+      ],
+      "holm_adjusted_at_P": {
+        "D": 0.01990049751243781,
+        "B": 0.4637536246375362,
+        "A": 0.5249475052494751,
+        "C": 0.9557044295570443
+      },
+      "status": {
+        "A": "underpowered",
+        "B": "eliminated",
+        "C": "eliminated",
+        "D": "deferred"
+      },
+      "winner": null,
+      "cross_section_A": {
+        "level": "X (one row per entity: circular-mean mantissa across even years)",
+        "n_entities": 236,
+        "observed_amp": 0.10430353969787005,
+        "predicted_amp": 0.0001217111603080097,
+        "p_value": 0.07723069232691827,
+        "q_value": 0.16345913521619596,
+        "amplitude_ratio_obs_over_pred": 856.9759702718562,
+        "support_conditions_met": false,
+        "reading": "the mixture mechanism predicts a cross-sectional |c1| at the pooled fit's own value; the entity cross-section is where that prediction is sharpest, because pooling country-years averages away the between-country spread the mechanism is about"
+      },
+      "survivor_rule": "c survives iff p_c < 0.05 at level P AND p_c < 0.05 in both S1 and S2 AND q_c >= 0.05 where defined AND c has the smallest p_c among those meeting the above",
+      "verdict": "Candidates A, D clear at least one level but none clears all pre-registered levels; the result is deferred rather than a survivor."
+    },
+    "power_statement": {
+      "n_rows": 8732,
+      "n_entities": 236,
+      "mean_years_per_entity": 37.0,
+      "rho_real": 0.9606901618229726,
+      "rho_imag": 0.9542800708044238,
+      "rho_abs": 0.0,
+      "rho_hat": 0.9574851163136981,
+      "design_effect": 35.469464187293134,
+      "n_eff": 246.1835891822753,
+      "noise_floor_E_abs_c1": 0.05648269250090719,
+      "sd_abs_c1": 0.045066668299049636,
+      "md_amp_2sigma": 0.09013333659809927,
+      "md_amp_80pct_power": 0.12798933796930095,
+      "statement": "Every naive i.i.d. p-value on this panel is to be ignored. Clustering inflates the variance by deff = 35.5 (rho = 0.957, 37.0 years per entity), so the effective sample size is 246 rather than 8732. The Rayleigh noise floor is E|c1| = 0.0565, the 2-sigma detection threshold is 0.0901, and the 80%-power minimum detectable amplitude is 0.1280."
+    },
+    "panel_summary": {
+      "dropped_entities": [
+        {
+          "entity": "Africa",
+          "code": "OWID_AFR",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Africa (UN)",
+          "code": "UN_AFR",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Americas (UN)",
+          "code": "",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Asia",
+          "code": "OWID_ASI",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Asia (UN)",
+          "code": "UN_ASI",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Europe",
+          "code": "OWID_EUR",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Europe (UN)",
+          "code": "UN_EUR",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "High-income countries",
+          "code": "OWID_HIC",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Kosovo",
+          "code": "OWID_KOS",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Land-locked developing countries (LLDC)",
+          "code": "",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Latin America and the Caribbean (UN)",
+          "code": "UN_LAC",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Least developed countries",
+          "code": "",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Less developed regions",
+          "code": "",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Less developed regions, excluding China",
+          "code": "",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Less developed regions, excluding least developed countries",
+          "code": "",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Low-income countries",
+          "code": "OWID_LIC",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Lower-middle-income countries",
+          "code": "OWID_LMC",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "More developed regions",
+          "code": "",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "North America",
+          "code": "OWID_NAM",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Northern America (UN)",
+          "code": "UN_NAM",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Oceania",
+          "code": "OWID_OCE",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Oceania (UN)",
+          "code": "UN_OCE",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Small island developing states (SIDS)",
+          "code": "",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "South America",
+          "code": "OWID_SAM",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "Upper-middle-income countries",
+          "code": "OWID_UMC",
+          "reason": "non-iso3-code"
+        },
+        {
+          "entity": "World",
+          "code": "OWID_WRL",
+          "reason": "non-iso3-code"
+        }
+      ],
+      "owid_header": "entity,code,year,population__sex_all__age_all__variant_estimates",
+      "owid_population_column": "population__sex_all__age_all__variant_estimates",
+      "n_rows": 17464,
+      "n_entities": 236,
+      "n_even": 8732,
+      "n_odd": 8732,
+      "n_entities_even": 236,
+      "n_entities_odd": 236,
+      "year_min": 1950,
+      "year_max": 2023,
+      "n_years": 74,
+      "n_projection_rows": 0,
+      "projection_start": 2024,
+      "entities_gained_over_window": [],
+      "entities_lost_over_window": [],
+      "min_population": 501.0,
+      "max_population": 1438069597.0,
+      "median_population": 3163569.5,
+      "per_year_entity_count": {
+        "1950": 236,
+        "1951": 236,
+        "1952": 236,
+        "1953": 236,
+        "1954": 236,
+        "1955": 236,
+        "1956": 236,
+        "1957": 236,
+        "1958": 236,
+        "1959": 236,
+        "1960": 236,
+        "1961": 236,
+        "1962": 236,
+        "1963": 236,
+        "1964": 236,
+        "1965": 236,
+        "1966": 236,
+        "1967": 236,
+        "1968": 236,
+        "1969": 236,
+        "1970": 236,
+        "1971": 236,
+        "1972": 236,
+        "1973": 236,
+        "1974": 236,
+        "1975": 236,
+        "1976": 236,
+        "1977": 236,
+        "1978": 236,
+        "1979": 236,
+        "1980": 236,
+        "1981": 236,
+        "1982": 236,
+        "1983": 236,
+        "1984": 236,
+        "1985": 236,
+        "1986": 236,
+        "1987": 236,
+        "1988": 236,
+        "1989": 236,
+        "1990": 236,
+        "1991": 236,
+        "1992": 236,
+        "1993": 236,
+        "1994": 236,
+        "1995": 236,
+        "1996": 236,
+        "1997": 236,
+        "1998": 236,
+        "1999": 236,
+        "2000": 236,
+        "2001": 236,
+        "2002": 236,
+        "2003": 236,
+        "2004": 236,
+        "2005": 236,
+        "2006": 236,
+        "2007": 236,
+        "2008": 236,
+        "2009": 236,
+        "2010": 236,
+        "2011": 236,
+        "2012": 236,
+        "2013": 236,
+        "2014": 236,
+        "2015": 236,
+        "2016": 236,
+        "2017": 236,
+        "2018": 236,
+        "2019": 236,
+        "2020": 236,
+        "2021": 236,
+        "2022": 236,
+        "2023": 236
+      },
+      "n_dropped_entities": 26,
+      "sources": {
+        "owid": "https://ourworldindata.org/grapher/population-unwpp.csv?v=1&csvType=full&useColumnShortNames=true",
+        "wdi_template": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&per_page=20000&date=1960:2025&page={page}"
+      }
+    },
+    "harmonic_budget_P": {
+      "fit": "lognormal_mixture_k3",
+      "family": "lognormal_mixture_3",
+      "n_harmonic": 1,
+      "decomposable": true,
+      "components": [
+        {
+          "component": 1,
+          "weight": 0.37190641102183786,
+          "mu": 4.95899362091646,
+          "sigma": 0.8438101534940907,
+          "phase_rad": 6.025534628621251,
+          "attenuation": 7.873254763928192e-07,
+          "contribution_re": 2.8314606166330303e-07,
+          "contribution_im": -7.461111971415718e-08,
+          "contribution_amp": 2.928113922313121e-07,
+          "cumulative_amp": 2.928113922313121e-07
+        },
+        {
+          "component": 2,
+          "weight": 0.14079770553583287,
+          "mu": 6.7150411275693305,
+          "sigma": 0.2642431354424297,
+          "phase_rad": 4.492735906772744,
+          "attenuation": 0.25201186868461184,
+          "contribution_re": -0.007731361044129342,
+          "contribution_im": -0.03463015377271272,
+          "contribution_amp": 0.03548269287859096,
+          "cumulative_amp": 0.03548270400325183
+        },
+        {
+          "component": 3,
+          "weight": 0.4872958834423292,
+          "mu": 7.0180146302706,
+          "sigma": 0.7059364378594648,
+          "phase_rad": 0.1131892602305058,
+          "attenuation": 5.343947946325372e-05,
+          "contribution_re": 2.587420126117467e-05,
+          "contribution_im": 2.941253366549258e-06,
+          "contribution_amp": 2.604083835574443e-05,
+          "cumulative_amp": 0.0354742044029885
+        }
+      ],
+      "sum_contribution_re": -0.007705203696806504,
+      "sum_contribution_im": -0.03462728713046588,
+      "predicted_amp": 0.0354742044029885,
+      "predicted_phase": -1.789747362006011,
+      "max_component_amp": 0.03548269287859096,
+      "abs_sum_minus_analytic": 0.0
+    },
+    "instrument_checks": {
+      "rotation": {
+        "max_abs_error": 1.1926495252808597e-16,
+        "worst_scale": 1.6000000000000005,
+        "tolerance": 1e-10,
+        "passed": true
+      },
+      "mirror": {
+        "abs_error_conjugation": 6.133173666733497e-19,
+        "abs_error_amplitude": 4.336808689942018e-19,
+        "tolerance": 1e-10,
+        "passed": true
+      },
+      "lognormal_c_n_formula_check": {
+        "1": {
+          "analytic": [
+            3.1477876078572276e-06,
+            6.785785628919452e-10
+          ],
+          "numeric": [
+            3.147787607880176e-06,
+            6.785785752749796e-10
+          ],
+          "abs_error": 2.607606690980401e-17
+        },
+        "2": {
+          "analytic": [
+            9.817969650923092e-23,
+            4.2329819389451356e-26
+          ],
+          "numeric": [
+            4.7704895589362195e-18,
+            6.938893903907228e-18
+          ],
+          "abs_error": 8.420503662689139e-18
+        },
+        "3": {
+          "analytic": [
+            3.034232053375884e-50,
+            1.962297338242782e-53
+          ],
+          "numeric": [
+            3.469446951953614e-18,
+            0.0
+          ],
+          "abs_error": 3.469446951953614e-18
+        }
+      },
+      "periodized_digit_law_sum": 0.9999999999999999,
+      "interval_coverage": {
+        "familywise_coverage": 0.9485,
+        "nominal": 0.95,
+        "n_sims": 2000,
+        "n": 8732,
+        "passed": true
+      }
+    },
+    "synthetic_validation_summary": {
+      "V1": {
+        "per_candidate": {
+          "A": {
+            "n_panels": 200,
+            "n_undefined": 0,
+            "fraction_p_below_0.05": 0.025,
+            "ks_uniform_p": 0.3844727994126125,
+            "calibrated": true,
+            "note": "target fraction below 0.05 is 0.03-0.08; above 0.15 means the null is miscalibrated and must be replaced by the nonparametric entity bootstrap"
+          },
+          "B": {
+            "n_panels": 200,
+            "n_undefined": 0,
+            "fraction_p_below_0.05": 0.13,
+            "ks_uniform_p": 0.0003364384422258818,
+            "calibrated": true,
+            "note": "target fraction below 0.05 is 0.03-0.08; above 0.15 means the null is miscalibrated and must be replaced by the nonparametric entity bootstrap"
+          },
+          "C": {
+            "n_panels": 200,
+            "n_undefined": 0,
+            "fraction_p_below_0.05": 0.045,
+            "ks_uniform_p": 0.031005907883505324,
+            "calibrated": true,
+            "note": "target fraction below 0.05 is 0.03-0.08; above 0.15 means the null is miscalibrated and must be replaced by the nonparametric entity bootstrap"
+          }
+        },
+        "note": "the calibration calls the SAME scoring functions as the real screen, with real entity structure and year labels, so a miscalibrated null shows up here rather than as a false winner later",
+        "n_panels": 200,
+        "reps": 800
+      },
+      "V2": {
+        "true": {
+          "w": [
+            0.15,
+            0.85
+          ],
+          "mu": [
+            3.2,
+            6.5
+          ],
+          "sigma": [
+            0.15,
+            1.2
+          ]
+        },
+        "median_recovered": {
+          "w": [
+            0.14899180069264056,
+            0.8510081993073595
+          ],
+          "mu": [
+            3.199928184736227,
+            6.500115518465956
+          ],
+          "sigma": [
+            0.15022671662315118,
+            1.2026445479689378
+          ]
+        },
+        "relative_error": {
+          "w": [
+            0.006721328715729539,
+            0.0011861168321876637
+          ],
+          "mu": [
+            2.2442269929090486e-05,
+            1.7772071685475164e-05
+          ],
+          "sigma": [
+            0.001511444154341235,
+            0.002203789974114893
+          ]
+        },
+        "recovery_within_20pct": true,
+        "truth_analytic_c1": {
+          "re": 0.02972962699206323,
+          "im": 0.091498383561017,
+          "amp": 0.09620709389315427
+        },
+        "median_abs_gap_empirical_vs_analytic": 0.00407394582439153,
+        "analytic_formula_ok_within_10pct": true,
+        "detection_rate": 1.0,
+        "detected_at_0.05": true,
+        "n_reps": 50
+      },
+      "V3": {
+        "points": [
+          {
+            "target_amp": 0.005,
+            "realised_amp": 0.0049670447337772615,
+            "weight_narrow": 0.006599999999999999,
+            "power": 0.0,
+            "n_reps": 200
+          },
+          {
+            "target_amp": 0.02,
+            "realised_amp": 0.02001869544219321,
+            "weight_narrow": 0.0266,
+            "power": 0.0,
+            "n_reps": 200
+          },
+          {
+            "target_amp": 0.05,
+            "realised_amp": 0.04997148035194094,
+            "weight_narrow": 0.0664,
+            "power": 0.0,
+            "n_reps": 200
+          },
+          {
+            "target_amp": 0.1,
+            "realised_amp": 0.10001821895742397,
+            "weight_narrow": 0.1329,
+            "power": 0.025,
+            "n_reps": 200
+          },
+          {
+            "target_amp": 0.15,
+            "realised_amp": 0.1499896993093649,
+            "weight_narrow": 0.19929999999999998,
+            "power": 1.0,
+            "n_reps": 200
+          },
+          {
+            "target_amp": 0.25,
+            "realised_amp": 0.25000791826678886,
+            "weight_narrow": 0.3322,
+            "power": 1.0,
+            "n_reps": 200
+          }
+        ],
+        "md_amp_80pct_power": 0.1499896993093649,
+        "md_amp_80pct_power_attainable": true,
+        "note": "md_amp_80pct_power is NaN/inf when no injected amplitude in the tested grid reached 80% power and no admissible log-linear extrapolation could be made; the power curve is then read as 'underpowered at every amplitude tested', not as a finite threshold"
+      }
+    },
+    "audits": {
+      "pre_registration_exists": true,
+      "pre_registration_panel_sha_matches": true,
+      "odd_years_reserved": [
+        1951,
+        1953,
+        1955
+      ],
+      "n_odd_years_reserved": 37,
+      "odd_years_found_in_screen_levels": {
+        "P": [],
+        "S1": [],
+        "S2": [],
+        "X": []
+      },
+      "no_odd_year_in_any_screen_level": true,
+      "envelopes": {
+        "P": {
+          "detection_median": 0.05434655488927029,
+          "adequacy_median": 0.03665141005757453,
+          "candidate_A_predicted_amp": 0.0354742044029885,
+          "detection_single_peak": false,
+          "adequacy_single_peak": false,
+          "adequacy_median_within_50pct_of_prediction": true
+        },
+        "S1": {
+          "detection_median": 0.05359733154938359,
+          "adequacy_median": 0.06240722091157459,
+          "candidate_A_predicted_amp": 0.041452230602075646,
+          "detection_single_peak": false,
+          "adequacy_single_peak": false,
+          "adequacy_median_within_50pct_of_prediction": false
+        },
+        "S2": {
+          "detection_median": 0.05454258761264618,
+          "adequacy_median": 0.06052476529026217,
+          "candidate_A_predicted_amp": 0.03817232332106822,
+          "detection_single_peak": false,
+          "adequacy_single_peak": false,
+          "adequacy_median_within_50pct_of_prediction": false
+        },
+        "X": {
+          "detection_median": 0.054561338414517255,
+          "adequacy_median": 0.053039908852729564,
+          "candidate_A_predicted_amp": 0.0001217111603080097,
+          "detection_single_peak": false,
+          "adequacy_single_peak": false,
+          "adequacy_median_within_50pct_of_prediction": false
+        }
+      },
+      "envelope_checks_passed": false,
+      "harmonic_budget_sums_to_analytic": {
+        "P": {
+          "abs_sum_minus_analytic": 0.0,
+          "identity_holds": true
+        },
+        "S1": {
+          "abs_sum_minus_analytic": 0.0,
+          "identity_holds": true
+        },
+        "S2": {
+          "abs_sum_minus_analytic": 1.734723475976807e-18,
+          "identity_holds": true
+        },
+        "X": {
+          "abs_sum_minus_analytic": 1.9166167708542177e-20,
+          "identity_holds": true
+        }
+      }
+    },
+    "full_analysis_file": "results/screen_results.json"
+  },
+  "datasets": [
+    {
+      "dataset": "country_population_panel_unwpp_1950_2023_even_fold",
+      "examples": [
+        {
+          "input": "How closely does Benford's law fit the leading digits of country populations, at observation level P (pooled even fold)?",
+          "output": "{\"level\": \"P\", \"level_definition\": \"pooled even fold\", \"n\": 8732, \"n_entities\": 236, \"baseline_exact_benford\": {\"first_digit_mad\": 0.009192823235407252, \"nigrini_band_reported_not_used_as_verdict\": \"acceptable conformity\", \"chi2\": 83.22202590157137, \"chi2_df\": 8, \"chi2_p_naive_iid_INVALID_UNDER_CLUSTERING\": 1.095744238166342e-14, \"kuiper_V\": 0.05614275974405136, \"mantissa_mean\": 0.5205188745564401, \"mantissa_mad_from_half\": 0.25075284096340966, \"first_two_digit_mad\": 0.02212522654661222, \"p_hat\": [0.2721026110856619, 0.16365093907466788, 0.1256298671552909, 0.10661933119560238, 0.09608337150710032, 0.07489693082913422, 0.06069628950984883, 0.05142006413192854, 0.048900595510765005], \"residuals_pp\": [-2.8927384578319284, -1.244031998101336, 0.06911305469909645, 0.9709318187545959, 1.6902125459475503, 0.7950141198520999, 0.27043425321620973, 0.026754168454724836, 0.31431049500898617], \"per_digit_intervals_naive\": [{\"digit\": 1, \"p_hat\": 0.2721026110856619, \"lo\": 0.2591010719523659, \"hi\": 0.28550515398161175, \"covers_benford\": false}, {\"digit\": 2, \"p_hat\": 0.16365093907466788, \"lo\": 0.15296943162247115, \"hi\": 0.1749242797182788, \"covers_benford\": false}, {\"digit\": 3, \"p_hat\": 0.1256298671552909, \"lo\": 0.11612303605942483, \"hi\": 0.13579543257282292, \"covers_benford\": true}, {\"digit\": 4, \"p_hat\": 0.10661933119560238, \"lo\": 0.0978045697321663, \"hi\": 0.11612627754583031, \"covers_benford\": false}, {\"digit\": 5, \"p_hat\": 0.09608337150710032, \"lo\": 0.08769017624931127, \"hi\": 0.10518729051910039, \"covers_benford\": false}, {\"digit\": 6, \"p_hat\": 0.07489693082913422, \"lo\": 0.06745439645276653, \"hi\": 0.08308746820397973, \"covers_benford\": false}, {\"digit\": 7, \"p_hat\": 0.06069628950984883, \"lo\": 0.05398995756751709, \"hi\": 0.0681756116197886, \"covers_benford\": true}, {\"digit\": 8, \"p_hat\": 0.05142006413192854, \"lo\": 0.04525206579371957, \"hi\": 0.05837737490145155, \"covers_benford\": true}, {\"digit\": 9, \"p_hat\": 0.048900595510765005, \"lo\": 0.04288841561283872, \"hi\": 0.05570652104743165, \"covers_benford\": true}]}, \"ours_harmonic\": {\"c1_amp\": 0.07492631043347074, \"c1_phase\": -1.5732663193970167, \"per_digit_intervals_at_n_eff\": [{\"digit\": 1, \"p_hat\": 0.2721026110856619, \"lo\": 0.2012463218187653, \"hi\": 0.3567636476267111, \"covers_benford\": true}, {\"digit\": 2, \"p_hat\": 0.16365093907466788, \"lo\": 0.1086523946621779, \"hi\": 0.23902362556966356, \"covers_benford\": true}, {\"digit\": 3, \"p_hat\": 0.1256298671552909, \"lo\": 0.07818479786426727, \"hi\": 0.1957521820941562, \"covers_benford\": true}, {\"digit\": 4, \"p_hat\": 0.10661933119560238, \"lo\": 0.0635168362714886, \"hi\": 0.17355062355022588, \"covers_benford\": true}, {\"digit\": 5, \"p_hat\": 0.09608337150710032, \"lo\": 0.05558981383994968, \"hi\": 0.1610439360264803, \"covers_benford\": true}, {\"digit\": 6, \"p_hat\": 0.07489693082913422, \"lo\": 0.040187545382039995, \"hi\": 0.13535667903082874, \"covers_benford\": true}, {\"digit\": 7, \"p_hat\": 0.06069628950984883, \"lo\": 0.03036933473804481, \"hi\": 0.11763380234378829, \"covers_benford\": true}, {\"digit\": 8, \"p_hat\": 0.05142006413192854, \"lo\": 0.024240188984969553, \"hi\": 0.10577239911449351, \"covers_benford\": true}, {\"digit\": 9, \"p_hat\": 0.048900595510765005, \"lo\": 0.02262189878348761, \"hi\": 0.10250436737014654, \"covers_benford\": true}], \"n_eff_used_for_intervals\": 246.1835891822753}, \"n_eff\": 246.1835891822753, \"verdict\": \"Candidates A, D clear at least one level but none clears all pre-registered levels; the result is deferred rather than a survivor.\"}",
+          "metadata_level": "P",
+          "metadata_n": "8732",
+          "metadata_n_entities": "236",
+          "predict_baseline_exact_benford": "{\"first_digit_mad\": 0.009192823235407252, \"nigrini_band\": \"acceptable conformity\", \"chi2\": 83.22202590157137, \"chi2_p_naive_iid\": 1.095744238166342e-14, \"kuiper_V\": 0.05614275974405136, \"predicted_c1_amp\": 0.0, \"verdict\": \"exact Benford predicts zero harmonic amplitude and a MAD of about 0.00919 is observed; reporting the field's conventional 'acceptable conformity' verdict\"}",
+          "predict_our_harmonic_method": "{\"c1_amp\": 0.07492631043347074, \"c1_phase\": -1.5732663193970167, \"n_eff\": 246.1835891822753, \"predicted_c1_amp_from_fitted_law\": 0.0354742044029885, \"verdict\": \"measured in harmonic coordinates at the effective sample size: |c1| = 0.0749 against an entity-cluster noise floor of 0.0565\"}"
+        },
+        {
+          "input": "How closely does Benford's law fit the leading digits of country populations, at observation level S1 (even years <= 1986)?",
+          "output": "{\"level\": \"S1\", \"level_definition\": \"even years <= 1986\", \"n\": 4484, \"n_entities\": 236, \"baseline_exact_benford\": {\"first_digit_mad\": 0.013302195765832414, \"nigrini_band_reported_not_used_as_verdict\": \"marginal conformity\", \"chi2\": 87.9660427943531, \"chi2_df\": 8, \"chi2_p_naive_iid_INVALID_UNDER_CLUSTERING\": 1.202441796106377e-15, \"kuiper_V\": 0.06452903555627913, \"mantissa_mean\": 0.5361467840317994, \"mantissa_mad_from_half\": 0.24781858350083183, \"first_two_digit_mad\": 0.02212522654661222, \"p_hat\": [0.2502230151650312, 0.16703835860838537, 0.12845673505798394, 0.10570918822479929, 0.10035682426404996, 0.0756021409455843, 0.06422836752899197, 0.05263157894736842, 0.05575379125780553], \"residuals_pp\": [-5.080698049894999, -0.905290044729587, 0.35179984496840067, 0.8799175216742866, 2.117557821642514, 0.8655351314971083, 0.6236420551305237, 0.14790564999871275, 0.9996300697130388], \"per_digit_intervals_naive\": [{\"digit\": 1, \"p_hat\": 0.2502230151650312, \"lo\": 0.23272448974679794, \"hi\": 0.2685767014382282, \"covers_benford\": false}, {\"digit\": 2, \"p_hat\": 0.16703835860838537, \"lo\": 0.15216471197437514, \"hi\": 0.18305196520352135, \"covers_benford\": true}, {\"digit\": 3, \"p_hat\": 0.12845673505798394, \"lo\": 0.11523434868195635, \"hi\": 0.14295117320577005, \"covers_benford\": true}, {\"digit\": 4, \"p_hat\": 0.10570918822479929, \"lo\": 0.09364504987127475, \"hi\": 0.11912325907080226, \"covers_benford\": true}, {\"digit\": 5, \"p_hat\": 0.10035682426404996, \"lo\": 0.08859013498683069, \"hi\": 0.11349177090921117, \"covers_benford\": false}, {\"digit\": 6, \"p_hat\": 0.0756021409455843, \"lo\": 0.06536676393955204, \"hi\": 0.08729052786857722, \"covers_benford\": true}, {\"digit\": 7, \"p_hat\": 0.06422836752899197, \"lo\": 0.05480360667307503, \"hi\": 0.07514507866222954, \"covers_benford\": true}, {\"digit\": 8, \"p_hat\": 0.05263157894736842, \"lo\": 0.044126924272313156, \"hi\": 0.06266788779658192, \"covers_benford\": true}, {\"digit\": 9, \"p_hat\": 0.05575379125780553, \"lo\": 0.04699066416828684, \"hi\": 0.06603788301079541, \"covers_benford\": false}]}, \"ours_harmonic\": {\"c1_amp\": 0.08763179780045445, \"c1_phase\": -1.7174233044043439, \"per_digit_intervals_at_n_eff\": null, \"n_eff_used_for_intervals\": null}, \"n_eff\": null, \"verdict\": \"Candidates A, D clear at least one level but none clears all pre-registered levels; the result is deferred rather than a survivor.\"}",
+          "metadata_level": "S1",
+          "metadata_n": "4484",
+          "metadata_n_entities": "236",
+          "predict_baseline_exact_benford": "{\"first_digit_mad\": 0.013302195765832414, \"nigrini_band\": \"marginal conformity\", \"chi2\": 87.9660427943531, \"chi2_p_naive_iid\": 1.202441796106377e-15, \"kuiper_V\": 0.06452903555627913, \"predicted_c1_amp\": 0.0, \"verdict\": \"exact Benford predicts zero harmonic amplitude and a MAD of about 0.01330 is observed; reporting the field's conventional 'marginal conformity' verdict\"}",
+          "predict_our_harmonic_method": "{\"c1_amp\": 0.08763179780045445, \"c1_phase\": -1.7174233044043439, \"n_eff\": null, \"predicted_c1_amp_from_fitted_law\": 0.041452230602075646, \"verdict\": \"measured in harmonic coordinates at the effective sample size: |c1| = 0.0876\"}"
+        },
+        {
+          "input": "How closely does Benford's law fit the leading digits of country populations, at observation level S2 (even years >= 1988)?",
+          "output": "{\"level\": \"S2\", \"level_definition\": \"even years >= 1988\", \"n\": 4248, \"n_entities\": 236, \"baseline_exact_benford\": {\"first_digit_mad\": 0.006726008013215164, \"nigrini_band_reported_not_used_as_verdict\": \"acceptable conformity\", \"chi2\": 25.08477118297062, \"chi2_df\": 8, \"chi2_p_naive_iid_INVALID_UNDER_CLUSTERING\": 0.001503959377891581, \"kuiper_V\": 0.0619828613808049, \"mantissa_mean\": 0.504022747888005, \"mantissa_mad_from_half\": 0.2538501127294642, \"first_two_digit_mad\": 0.02212522654661222, \"p_hat\": [0.2951977401129944, 0.160075329566855, 0.12264595103578155, 0.10758003766478343, 0.09157250470809793, 0.07415254237288135, 0.05696798493408663, 0.05014124293785311, 0.041666666666666664], \"residuals_pp\": [-0.583225555098682, -1.6015929488826242, -0.22927855725183854, 1.0670024656727006, 1.2391258660473108, 0.7205752742268132, -0.1023962043600106, -0.10112795095281804, -0.40908238940084785], \"per_digit_intervals_naive\": [{\"digit\": 1, \"p_hat\": 0.2951977401129944, \"lo\": 0.27617580691737337, \"hi\": 0.3149597384249799, \"covers_benford\": true}, {\"digit\": 2, \"p_hat\": 0.160075329566855, \"lo\": 0.1450913919095861, \"hi\": 0.17628760518737713, \"covers_benford\": true}, {\"digit\": 3, \"p_hat\": 0.12264595103578155, \"lo\": 0.10936775300570475, \"hi\": 0.1372877403089989, \"covers_benford\": true}, {\"digit\": 4, \"p_hat\": 0.10758003766478343, \"lo\": 0.0950994586195471, \"hi\": 0.12147864952493884, \"covers_benford\": true}, {\"digit\": 5, \"p_hat\": 0.09157250470809793, \"lo\": 0.08002854192629207, \"hi\": 0.10459234447483758, \"covers_benford\": false}, {\"digit\": 6, \"p_hat\": 0.07415254237288135, \"lo\": 0.06375797069278105, \"hi\": 0.08608593910528436, \"covers_benford\": true}, {\"digit\": 7, \"p_hat\": 0.05696798493408663, \"lo\": 0.04788382679914514, \"hi\": 0.06765306553914073, \"covers_benford\": true}, {\"digit\": 8, \"p_hat\": 0.05014124293785311, \"lo\": 0.04164209410485799, \"hi\": 0.060265983078173005, \"covers_benford\": true}, {\"digit\": 9, \"p_hat\": 0.041666666666666664, \"lo\": 0.03396063799858846, \"hi\": 0.05102891002619508, \"covers_benford\": true}]}, \"ours_harmonic\": {\"c1_amp\": 0.06387203564495716, \"c1_phase\": -1.3636879592277897, \"per_digit_intervals_at_n_eff\": null, \"n_eff_used_for_intervals\": null}, \"n_eff\": null, \"verdict\": \"Candidates A, D clear at least one level but none clears all pre-registered levels; the result is deferred rather than a survivor.\"}",
+          "metadata_level": "S2",
+          "metadata_n": "4248",
+          "metadata_n_entities": "236",
+          "predict_baseline_exact_benford": "{\"first_digit_mad\": 0.006726008013215164, \"nigrini_band\": \"acceptable conformity\", \"chi2\": 25.08477118297062, \"chi2_p_naive_iid\": 0.001503959377891581, \"kuiper_V\": 0.0619828613808049, \"predicted_c1_amp\": 0.0, \"verdict\": \"exact Benford predicts zero harmonic amplitude and a MAD of about 0.00673 is observed; reporting the field's conventional 'acceptable conformity' verdict\"}",
+          "predict_our_harmonic_method": "{\"c1_amp\": 0.06387203564495716, \"c1_phase\": -1.3636879592277897, \"n_eff\": null, \"predicted_c1_amp_from_fitted_law\": 0.03817232332106822, \"verdict\": \"measured in harmonic coordinates at the effective sample size: |c1| = 0.0639\"}"
+        }
+      ]
+    }
+  ]
+}
