@@ -3,3 +3,5 @@ MD5 (raw/owid_population_unwpp_with_projections.metadata.json) = 575b2724b3bdb76
 MD5 (raw/wdi_sp_pop_totl.zip) = 31a5240161839c6ba54747877e8e9071
 MD5 (raw/wb_countries.json) = cd7b5ab1a05991689305d1bbd11db3f5
 MD5 (raw/sids_ohrlls.html) = 8b01cac23d48280843d2d8c5426fd174
+MD5 (raw/wdi/API_SP.POP.TOTL_DS2_en_csv_v2_58181.csv) = 14a78de6055335d2593ad85c9642d20d
+MD5 (raw/wdi/Metadata_Country_API_SP.POP.TOTL_DS2_en_csv_v2_58181.csv) = da41efd0a7fcd6c4b58eac8cbf19d2ed

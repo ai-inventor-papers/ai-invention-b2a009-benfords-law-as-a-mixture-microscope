@@ -216,6 +216,33 @@ differ. Both numbers are in `out/crosscheck.json`.
 | largest in 1950 | China 544,044,355; India 346,278,818; United States 154,202,683 |
 | largest in 2023 | India 1,438,069,597; China 1,422,584,930; United States 343,477,330 |
 
+### 6a. Two defects found in review, and what fixed them
+
+Both were caught after the first build and are fixed in the shipped files. They
+are recorded here because the md5 of `full_data_out.json` changed as a result:
+the original build was `863a26ce…`, the bug fix moved it to `db01c3db…`, and it
+is now `a338376f…` because the file is serialised with `indent=2` (the aii-json
+formatter's format) instead of compactly. The last change is formatting only —
+the parsed JSON values are unchanged, and `data.py` reproduces the current file
+byte for byte. Anyone holding an earlier copy should re-pull.
+
+**(i) The WDI release stamp carried a trailing `",`.** The World Bank bulk
+archive's header block is quoted CSV with CRLF endings —
+`"Last Updated Date","2026-11-11",` — and the original extraction split the line
+on the first comma and stripped quote characters, which left
+`World Bank WDI SP.POP.TOTL (Population, total), bulk download last updated 2026-11-11",`
+in `metadata_source_release` on all 14,292 companion rows. The stamp is now read
+with `csv.reader`, which parses the quoted field correctly. An audit of every
+string-valued `metadata_*` field across both panels confirms this was the only
+field affected; the value is now the clean `…last updated 2026-11-11`.
+
+**(ii) `uv run data.py` could not build.** `pyproject.toml` declared
+`build-system.requires = []` with the setuptools backend, so uv's build step
+failed with `ModuleNotFoundError: No module named 'setuptools'`. It now requires
+`setuptools>=68` and declares the two flat modules explicitly, so
+`uv run data.py` works from a clean environment. `uv run` is what the README
+documents, so this was a broken instruction, not just a broken convenience.
+
 ## 7. What the panel contains, and what it deliberately does not
 
 The panel carries published values plus deterministic per-row encodings only:
@@ -238,17 +265,23 @@ the pipeline schema only admits per-example keys matching
 `^metadata_[a-zA-Z_][a-zA-Z0-9_]*$`, so the per-row fields recorded in §4 of the
 artifact direction appear here as `metadata_entity`, `metadata_mantissa`,
 `metadata_d1` and so on rather than inside a nested `metadata` object. Nothing is
-lost in the flattening; `build/qc_emitted.py` asserts every one of the 24 required
-row fields is present on all 32,304 examples and writes its verdict to
-`out/qc_report.json`.
+lost in the flattening. `build/verify_outputs.py` asserts every one of
+the 27 required row fields is present on all 32,304 examples, re-runs the per-panel
+integrity assertions, checks that all nine leading digits occur and that MAD is
+under 5 pp, and audits ISO codes and leaked aggregates — exit code 0 only if every
+group passes. `out/qc_report.json` holds the build-time gate's own verdict.
 
-A note on a constraint encountered at build time: the `aii-json` skill's
-`aii_json_validate_schema.py` and `aii_json_format_mini_preview.py` refuse any path
-that does not resolve inside the repo root or `/tmp`. This workspace lives on a
-separate volume and `/tmp` is a symlink to `private/tmp`, so the CLIs report
-`file_path must be under the project directory or /tmp` before ever reading the
-file. `build/validate_direct.py` therefore calls the same schema file and the same
-`jsonschema.validate` call the skill uses, and reports **VALID** for all 32,304
-examples; `build/make_mini_preview.py` reproduces the skill's exact slicing and
-truncation constants (`MAX_ARRAY_ITEMS = 3`, `MAX_STRING_LENGTH = 200`) to build
-the mini and preview variants.
+A note on the `aii-json` skill's two CLIs, since both were used to produce and check
+the shipped files. They refuse a path that does not resolve inside the repo root or
+`/tmp`, and on this machine `/tmp` is a symlink to `/private/tmp`, so both report
+`must be under the project directory or /tmp` for a workspace on another volume.
+The workaround used, and the one a reader should use, is to copy the file and the
+skill's `schemas/` directory into a plain directory under `/tmp` and run the CLIs
+from there with the *real* resolved path — after which
+`aii_json_validate_schema.py --format exp_sel_data_out` reports **`Validation
+PASSED`** on `full_data_out.json`, `full_population_panel.json` and
+`full_wdi_population.json`. The skill's formatter was run the same way; `data.py`
+reproduces its output and the two are **equal as parsed JSON** for both mini and
+preview. `build/verify_outputs.py` is the in-repo gate that needs no such
+workaround: it validates all nine files against the vendored copy of the same
+schema (`build/exp_sel_data_out.schema.json`).

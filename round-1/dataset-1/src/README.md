@@ -19,9 +19,9 @@ decision, and every deviation from the original data request.
 
 | path | what it is |
 |---|---|
-| **`full_data_out.json`** | **the canonical deliverable** — `{"metadata":…, "datasets":[…]}` with both panels, 32,304 examples, 34 MB |
-| `mini_data_out.json` | first 3 examples of each panel (6 total) |
-| `preview_data_out.json` | first 10 examples of each panel, strings truncated to 200 chars |
+| **`full_data_out.json`** | **the canonical deliverable** — `{"metadata":…, "datasets":[…]}` with both panels, 32,304 examples, 43 MB |
+| `mini_data_out.json` | first 3 examples of each panel (6 total), written by the aii-json formatter |
+| `preview_data_out.json` | same 3 examples per panel, strings truncated to 200 chars |
 | `full_population_panel.json` | the primary panel alone, as its own one-dataset file |
 | `mini_population_panel.json` / `preview_population_panel.json` | its mini / preview variants |
 | `full_wdi_population.json` | the companion panel alone, as its own one-dataset file |
@@ -39,7 +39,10 @@ decision, and every deviation from the original data request.
 | `build/exp_sel_data_out.schema.json` | vendored schema, so the validation check runs without the skill installed |
 | `temp/datasets/` | staged copies of the raw downloads that `data.py` reads |
 | `raw/` | untouched downloads plus `MD5SUMS.txt` (re-downloadable — see below) |
-| `build/` | one-off verification scripts (`qc_emitted.py`, `validate_direct.py`, `acceptance.py`, ...) plus the vendored schema; all text |
+| `build/verify_outputs.py` | the five check groups: schema, qc, acceptance, sanity, audit |
+| `build/eval_datasets.py` | per-panel sample-size accounting and MAD (the dataset-suitability check) |
+| `build/check_submission.py` | validates the artifact submission file and that every referenced path exists |
+| `build/` | the three verification scripts above plus the vendored schema; all text |
 | `logs/` | `build_panel.log`, `data.log` |
 
 ## Example shape
@@ -84,13 +87,12 @@ uv venv .venv --python=3.12    # or: python3.12 -m venv .venv
 .venv/bin/python -m pip install .   # installs the pinned deps from pyproject.toml
 
 .venv/bin/python build_panel.py --stage all   # download, normalize, encode, crosscheck, QC, emit diagnostics
-.venv/bin/python data.py                      # build every dataset file from temp/datasets/
-.venv/bin/python build/validate_direct.py     # schema + format check on all nine files
-.venv/bin/python build/qc_emitted.py          # integrity gate over the emitted examples (non-zero exit on failure)
+uv run data.py                                # build full_data_out.json and per-panel full/mini/preview
+.venv/bin/python build/verify_outputs.py      # schema + qc + acceptance + sanity + audit (non-zero exit on failure)
 ```
 
 `data.py` writes all nine dataset files — the combined `full_data_out.json` plus
-each panel's own full/mini/preview trio — so no separate formatting step is needed.
+each panel's own full/mini/preview trio.
 `build_panel.py` stages are `acquire`, `normalize`, `tag`, `crosscheck`, `qc`,
 `emit`. Intermediate state is written to `build/state.json` (26 MB, a regenerable
 scratch file that is excluded from the published repo), so a run resumes without
@@ -101,16 +103,37 @@ the check that catches a persons-vs-thousands unit error.
 Verification scripts (run once, not part of the deliverable):
 
 ```bash
-.venv/bin/python build/validate_direct.py       # all nine files against exp_sel_data_out
-.venv/bin/python build/qc_emitted.py            # 14 assertions per panel; all passed
-.venv/bin/python build/acceptance.py            # every required row field on every example
-.venv/bin/python build/sanity_emitted.py        # signal check + prohibited-statistic audit
-.venv/bin/python build/audit_outputs.py         # ISO-code validity, size, reader's-eye rows
+uv run build/verify_outputs.py     # all five check groups below; exits non-zero on failure
+uv run build/eval_datasets.py      # per-panel sample-size accounting and MAD
 ```
+
+`build/verify_outputs.py` runs five groups and prints a PASS/FAIL line for each:
+**schema** (all nine published files against the vendored `exp_sel_data_out`),
+**qc** (uniqueness, positivity, digit agreement, the reciprocal control, the 2023
+world total, fold parity — per panel), **acceptance** (all 27 required fields on
+every example), **sanity** (all nine digits present, MAD under 5 pp, and no
+prohibited derived statistic on any row), and **audit** (ISO-code validity, no
+leaked aggregates, file size, and a reader's-eye sample).
+
+### How the mini / preview variants are produced
+
+`data.py` reproduces the `aii-json` skill formatter's behaviour exactly, and this is
+verified: `data.py`'s `mini_data_out.json` and `preview_data_out.json` compare **equal
+as parsed JSON** to the output of
+
+```bash
+python aii_json_format_mini_preview.py --input full_data_out.json --format exp_sel_data_out
+```
+
+on the same `full_data_out.json`. Both variants hold the first 3 examples of each
+panel; preview additionally truncates every string (top-level metadata included) to
+200 characters. `data.py` serialises compactly (`separators=(',',':')`) where the
+skill script uses `indent=2`; `data.py` writes the same `indent=2` form, so its output is byte-identical to
+the skill formatter's. The file is 43 MB either way, well under the 100 MB limit.
 
 A full clean-room rebuild — delete every output, re-download all five raw files
 over HTTP, rerun the two commands above — reproduces `full_data_out.json` at
-md5 `863a26ce9fe0a07cb77376af4f762ef2`, byte for byte. See `reproducibility.md`.
+md5 `a338376ff319aa913078df4669fde237`, byte for byte. See `reproducibility.md`.
 
 ## What this artifact does not contain
 
@@ -134,18 +157,23 @@ a banned-statistic name.
 ## Restoring removed files
 
 **Nothing needs restoring to use this artifact.** Every dataset file is plain UTF-8
-JSON — text — so all of it is always kept, at any size, including the 34 MB
-`full_data_out.json`. `raw/` (2.3 MB) and `temp/datasets/` (1.7 MB) sit under the
-10 MB auto-keep floor and are kept too. `out/`, `logs/`, `build/` and every `.py` and
-`.md` file are text and are kept.
+JSON — text — so all of it is always kept, at any size, including the 43 MB
+`full_data_out.json`. `raw/` (2.2 MB) and `temp/datasets/` (1.5 MB) sit under the
+10 MB auto-keep floor and are kept too. `out/`, `logs/`, `build/provenance_acquire.json`
+and every `.py` and `.md` file are text and are kept.
 
-Two entries in `.aii/manifest.yaml` need a decision, and both are regenerable
-environment/cache directories rather than results:
+Two entries in `.aii/manifest.yaml` need a decision. Both are regenerable
+environment caches — neither is a result:
 
 | path | decision | restore |
 |---|---|---|
-| `.venv/` | `delete: regenerable` | `python3.12 -m venv .venv && .venv/bin/python -m pip install .` — dependencies are pinned in `pyproject.toml`, so this reproduces the exact environment |
-| `__pycache__/` | `delete: regenerable` | `python -c 'import build_panel, data'` — or simply run `data.py`; the interpreter recreates the bytecode cache automatically |
+| `.venv/` | `delete: regenerable` | `uv venv .venv --python=3.12 && uv pip install --python=.venv/bin/python .` — dependencies are pinned in `pyproject.toml`, so this reproduces the exact environment |
+| `__pycache__/` | `delete: regenerable` | `uv run data.py` — the interpreter recreates the bytecode cache automatically |
+
+`build/state.json` (25 MB) is also kept, not deleted: it is JSON, so it is text,
+and text files need no storage decision at any size. It is a resumable
+intermediate — rebuild it with
+`uv run build_panel.py --stage normalize && uv run build_panel.py --stage tag`.
 
 Everything else stays in place on the run's storage volume, at the absolute
 workspace path it already has. To rebuild the raw downloads from scratch anyway
@@ -158,7 +186,7 @@ workspace path it already has. To rebuild the raw downloads from scratch anyway
 `raw/MD5SUMS.txt` and `out/manifest.json` record the md5 of every raw file, so a
 re-download can be checked against the vintage this artifact was built from.
 
-`full_data_out.json` (34 MB) is the file every later step reads. It is well under
+`full_data_out.json` (43 MB) is the file every later step reads. It is well under
 the 100 MB per-file limit, so it travels with the repository.
 
 ### Full rebuild from a fresh clone
@@ -172,4 +200,4 @@ python3.12 -m venv .venv
 ```
 
 That sequence reproduces `full_data_out.json` byte for byte at md5
-`863a26ce9fe0a07cb77376af4f762ef2`.
+`a338376ff319aa913078df4669fde237`.

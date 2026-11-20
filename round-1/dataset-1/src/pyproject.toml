@@ -13,9 +13,13 @@ dependencies = [
     "referencing==0.37.0",
     "rpds-py==2026.9.1",
     "attrs==26.1.0",
-    "typing_extensions==4.16.0",
+    "typing-extensions==4.16.0",
 ]
 
 [build-system]
-requires = []
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
+
+# Flat-module project: build_panel.py and data.py live at the repo root.
+[tool.setuptools]
+py-modules = ["build_panel", "data"]

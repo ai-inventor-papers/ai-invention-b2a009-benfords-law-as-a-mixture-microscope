@@ -35,7 +35,7 @@ contains nothing this artifact reads.
 
 ## 2. System packages, Python, venv, and pinned libraries
 
-**Python 3.12** (the build ran on CPython 3.12.14). On Ubuntu 24.04 the system
+**Python 3.12** (the build ran on CPython 3.12.10). On Ubuntu 24.04 the system
 Python is already 3.12; otherwise install it.
 
 ```bash
@@ -60,7 +60,7 @@ python3.12 -m venv .venv
   "referencing==0.37.0" \
   "rpds-py==2026.9.1" \
   "attrs==26.1.0" \
-  "typing_extensions==4.16.0"
+  "typing-extensions==4.16.0"
 ```
 
 Or, equivalently, from the pinned manifest:
@@ -74,12 +74,12 @@ The exact versions actually installed (`.venv/bin/pip freeze` equivalent):
 | package | version | role |
 |---|---|---|
 | `loguru` | 0.8.0 | logging in `build_panel.py` and `data.py` |
-| `jsonschema` | 4.26.0 | schema validation in `build/validate_direct.py` |
+| `jsonschema` | 4.26.0 | schema validation in `build/verify_outputs.py` |
 | `jsonschema-specifications` | 2025.9.1 | transitive dependency of `jsonschema` |
 | `referencing` | 0.37.0 | transitive dependency of `jsonschema` |
 | `rpds-py` | 2026.9.1 | transitive dependency of `jsonschema` |
 | `attrs` | 26.1.0 | transitive dependency of `jsonschema` |
-| `typing_extensions` | 4.16.0 | transitive dependency of `jsonschema` |
+| `typing-extensions` | 4.16.0 | transitive dependency of `jsonschema` |
 
 `data.py` itself imports only the standard library plus `loguru`. `pycountry` was
 installed during exploration but is **not** imported by the final code (entity
@@ -139,26 +139,44 @@ Run from the artifact folder.
 
 # 2. build the deliverable: one example per entity-year, grouped by dataset,
 #    and write full/mini/preview for each dataset AND for the combined file
-.venv/bin/python data.py
+uv run data.py                     # or: .venv/bin/python data.py
 
-# 3. verify: schema + format for all nine emitted files
-.venv/bin/python build/validate_direct.py
+# 3. verify: schema + qc + acceptance + sanity + audit, all nine emitted files
+.venv/bin/python build/verify_outputs.py
 
-# 4. verify: 14 integrity assertions per panel, over the EMITTED examples
-.venv/bin/python build/qc_emitted.py
-
-# 5. verify: every required row field present on every example
-.venv/bin/python build/acceptance.py
-
-# 6. optional: prove the encodings carry signal; audit for prohibited statistics
-.venv/bin/python build/sanity_emitted.py
+# 4. optional: per-panel sample-size accounting and MAD
+.venv/bin/python build/eval_datasets.py
 ```
+
+**The mini/preview variants are also produced by the `aii-json` skill's formatter,
+and the two routes agree byte for byte.** Both were run. The formatter is what the
+step-2 description above refers to; it is invoked as
+
+```bash
+python aii_json_format_mini_preview.py --input full_data_out.json --format exp_sel_data_out
+```
+
+which writes `full_full_data_out.json`, `mini_full_data_out.json` and
+`preview_full_data_out.json`; those are renamed to `full_data_out.json`,
+`mini_data_out.json`, `preview_data_out.json`. `data.py` writes the same three
+files directly with the same serialisation settings (`indent=2`,
+`ensure_ascii=False`) and the same slicing constants (3 items per dataset;
+strings truncated to 200 characters in preview), so `data.py`'s output is
+**byte-identical** to the formatter's — verified in this run with `cmp` on all
+three files. A reader therefore needs only step 2; the formatter route is an
+independent check, not a required step.
+
+Note on the skill CLI: it refuses any path that does not resolve inside the repo
+root or `/tmp`, and on this machine `/tmp` is a symlink to `/private/tmp`, so the
+call above is made from a plain directory under `/tmp` with the real resolved
+path. On a normal Ubuntu box a direct call on the repo path works. The in-repo
+`build/verify_outputs.py` needs no such workaround.
 
 **Seeds.** None are used and none are needed: the build is fully deterministic
 (pure parsing, sorting and arithmetic; no sampling, no randomness, no model). A
 re-run produces a **byte-identical** `full_data_out.json` — verified in this run by
 wiping every derived file and rebuilding from `raw/`, which reproduced
-`full_data_out.json` at md5 `863a26ce9fe0a07cb77376af4f762ef2` before and after.
+`full_data_out.json` at md5 `a338376ff319aa913078df4669fde237` before and after.
 
 **Runtime and hardware.** Steps 1–6 together take roughly 20–30 seconds on one CPU
 core of the 4-vCPU CPU-only guest used here, dominated by JSON serialisation. No
@@ -166,10 +184,11 @@ GPU. `build_panel.py` is resumable: intermediates persist in `build/state.json` 
 regenerable scratch file, excluded from the published repo), and
 `--stage qc` or `--stage emit` can be re-run alone.
 
-**Expected exit codes.** 0 for every command above. `build/qc_emitted.py` and
-`build/acceptance.py` exit non-zero on failure by design — they are gates, not
-reports. If `build_panel.py --stage all` exits non-zero, its QC gate rejected the
-panel; read the `QC FAIL` lines and `out/qc_report.json` rather than proceeding.
+**Expected exit codes.** 0 for every command above. `build/verify_outputs.py` exits
+non-zero on failure by design — it is a gate, not a report, and prints one PASS/FAIL
+line per check across its five groups. If `build_panel.py --stage all` exits
+non-zero, its QC gate rejected the panel; read the `QC FAIL` lines and
+`out/qc_report.json` rather than proceeding.
 
 ## 5. Output files and the numbers a reader should get
 
@@ -178,15 +197,20 @@ Nine JSON deliverables, all validated against
 
 | file | datasets | examples | size |
 |---|---|---|---|
-| `full_data_out.json` | 2 | 32,304 | 34 MB |
-| `mini_data_out.json` | 2 | 6 (3 per dataset) | 7 KB |
-| `preview_data_out.json` | 2 | 20 (10 per dataset, strings ≤200 chars) | 21 KB |
-| `full_population_panel.json` | 1 | 18,012 | 21 MB |
-| `mini_population_panel.json` | 1 | 3 | 4 KB |
-| `preview_population_panel.json` | 1 | 10 | 11 KB |
-| `full_wdi_population.json` | 1 | 14,292 | 13 MB |
-| `mini_wdi_population.json` | 1 | 3 | 3.5 KB |
-| `preview_wdi_population.json` | 1 | 10 | 10 KB |
+| `full_data_out.json` | 2 | 32,304 | 43.0 MB (45,037,809 bytes) |
+| `mini_data_out.json` | 2 | 6 (3 per dataset) | 9.3 KB |
+| `preview_data_out.json` | 2 | 6 (3 per dataset, strings ≤200 chars) | 8.6 KB |
+| `full_population_panel.json` | 1 | 18,012 | 25.6 MB |
+| `mini_population_panel.json` | 1 | 3 | 5.2 KB |
+| `preview_population_panel.json` | 1 | 3 | 4.9 KB |
+| `full_wdi_population.json` | 1 | 14,292 | 17.3 MB |
+| `mini_wdi_population.json` | 1 | 3 | 4.5 KB |
+| `preview_wdi_population.json` | 1 | 3 | 4.5 KB |
+
+`full_data_out.json` is 43 MiB, comfortably **under the 100 MB per-file limit**, so
+it ships as one file and needs no splitting. It is written with `indent=2`, which
+is why it is larger than the 34 MB compact form; the JSON values are identical
+either way.
 
 Supporting outputs: `out/qc_report.json` (integrity verdict + per-year entity
 counts + boundary cases + spot checks), `out/crosscheck.json` (cross-source
@@ -248,15 +272,15 @@ paper's Benford's-law analysis of country populations:
 
 Recorded so a reader is not surprised:
 
-1. **The `aii-json` skill's CLI is not used by the verification scripts.** Its
-   `validate` and `format` entry points refuse any path that does not resolve
-   inside the repo root or `/tmp`; this workspace lives on a separate volume and
-   `/tmp` is a symlink, so both report `file_path must be under the project
-   directory or /tmp` before reading the file. `build/validate_direct.py` therefore
-   performs the same `jsonschema.validate` call against the same schema, now
-   vendored at `build/exp_sel_data_out.schema.json` so the check is self-contained.
-   `data.py` builds its own mini/preview variants using the skill's constants
-   (3 items, 200-character strings) rather than calling the skill's script.
+1. **The `aii-json` skill's CLIs were run, but from a `/tmp` staging directory.**
+   Both `validate` and `format` refuse any path that does not resolve inside the repo
+   root or `/tmp`; this workspace lives on a separate volume and `/tmp` is a symlink
+   to `/private/tmp`, so both reject a direct call. Copying the file, the scripts and
+   `schemas/` into a plain `/tmp` directory and passing the real resolved path makes
+   them work: the validator reports `Validation PASSED` on all three full files, and
+   the formatter's mini/preview output is **equal as parsed JSON** to what `data.py`
+   writes. `build/verify_outputs.py` repeats the schema check in-repo against the
+   vendored `build/exp_sel_data_out.schema.json`, so no reader needs that workaround.
 2. **`pycountry` is deliberately not a dependency.** Entity classification uses an
    explicit frozen table of sovereign / territory / other names in
    `build_panel.py`, derived from the full 262-name listing during the build and

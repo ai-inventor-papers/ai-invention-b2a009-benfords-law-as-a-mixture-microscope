@@ -1,1 +1,109 @@
-{"metadata":{"description":"Country-year total population, World Bank World Development Indicators SP.POP.TOTL. One example per entity-year, 1960-2025; the independently sourced companion panel, primary analysis window 1960-2023.","fold_definition":{"even":"screen half (pre-registered)","odd":"reserved confirmation half (pre-registered)"},"primary_analysis_years":[1950,2023],"do_not_pool_panels":"WDI is sourced from national statistical offices for roughly one third of economies, so the companion panel tests source invariance, not the same numbers twice. Never concatenate the two datasets.","cluster_key":"metadata_iso_code (resample entities, not rows)"},"datasets":[{"dataset":"worldbank_wdi_sp_pop_totl","examples":[{"input":"AFG|1960","output":"9035043","metadata_fold":"even","metadata_entity":"Afghanistan","metadata_iso_code":"AFG","metadata_entity_class":"sovereign","metadata_year":1960,"metadata_population":9035043,"metadata_value_str":"9035043","metadata_source_variant":"worldbank_wdi_sp_pop_totl","metadata_source_release":"World Bank WDI SP.POP.TOTL (Population, total), bulk download last updated 2026-11-11\",","metadata_is_projection":false,"metadata_in_primary_analysis":true,"metadata_in_primary_analysis_sovereign_only":true,"metadata_pop_le_1m":false,"metadata_is_sids":false,"metadata_sids_source":null,"metadata_is_top20":false,"metadata_rank_in_year":47,"metadata_mantissa":0.95593,"metadata_d1":9,"metadata_d2":90,"metadata_d1_reciprocal":1,"metadata_n_sig_figs":7,"metadata_trailing_zeros":0,"metadata_entity_year_rank_source":"dense rank descending over in_primary_analysis rows of 1960","metadata_notes":""},{"input":"AFG|1961","output":"9214083","metadata_fold":"odd","metadata_entity":"Afghanistan","metadata_iso_code":"AFG","metadata_entity_class":"sovereign","metadata_year":1961,"metadata_population":9214083,"metadata_value_str":"9214083","metadata_source_variant":"worldbank_wdi_sp_pop_totl","metadata_source_release":"World Bank WDI SP.POP.TOTL (Population, total), bulk download last updated 2026-11-11\",","metadata_is_projection":false,"metadata_in_primary_analysis":true,"metadata_in_primary_analysis_sovereign_only":true,"metadata_pop_le_1m":false,"metadata_is_sids":false,"metadata_sids_source":null,"metadata_is_top20":false,"metadata_rank_in_year":46,"metadata_mantissa":0.964452,"metadata_d1":9,"metadata_d2":92,"metadata_d1_reciprocal":1,"metadata_n_sig_figs":7,"metadata_trailing_zeros":0,"metadata_entity_year_rank_source":"dense rank descending over in_primary_analysis rows of 1961","metadata_notes":""},{"input":"AFG|1962","output":"9404406","metadata_fold":"even","metadata_entity":"Afghanistan","metadata_iso_code":"AFG","metadata_entity_class":"sovereign","metadata_year":1962,"metadata_population":9404406,"metadata_value_str":"9404406","metadata_source_variant":"worldbank_wdi_sp_pop_totl","metadata_source_release":"World Bank WDI SP.POP.TOTL (Population, total), bulk download last updated 2026-11-11\",","metadata_is_projection":false,"metadata_in_primary_analysis":true,"metadata_in_primary_analysis_sovereign_only":true,"metadata_pop_le_1m":false,"metadata_is_sids":false,"metadata_sids_source":null,"metadata_is_top20":false,"metadata_rank_in_year":46,"metadata_mantissa":0.973331,"metadata_d1":9,"metadata_d2":94,"metadata_d1_reciprocal":1,"metadata_n_sig_figs":7,"metadata_trailing_zeros":0,"metadata_entity_year_rank_source":"dense rank descending over in_primary_analysis rows of 1962","metadata_notes":""}]}]}
+{
+  "metadata": {
+    "description": "Country-year total population, World Bank World Development Indicators SP.POP.TOTL. One example per entity-year, 1960-2025; the independently sourced companion panel, primary analysis window 1960-2023.",
+    "fold_definition": {
+      "even": "screen half (pre-registered)",
+      "odd": "reserved confirmation half (pre-registered)"
+    },
+    "primary_analysis_years": [
+      1950,
+      2023
+    ],
+    "do_not_pool_panels": "WDI is sourced from national statistical offices for roughly one third of economies, so the companion panel tests source invariance, not the same numbers twice. Never concatenate the two datasets.",
+    "cluster_key": "metadata_iso_code (resample entities, not rows)"
+  },
+  "datasets": [
+    {
+      "dataset": "worldbank_wdi_sp_pop_totl",
+      "examples": [
+        {
+          "input": "AFG|1960",
+          "output": "9035043",
+          "metadata_fold": "even",
+          "metadata_entity": "Afghanistan",
+          "metadata_iso_code": "AFG",
+          "metadata_entity_class": "sovereign",
+          "metadata_year": 1960,
+          "metadata_population": 9035043,
+          "metadata_value_str": "9035043",
+          "metadata_source_variant": "worldbank_wdi_sp_pop_totl",
+          "metadata_source_release": "World Bank WDI SP.POP.TOTL (Population, total), bulk download last updated 2026-11-11",
+          "metadata_is_projection": false,
+          "metadata_in_primary_analysis": true,
+          "metadata_in_primary_analysis_sovereign_only": true,
+          "metadata_pop_le_1m": false,
+          "metadata_is_sids": false,
+          "metadata_sids_source": null,
+          "metadata_is_top20": false,
+          "metadata_rank_in_year": 47,
+          "metadata_mantissa": 0.95593,
+          "metadata_d1": 9,
+          "metadata_d2": 90,
+          "metadata_d1_reciprocal": 1,
+          "metadata_n_sig_figs": 7,
+          "metadata_trailing_zeros": 0,
+          "metadata_entity_year_rank_source": "dense rank descending over in_primary_analysis rows of 1960",
+          "metadata_notes": ""
+        },
+        {
+          "input": "AFG|1961",
+          "output": "9214083",
+          "metadata_fold": "odd",
+          "metadata_entity": "Afghanistan",
+          "metadata_iso_code": "AFG",
+          "metadata_entity_class": "sovereign",
+          "metadata_year": 1961,
+          "metadata_population": 9214083,
+          "metadata_value_str": "9214083",
+          "metadata_source_variant": "worldbank_wdi_sp_pop_totl",
+          "metadata_source_release": "World Bank WDI SP.POP.TOTL (Population, total), bulk download last updated 2026-11-11",
+          "metadata_is_projection": false,
+          "metadata_in_primary_analysis": true,
+          "metadata_in_primary_analysis_sovereign_only": true,
+          "metadata_pop_le_1m": false,
+          "metadata_is_sids": false,
+          "metadata_sids_source": null,
+          "metadata_is_top20": false,
+          "metadata_rank_in_year": 46,
+          "metadata_mantissa": 0.964452,
+          "metadata_d1": 9,
+          "metadata_d2": 92,
+          "metadata_d1_reciprocal": 1,
+          "metadata_n_sig_figs": 7,
+          "metadata_trailing_zeros": 0,
+          "metadata_entity_year_rank_source": "dense rank descending over in_primary_analysis rows of 1961",
+          "metadata_notes": ""
+        },
+        {
+          "input": "AFG|1962",
+          "output": "9404406",
+          "metadata_fold": "even",
+          "metadata_entity": "Afghanistan",
+          "metadata_iso_code": "AFG",
+          "metadata_entity_class": "sovereign",
+          "metadata_year": 1962,
+          "metadata_population": 9404406,
+          "metadata_value_str": "9404406",
+          "metadata_source_variant": "worldbank_wdi_sp_pop_totl",
+          "metadata_source_release": "World Bank WDI SP.POP.TOTL (Population, total), bulk download last updated 2026-11-11",
+          "metadata_is_projection": false,
+          "metadata_in_primary_analysis": true,
+          "metadata_in_primary_analysis_sovereign_only": true,
+          "metadata_pop_le_1m": false,
+          "metadata_is_sids": false,
+          "metadata_sids_source": null,
+          "metadata_is_top20": false,
+          "metadata_rank_in_year": 46,
+          "metadata_mantissa": 0.973331,
+          "metadata_d1": 9,
+          "metadata_d2": 94,
+          "metadata_d1_reciprocal": 1,
+          "metadata_n_sig_figs": 7,
+          "metadata_trailing_zeros": 0,
+          "metadata_entity_year_rank_source": "dense rank descending over in_primary_analysis rows of 1962",
+          "metadata_notes": ""
+        }
+      ]
+    }
+  ]
+}

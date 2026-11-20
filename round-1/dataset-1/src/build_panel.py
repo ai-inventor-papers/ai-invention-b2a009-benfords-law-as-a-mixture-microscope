@@ -457,9 +457,17 @@ def tag_and_digest(state: dict[str, Any]) -> dict[str, Any]:
                     f"(WPP2024: estimates 1950-2023, medium-variant projections 2024-2100)")
     wdi_file = next((RAW / "wdi").glob("API_SP.*.csv"))
     wdi_stamp = "unknown"
-    for ln in wdi_file.read_text(encoding="utf-8-sig").splitlines()[:5]:
-        if "Last Updated Date" in ln:
-            wdi_stamp = ln.split(",", 1)[1].strip().strip('"')
+    # The header block is CSV with quoted fields and CRLF line endings:
+    #     "Last Updated Date","2026-11-11",
+    # so parse it as CSV and take the value field, never by splitting on a comma
+    # and stripping quotes (that leaves a trailing '",').
+    with wdi_file.open(encoding="utf-8-sig", newline="") as fh:
+        for fields in csv.reader(fh):
+            if len(fields) >= 2 and fields[0].strip() == "Last Updated Date":
+                wdi_stamp = fields[1].strip()
+                break
+            if len(fields) > 3:  # reached the data header row
+                break
     wdi_release = f"World Bank WDI SP.POP.TOTL (Population, total), bulk download last updated {wdi_stamp}"
 
     primary = enrich(state["primary"], source_variant="owid_population_unwpp",

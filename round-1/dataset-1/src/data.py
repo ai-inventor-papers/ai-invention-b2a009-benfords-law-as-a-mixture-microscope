@@ -51,7 +51,10 @@ STEM_PRIMARY = "population_panel"
 STEM_WDI = "wdi_population"
 
 MINI_ITEMS = 3          # matches the aii-json formatter's MAX_ARRAY_ITEMS
-PREVIEW_ITEMS = 10      # the exchange format asks for 10 preview examples
+# The aii-json formatter slices preview to the SAME 3 examples per dataset and only
+# truncates strings, so preview must use MINI_ITEMS here. Using 10 produced previews
+# that disagreed with the formatter's own output for the same input.
+PREVIEW_ITEMS = 3
 MAX_STRING = 200        # matches the aii-json formatter's MAX_STRING_LENGTH
 
 
@@ -158,10 +161,16 @@ def write_variants(payload: dict[str, Any], stem: str) -> dict[str, Path]:
     bodies = {
         "full": with_n(None),
         "mini": with_n(MINI_ITEMS),
-        "preview": with_n(PREVIEW_ITEMS, do_truncate=True),
+        # The aii-json formatter truncates the WHOLE wrapped payload for preview,
+        # top-level metadata strings included, not just the examples. Truncating the
+        # body rather than per-example keeps this output identical to that script's.
+        "preview": truncate(with_n(PREVIEW_ITEMS)),
     }
     for kind, path in paths.items():
-        path.write_text(json.dumps(bodies[kind], separators=(",", ":"), ensure_ascii=False),
+        # indent=2 + ensure_ascii=False is byte-identical to the aii-json skill's
+        # formatter output, so these files can be regenerated here or produced by
+        # that script and come out the same.
+        path.write_text(json.dumps(bodies[kind], indent=2, ensure_ascii=False),
                         encoding="utf-8")
         n = sum(len(d["examples"]) for d in bodies[kind]["datasets"])
         logger.info(f"wrote {path.name}  datasets={len(bodies[kind]['datasets'])} "
