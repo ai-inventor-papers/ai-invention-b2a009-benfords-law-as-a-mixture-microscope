@@ -1,0 +1,25 @@
+[project]
+name = "benford-country-population-evaluation"
+version = "1.0.0"
+description = "Evaluation of the Benford screen on the leading digits of world-country populations"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy==2.5.5",
+    "pandas==3.1.1",
+    "scipy==1.18.1",
+    "pyarrow==26.0.1",
+    "loguru==0.8.0",
+    "matplotlib==3.11.2",
+    "contourpy==1.4.0",
+    "cycler==0.12.1",
+    "fonttools==4.68.0",
+    "kiwisolver==1.5.1",
+    "packaging==26.3",
+    "pillow==13.0.0",
+    "pyparsing==3.3.3",
+    "python-dateutil==4.0.0",
+    "tzdata==2026.6",
+]
+
+[tool.uv]
+package = false

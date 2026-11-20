@@ -1,0 +1,4619 @@
+{
+  "metadata": {
+    "evaluation_name": "benford_country_population_reserved_fold",
+    "description": "Out-of-sample evaluation of the Benford screen on the leading digits of country populations: cluster-calibrated conformity, reserved odd-year confirmation, narrow-component ablation suite, source invariance with a provenance audit, entity-disjoint sensitivity, and the honest-negative branch.",
+    "seed": 20261119,
+    "alpha": 0.05,
+    "confirmation_margin_probability_units": 0.05,
+    "n_bootstrap_calibrated": 10000,
+    "n_bootstrap_iid": 2000,
+    "n_bootstrap_envelope": 4000,
+    "n_bootstrap_final": 10000,
+    "parameters_refit_by_evaluation": true,
+    "null_sampler_self_test": {
+      "uniform_mantissa_mad_vs_benford": 0.0006673739597109832,
+      "uniform_digit_law_mad_vs_benford": 0.05937444251732497,
+      "n": 200000,
+      "passes": true
+    },
+    "instrument_self_test": {
+      "rotation_identity_max_error": 8.716877585302702e-17,
+      "mirror_identity_error": 2.734791181627366e-18,
+      "reciprocal_identity_error": 7.080595600835466e-18,
+      "digit_transfer_gap": 0.0026173145523146675,
+      "digit_transfer_gap_benford_baseline": 2.8609792490763984e-17,
+      "digit_transfer_gap_midpoint_only": 0.03647770833656517,
+      "periodise_vs_closed_form_max_abs_error": 6.800116025829084e-16,
+      "sum_p_numeric": 1.0,
+      "periodised_digit_c1_vs_analytic": 3.328619889742121e-14,
+      "simultaneous_coverage": {
+        "n200_clopper_pearson": 0.964,
+        "n200_wilson": 0.9475,
+        "n500_clopper_pearson": 0.957,
+        "n500_wilson": 0.948,
+        "n900_clopper_pearson": 0.964,
+        "n900_wilson": 0.9515
+      },
+      "wilson_coverage_shortfall_recorded": 1.0,
+      "benford_draw_max_abs_residual_pp": 0.045723660829993795
+    },
+    "inputs_manifest": {
+      "staged_dependency_artifacts_found": [],
+      "dependency_note": "No DATASET or EXPERIMENT artifact was staged: the three directions of iteration 1 run in parallel and declare no same-round dependency. The panel is rebuilt from the two public sources and the screen refitted on the even fold under the identical pre-registered recipe, exactly as the plan's failure mode prescribes.",
+      "screen_json_available": false,
+      "frozen_parameters_available": false,
+      "parameters_refit_by_evaluation": true,
+      "frozen_parameters_source": "refit on even years only under the pre-registered recipe: year-parity split, even = model side, odd = reserved; lognormal mixtures by EM with 20 restarts, K by BIC",
+      "inputs": {
+        "owid_csv": {
+          "path": "data/owid_population_unwpp.csv",
+          "bytes": 552397,
+          "sha256": "7229a8914bbd36dd6b26a727ca4dc3a93ead0ce4cde4467dccd097266966006c"
+        },
+        "wdi_json": {
+          "path": "data/wb_population_raw.json",
+          "bytes": 3528198,
+          "sha256": "d6a069b61aa22f6d53554376dbacf416e01c08a79d514309b39f9925886b611f"
+        },
+        "wdi_countries": {
+          "path": "data/wb_countries.json",
+          "bytes": 113954,
+          "sha256": "c9acf3932785191a649cbc04c3056af4cf64a236e5c3b49d49be25ddb0440bce"
+        },
+        "panel_owid": {
+          "path": "data/panel_owid.parquet",
+          "bytes": 505110,
+          "sha256": "1af649af171a835deb029b3d796761664b8b1e25770e55e2e7f119b691b3f7e2"
+        },
+        "panel_wdi": {
+          "path": "data/panel_wdi.parquet",
+          "bytes": 397189,
+          "sha256": "21b616db3ef5f37568add30c4448104185986b8fcb646a11b5ade078f1dd96be"
+        }
+      },
+      "environment": {
+        "python": "3.12.10",
+        "numpy": "2.5.5",
+        "pandas": "3.1.1",
+        "platform": "macOS-26.4-arm64-arm-64bit"
+      },
+      "seeds": {
+        "global": 20261119,
+        "note": "every bootstrap stream derived from SEED"
+      },
+      "panel": {
+        "owid": {
+          "source_file": "/Volumes/aii-s20001/work/run_sdYSI9yxuih6/round-1/evaluation-1/src/data/owid_population_unwpp.csv",
+          "header": [
+            "entity",
+            "code",
+            "year",
+            "population__sex_all__age_all__variant_estimates"
+          ],
+          "resolved": {
+            "entity": "entity",
+            "code": "code",
+            "year": "year",
+            "population": "population__sex_all__age_all__variant_estimates"
+          }
+        },
+        "wdi": {
+          "rows": 14292,
+          "entities": 217,
+          "years": [
+            1960,
+            2025
+          ],
+          "aggregate_codes_dropped": [
+            "AFE",
+            "AFR",
+            "AFW",
+            "ARB",
+            "BEA",
+            "BEC",
+            "BHI",
+            "BLA",
+            "BMN",
+            "BSS",
+            "CAA",
+            "CEA",
+            "CEB",
+            "CEU",
+            "CLA",
+            "CME",
+            "CSA",
+            "CSS",
+            "DEA",
+            "DEC",
+            "DLA",
+            "DMN",
+            "DNS",
+            "DSA",
+            "DSF",
+            "DSS",
+            "EAP",
+            "EAR",
+            "EAS",
+            "ECA",
+            "ECS",
+            "EMU",
+            "EUU",
+            "FCV",
+            "FXS",
+            "HIC",
+            "HPC",
+            "IBB",
+            "IBD",
+            "IBT",
+            "IDA",
+            "IDB",
+            "IDX",
+            "INX",
+            "LAC",
+            "LCN",
+            "LDC",
+            "LIC",
+            "LMC",
+            "LMY",
+            "LTE",
+            "MDE",
+            "MEA",
+            "MIC",
+            "MNA",
+            "NAC",
+            "NAF",
+            "NRS",
+            "NXS",
+            "OED",
+            "OSS",
+            "PRE",
+            "PSS",
+            "PST",
+            "RRS",
+            "SAS",
+            "SSA",
+            "SSF",
+            "SST",
+            "SXZ",
+            "TEA",
+            "TEC",
+            "TLA",
+            "TMN",
+            "TSA",
+            "TSS",
+            "UMC",
+            "WLD",
+            "XZN"
+          ],
+          "lastupdated": "2026-11-11"
+        },
+        "n_rows": 17464,
+        "n_entities": 236,
+        "years": [
+          1950,
+          2023
+        ],
+        "n_even": 8732,
+        "n_odd": 8732,
+        "n_even_country_years": 8732,
+        "n_odd_country_years": 8732,
+        "fold_overlap": 0,
+        "entities_in_1950": 236,
+        "entities_in_2023": 236,
+        "per_year_count_min": 236,
+        "per_year_count_median": 236.0,
+        "per_year_count_max": 236,
+        "population_min": 501.0,
+        "population_max": 1438069597.0,
+        "is_projection_boundary": 2023,
+        "dropped_entities": [
+          {
+            "entity": "Africa",
+            "code": "OWID_AFR",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Africa (UN)",
+            "code": "UN_AFR",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Americas (UN)",
+            "code": "",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Asia",
+            "code": "OWID_ASI",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Asia (UN)",
+            "code": "UN_ASI",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Europe",
+            "code": "OWID_EUR",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Europe (UN)",
+            "code": "UN_EUR",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "High-income countries",
+            "code": "OWID_HIC",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Kosovo",
+            "code": "OWID_KOS",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Land-locked developing countries (LLDC)",
+            "code": "",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Latin America and the Caribbean (UN)",
+            "code": "UN_LAC",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Least developed countries",
+            "code": "",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Less developed regions",
+            "code": "",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Less developed regions, excluding China",
+            "code": "",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Less developed regions, excluding least developed countries",
+            "code": "",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Low-income countries",
+            "code": "OWID_LIC",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Lower-middle-income countries",
+            "code": "OWID_LMC",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "More developed regions",
+            "code": "",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "North America",
+            "code": "OWID_NAM",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Northern America (UN)",
+            "code": "UN_NAM",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Oceania",
+            "code": "OWID_OCE",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Oceania (UN)",
+            "code": "UN_OCE",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Small island developing states (SIDS)",
+            "code": "",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "South America",
+            "code": "OWID_SAM",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "Upper-middle-income countries",
+            "code": "OWID_UMC",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          },
+          {
+            "entity": "World",
+            "code": "OWID_WRL",
+            "rows": 74,
+            "reason": "non-ISO3 code (aggregate/region/rollup)"
+          }
+        ],
+        "grain": {
+          "median_significant_figures": 7.0,
+          "sigfig_distribution": {
+            "1": 2,
+            "2": 20,
+            "3": 156,
+            "4": 1027,
+            "5": 2630,
+            "6": 3301,
+            "7": 5947,
+            "8": 3808,
+            "9": 515,
+            "10": 58
+          },
+          "fraction_integer": 1.0,
+          "fraction_divisible_1e1": 0.10261108566193312,
+          "fraction_divisible_1e3": 0.001488776912505726,
+          "fraction_divisible_1e6": 0.0
+        }
+      },
+      "timestamp_utc": "2026-11-20T04:32:43.404638+00:00"
+    },
+    "fold_definition": {
+      "definition": "fold = 'even' if year % 2 == 0 else 'odd'; even = screen side, odd = reserved confirmation side",
+      "n_even": 8732,
+      "n_odd": 8732,
+      "n_countries_even": 236,
+      "n_countries_odd": 236,
+      "shared_country_years": 0,
+      "years_even": [
+        1950,
+        2022
+      ],
+      "years_odd": [
+        1951,
+        2023
+      ]
+    },
+    "conformity_headline": {
+      "reserved_odd": {
+        "fold": "reserved_odd",
+        "n_rows": 8732,
+        "n_countries": 236,
+        "observed": {
+          "counts": [
+            2361.0,
+            1438.0,
+            1101.0,
+            919.0,
+            864.0,
+            636.0,
+            533.0,
+            448.0,
+            432.0
+          ],
+          "p": [
+            0.27038479157123224,
+            0.1646816307833257,
+            0.1260879523591388,
+            0.10524507558405863,
+            0.09894640403114979,
+            0.0728355474118186,
+            0.06103985341273477,
+            0.05130554283096656,
+            0.049473202015574896
+          ],
+          "residuals_pp": [
+            -3.0645204092748957,
+            -1.1409628272355532,
+            0.11492157508388723,
+            0.8335062576002208,
+            1.9765157983524975,
+            0.5888757781205373,
+            0.30479064350480356,
+            0.015302038358527142,
+            0.37157114548997533
+          ],
+          "MAD": 0.009345518303356552,
+          "M": 0.030645204092748957,
+          "abs_c1": 0.07521264624602247,
+          "chi2": 91.69101509261301,
+          "kuiper_V": 0.04205483236510449
+        },
+        "observed_phase_deg": -89.77616251979866,
+        "cluster_calibrated": {
+          "MAD": {
+            "observed": 0.009345518303356552,
+            "percentile": 23.5,
+            "two_sided_p": 0.47,
+            "null_mean": 0.012131021309918557,
+            "null_p2_5": 0.005859886354151556,
+            "null_p50": 0.011778951275811687,
+            "null_p97_5": 0.020119208434615395,
+            "null_min": 0.0028703414324205523,
+            "null_max": 0.030736047535287397,
+            "observed_inside_95_envelope": true
+          },
+          "M": {
+            "observed": 0.030645204092748957,
+            "percentile": 53.669999999999995,
+            "two_sided_p": 0.9266,
+            "null_mean": 0.031777884783188964,
+            "null_p2_5": 0.013097930133507962,
+            "null_p50": 0.029385469782167162,
+            "null_p97_5": 0.06326226269607377,
+            "null_min": 0.006302674294127925,
+            "null_max": 0.10323019673180439,
+            "observed_inside_95_envelope": true
+          },
+          "abs_c1": {
+            "observed": 0.07521264624602247,
+            "percentile": 75.33,
+            "two_sided_p": 0.4934,
+            "null_mean": 0.056309812100043884,
+            "null_p2_5": 0.010567386952712402,
+            "null_p50": 0.053041979505559694,
+            "null_p97_5": 0.12113366700756185,
+            "null_min": 0.0009177742996474982,
+            "null_max": 0.20520538932229884,
+            "observed_inside_95_envelope": true
+          },
+          "chi2": {
+            "observed": 91.69101509261301,
+            "percentile": 18.23,
+            "two_sided_p": 0.3646,
+            "null_mean": 174.42061060493626,
+            "null_p2_5": 44.01209967459983,
+            "null_p50": 156.01486708561268,
+            "null_p97_5": 408.48229765795674,
+            "null_min": 7.728136472033226,
+            "null_max": 895.90791174555,
+            "observed_inside_95_envelope": true
+          },
+          "kuiper_V": {
+            "observed": 0.04205483236510449,
+            "percentile": 44.330000000000005,
+            "two_sided_p": 0.8866,
+            "null_mean": 0.04645046893520738,
+            "null_p2_5": 0.019262193410021645,
+            "null_p50": 0.04436567586272369,
+            "null_p97_5": 0.08442373958854889,
+            "null_min": 0.008979166040095743,
+            "null_max": 0.13831221390879328,
+            "observed_inside_95_envelope": true
+          }
+        },
+        "naive_iid_null": {
+          "MAD": {
+            "observed": 0.009345518303356552,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.0025116080952632663,
+            "null_p2_5": 0.001300544260062249,
+            "null_p50": 0.002464679280820411,
+            "null_p97_5": 0.004008015152615562,
+            "null_min": 0.0007238008296035306,
+            "null_max": 0.005344846461367024,
+            "observed_inside_95_envelope": false
+          },
+          "M": {
+            "observed": 0.030645204092748957,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.006120270018898034,
+            "null_p2_5": 0.002857967237234339,
+            "null_p50": 0.0057736643056198605,
+            "null_p97_5": 0.01115560856264433,
+            "null_min": 0.0015992954722486297,
+            "null_max": 0.01893851648256889,
+            "observed_inside_95_envelope": false
+          },
+          "abs_c1": {
+            "observed": 0.07521264624602247,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.00943811685305065,
+            "null_p2_5": 0.0019193186894827408,
+            "null_p50": 0.008818492705258304,
+            "null_p97_5": 0.02018570057991573,
+            "null_min": 0.00023113812069714502,
+            "null_max": 0.027362692865512208,
+            "observed_inside_95_envelope": false
+          },
+          "chi2": {
+            "observed": 91.69101509261301,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 8.059873845286015,
+            "null_p2_5": 2.1941076718759436,
+            "null_p50": 7.436591316738309,
+            "null_p97_5": 17.523369485517215,
+            "null_min": 0.7064461484374451,
+            "null_max": 30.40056332145091,
+            "observed_inside_95_envelope": false
+          },
+          "kuiper_V": {
+            "observed": 0.04205483236510449,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.008744086582997121,
+            "null_p2_5": 0.003982802340760627,
+            "null_p50": 0.008430645251358115,
+            "null_p97_5": 0.015368529113870771,
+            "null_min": 0.002104407758993898,
+            "null_max": 0.022007935088455943,
+            "observed_inside_95_envelope": false
+          }
+        },
+        "calibration_gap": {
+          "MAD": -0.47,
+          "M": -0.9266,
+          "abs_c1": -0.4934,
+          "chi2": -0.3646,
+          "kuiper_V": -0.8866
+        },
+        "design_effect_note": "8732 rows are 236 countries observed repeatedly. The cluster null draws one exact-Benford mantissa per country; the naive iid null draws 8732 independent ones. Where the two disagree, the cluster null is the honest one and the iid p-value is the artefact the literature warns about.",
+        "n_replicates_cluster": 10000,
+        "n_replicates_iid": 2000
+      },
+      "screen_even": {
+        "fold": "screen_even",
+        "n_rows": 8732,
+        "n_countries": 236,
+        "observed": {
+          "counts": [
+            2376.0,
+            1429.0,
+            1097.0,
+            931.0,
+            839.0,
+            654.0,
+            530.0,
+            449.0,
+            427.0
+          ],
+          "p": [
+            0.2721026110856619,
+            0.16365093907466788,
+            0.1256298671552909,
+            0.10661933119560238,
+            0.09608337150710032,
+            0.07489693082913422,
+            0.06069628950984883,
+            0.05142006413192854,
+            0.048900595510765005
+          ],
+          "residuals_pp": [
+            -2.8927384578319284,
+            -1.244031998101336,
+            0.06911305469909645,
+            0.9709318187545959,
+            1.6902125459475503,
+            0.7950141198520999,
+            0.27043425321620973,
+            0.026754168454724836,
+            0.31431049500898617
+          ],
+          "MAD": 0.009192823235407252,
+          "M": 0.028927384578319282,
+          "abs_c1": 0.07492631043347074,
+          "chi2": 83.22202590157136,
+          "kuiper_V": 0.04136770455933264
+        },
+        "observed_phase_deg": -90.14152015153002,
+        "cluster_calibrated": {
+          "MAD": {
+            "observed": 0.009192823235407252,
+            "percentile": 20.990000000000002,
+            "two_sided_p": 0.4198,
+            "null_mean": 0.01225537942732275,
+            "null_p2_5": 0.005918164446403163,
+            "null_p50": 0.011944111391186098,
+            "null_p97_5": 0.02010145071191796,
+            "null_min": 0.002860239314778444,
+            "null_max": 0.03196894803979661,
+            "observed_inside_95_envelope": true
+          },
+          "M": {
+            "observed": 0.028927384578319282,
+            "percentile": 47.12,
+            "two_sided_p": 0.944,
+            "null_mean": 0.032128803754817824,
+            "null_p2_5": 0.013328597930837875,
+            "null_p50": 0.02984755772723416,
+            "null_p97_5": 0.06383540700515464,
+            "null_min": 0.006141648428104496,
+            "null_max": 0.1005962068096789,
+            "observed_inside_95_envelope": true
+          },
+          "abs_c1": {
+            "observed": 0.07492631043347074,
+            "percentile": 74.85000000000001,
+            "two_sided_p": 0.503,
+            "null_mean": 0.05693966695375975,
+            "null_p2_5": 0.010658430650734777,
+            "null_p50": 0.05335810819708664,
+            "null_p97_5": 0.12436140897462218,
+            "null_min": 0.00010903068196319232,
+            "null_max": 0.19526051578977524,
+            "observed_inside_95_envelope": true
+          },
+          "chi2": {
+            "observed": 83.22202590157136,
+            "percentile": 13.98,
+            "two_sided_p": 0.2796,
+            "null_mean": 177.2956334131882,
+            "null_p2_5": 43.89042750432458,
+            "null_p50": 159.67933765730055,
+            "null_p97_5": 410.2956663388551,
+            "null_min": 11.904817769184117,
+            "null_max": 911.8415414468387,
+            "observed_inside_95_envelope": true
+          },
+          "kuiper_V": {
+            "observed": 0.04136770455933264,
+            "percentile": 41.82,
+            "two_sided_p": 0.8366,
+            "null_mean": 0.04694444601726617,
+            "null_p2_5": 0.01994323999764267,
+            "null_p50": 0.04468398611246929,
+            "null_p97_5": 0.0865526886837283,
+            "null_min": 0.008296040975542984,
+            "null_max": 0.13000152189560227,
+            "observed_inside_95_envelope": true
+          }
+        },
+        "naive_iid_null": {
+          "MAD": {
+            "observed": 0.009192823235407252,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.0024918064431952765,
+            "null_p2_5": 0.0012997882771422998,
+            "null_p50": 0.002436879207790819,
+            "null_p97_5": 0.00398655676152562,
+            "null_min": 0.0006682381062863871,
+            "null_max": 0.0056299383165901275,
+            "observed_inside_95_envelope": false
+          },
+          "M": {
+            "observed": 0.028927384578319282,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.006089322031179093,
+            "null_p2_5": 0.0028187923733247818,
+            "null_p50": 0.0057685668719413,
+            "null_p97_5": 0.011409628272355532,
+            "null_min": 0.0015551267813232461,
+            "null_max": 0.017360733181159382,
+            "observed_inside_95_envelope": false
+          },
+          "abs_c1": {
+            "observed": 0.07492631043347074,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.009327082046722598,
+            "null_p2_5": 0.001691623042993234,
+            "null_p50": 0.008691795145717034,
+            "null_p97_5": 0.020453956755587206,
+            "null_min": 0.00014991863538905766,
+            "null_max": 0.02840502126401689,
+            "observed_inside_95_envelope": false
+          },
+          "chi2": {
+            "observed": 83.22202590157136,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 7.847025531377989,
+            "null_p2_5": 2.178028475391036,
+            "null_p50": 7.1851044288701775,
+            "null_p97_5": 17.070777777037854,
+            "null_min": 0.49847566678393507,
+            "null_max": 31.44477996872397,
+            "observed_inside_95_envelope": false
+          },
+          "kuiper_V": {
+            "observed": 0.04136770455933264,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.008704086762281562,
+            "null_p2_5": 0.004002192924249597,
+            "null_p50": 0.0082585523842095,
+            "null_p97_5": 0.015603174806880855,
+            "null_min": 0.001993889199251031,
+            "null_max": 0.02292577236323501,
+            "observed_inside_95_envelope": false
+          }
+        },
+        "calibration_gap": {
+          "MAD": -0.4198,
+          "M": -0.944,
+          "abs_c1": -0.503,
+          "chi2": -0.2796,
+          "kuiper_V": -0.8366
+        },
+        "design_effect_note": "8732 rows are 236 countries observed repeatedly. The cluster null draws one exact-Benford mantissa per country; the naive iid null draws 8732 independent ones. Where the two disagree, the cluster null is the honest one and the iid p-value is the artefact the literature warns about.",
+        "n_replicates_cluster": 10000,
+        "n_replicates_iid": 2000
+      },
+      "entity_level": {
+        "n_countries": 236,
+        "digit_counts": [
+          71.0,
+          38.0,
+          37.0,
+          16.0,
+          29.0,
+          16.0,
+          9.0,
+          12.0,
+          8.0
+        ],
+        "digit_proportions": [
+          0.3008474576271186,
+          0.16101694915254236,
+          0.15677966101694915,
+          0.06779661016949153,
+          0.1228813559322034,
+          0.06779661016949153,
+          0.038135593220338986,
+          0.05084745762711865,
+          0.03389830508474576
+        ],
+        "residuals_pp": [
+          -0.01825380368625784,
+          -1.5074309903138876,
+          3.184092440864922,
+          -2.9113402838564895,
+          4.3700109884578575,
+          0.08498205388783042,
+          -1.9856353757347747,
+          -0.030506482026264325,
+          -1.1859185475929381
+        ],
+        "MAD": 0.0169757455182458,
+        "MAD_nigrini_band": "not applicable (Nigrini bands require n > 3,000; n = 236.0)",
+        "MAD_nigrini_band_applicable": false,
+        "M": 0.04370010988457858,
+        "chi2": 12.308464761795317,
+        "chi2_p_asymptotic": 0.13796247136274337,
+        "g2_likelihood_ratio": 11.88434388393452,
+        "g2_p_asymptotic": 0.15643925460952376,
+        "kuiper_V": 0.04727745199354133,
+        "abs_c1": 0.07636161071075881,
+        "phase_deg": -98.52077089099363,
+        "note": "At n = 236 the asymptotic chi-square is still marginal (expected count for digit 9 is 10.8, above the usual 5 threshold but the cells are not large), so this p-value corroborates the cluster-calibrated simulation rather than deciding anything."
+      }
+    },
+    "discrimination_between_nulls": {
+      "statistic": "log-likelihood ratio, fitted size law over exact Benford, on the nine first-digit counts",
+      "llr_observed": 28.410337025041798,
+      "llr_predicted_under_model": 9.962531995666577,
+      "llr_predicted_under_benford": 0.0,
+      "llr_null_benford": {
+        "n": 5000,
+        "mean": -9.981378232396814,
+        "sd": 26.5983739661477,
+        "p2_5": -63.35504721984387,
+        "p5": -53.52711428554817,
+        "p50": -10.616740971052113,
+        "p95": 34.13520505297255,
+        "p97_5": 42.263233135678085,
+        "min": -115.68566326444856,
+        "max": 82.40077407178367
+      },
+      "llr_null_model": {
+        "n": 5000,
+        "mean": 9.077618187283704,
+        "sd": 26.4502206097786,
+        "p2_5": -42.02301008260735,
+        "p5": -33.86755264510077,
+        "p50": 8.889805607450029,
+        "p95": 52.38396154512256,
+        "p97_5": 60.090440932966004,
+        "min": -76.17001809733836,
+        "max": 107.3334286997834
+      },
+      "n_replicates": 5000,
+      "null_distributions_overlap_share": 0.8866,
+      "model_null_above_benford_p97_5_share": 0.1062,
+      "p_value_against_benford": 0.0754,
+      "p_value_against_model": 0.7656,
+      "verdict": "the two nulls are statistically indistinguishable at this sample size: the observed digit vector lies inside BOTH null distributions, and the two null distributions overlap on most of their support. The digits therefore cannot discriminate a size law from Benford here, which is the sharpest form of the negative.",
+      "note": "A p-value near 0.5 against BOTH nulls is not a contradiction; it means the data sit in the overlap of two very similar predictions, exactly as the fitted mixture's MAD from Benford (~0.005) implies they must."
+    },
+    "screen_fold_reference": {
+      "vs_benford": {
+        "n": 8732,
+        "n_entities": 236,
+        "digit_counts": [
+          2376,
+          1429,
+          1097,
+          931,
+          839,
+          654,
+          530,
+          449,
+          427
+        ],
+        "digit_proportions": [
+          0.2721026110856619,
+          0.16365093907466788,
+          0.1256298671552909,
+          0.10661933119560238,
+          0.09608337150710032,
+          0.07489693082913422,
+          0.06069628950984883,
+          0.05142006413192854,
+          0.048900595510765005
+        ],
+        "reference": "benford",
+        "residuals_pp": [
+          -2.8927384578319284,
+          -1.244031998101336,
+          0.06911305469909645,
+          0.9709318187545959,
+          1.6902125459475503,
+          0.7950141198520999,
+          0.27043425321620973,
+          0.026754168454724836,
+          0.31431049500898617
+        ],
+        "MAD": 0.009192823235407252,
+        "MAD_nigrini_band": "acceptable conformity",
+        "M": 0.028927384578319282,
+        "chi2": {
+          "chi2": 83.22202590157136,
+          "df": 8,
+          "n": 8732.0,
+          "expected_count_digit9": 399.55440757581533,
+          "min_expected_count": 399.55440757581533,
+          "asymptotics_marginal": false,
+          "caveat": "df=8 is nominal; with min expected count < 5 the asymptotic p-value is unreliable and is reported for completeness only"
+        },
+        "kuiper_V": 0.04136770455933264,
+        "harmonics": {
+          "c1_re": -0.00018506724429636118,
+          "c1_im": -0.07492608187599238,
+          "c1_modulus": 0.07492631043347074,
+          "c1_phase_deg": -90.14152015153002,
+          "c2_modulus": 0.010120375009232756,
+          "c2_phase_deg": -74.65173312911591
+        },
+        "simultaneous_intervals": {
+          "method": "clopper_pearson",
+          "alpha_familywise": 0.05,
+          "alpha_per_digit": 0.005555555555555556,
+          "z_bonferroni": 2.772921294608663,
+          "n_nominal": 8732.0,
+          "n_eff_used": 976.4764227438384,
+          "lower": [
+            0.2334713376560521,
+            0.13227122093357896,
+            0.09787135568238436,
+            0.08098430537401943,
+            0.07173879960698301,
+            0.053455005484566144,
+            0.04149593530693644,
+            0.03385572415111606,
+            0.031809337656594744
+          ],
+          "upper": [
+            0.31332092175265874,
+            0.19886179149726982,
+            0.1576624221441518,
+            0.13675270717673507,
+            0.12505186841510182,
+            0.10121940251049276,
+            0.08495399296548577,
+            0.07416066616992516,
+            0.07120106827015432
+          ],
+          "covers_benford": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "lower_wilson": [
+            0.23450552129275934,
+            0.1334726926951008,
+            0.09911382277103947,
+            0.08224044572786515,
+            0.07299959553331048,
+            0.05471584986529366,
+            0.0427461191062222,
+            0.035091417130274555,
+            0.033039660638916224
+          ],
+          "upper_wilson": [
+            0.313260736249357,
+            0.19908484418992237,
+            0.15799567265869863,
+            0.13714502897423034,
+            0.12547859057274213,
+            0.10172050591175977,
+            0.08551084769355607,
+            0.07475804557950948,
+            0.07181023305877057
+          ],
+          "covers_benford_wilson": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "mantissa_mean": 0.5205188745564401,
+        "mantissa_mad_from_half": 0.25075284096340966
+      },
+      "vs_model": {
+        "n": 8732,
+        "n_entities": 236,
+        "digit_counts": [
+          2376,
+          1429,
+          1097,
+          931,
+          839,
+          654,
+          530,
+          449,
+          427
+        ],
+        "digit_proportions": [
+          0.2721026110856619,
+          0.16365093907466788,
+          0.1256298671552909,
+          0.10661933119560238,
+          0.09608337150710032,
+          0.07489693082913422,
+          0.06069628950984883,
+          0.05142006413192854,
+          0.048900595510765005
+        ],
+        "reference": "fitted_law",
+        "residuals_pp": [
+          -1.2448603052185925,
+          -0.6918157942191389,
+          -0.30520772005828145,
+          0.3510083848703119,
+          1.138755587769974,
+          0.40865398078464565,
+          0.0526653140681517,
+          -0.0509865267420799,
+          0.3417870787449907
+        ],
+        "MAD": 0.00509526743608463,
+        "MAD_nigrini_band": "close conformity",
+        "M": 0.012448603052185925,
+        "chi2": {
+          "chi2": 26.636614405520156,
+          "df": 8,
+          "n": 8732.0,
+          "expected_count_digit9": 397.15515228398743,
+          "min_expected_count": 397.15515228398743,
+          "asymptotics_marginal": false,
+          "caveat": "df=8 is nominal; with min expected count < 5 the asymptotic p-value is unreliable and is reported for completeness only"
+        },
+        "kuiper_V": 0.022418838194959934,
+        "harmonics": {
+          "c1_re": -0.00018506724429636118,
+          "c1_im": -0.07492608187599238,
+          "c1_modulus": 0.07492631043347074,
+          "c1_phase_deg": -90.14152015153002,
+          "c2_modulus": 0.010120375009232756,
+          "c2_phase_deg": -74.65173312911591
+        },
+        "simultaneous_intervals": {
+          "method": "clopper_pearson",
+          "alpha_familywise": 0.05,
+          "alpha_per_digit": 0.005555555555555556,
+          "z_bonferroni": 2.772921294608663,
+          "n_nominal": 8732.0,
+          "n_eff_used": 8732.0,
+          "lower": [
+            0.2589852224568112,
+            0.1528288207495147,
+            0.11597442427808598,
+            0.09765222240340271,
+            0.08753587267834564,
+            0.06729652498654443,
+            0.053830118188564355,
+            0.04509124220966233,
+            0.042727382593179535
+          ],
+          "upper": [
+            0.28550661462397453,
+            0.17489657662729652,
+            0.13575709401461616,
+            0.1160824711816958,
+            0.1051403909078951,
+            0.08303415093622468,
+            0.06811776821391642,
+            0.05831641758387625,
+            0.05564468799689407
+          ],
+          "covers_benford": [
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true
+          ],
+          "lower_wilson": [
+            0.2591010719523659,
+            0.15296943162247115,
+            0.11612303605942483,
+            0.0978045697321663,
+            0.08769017624931127,
+            0.06745439645276653,
+            0.05398995756751709,
+            0.04525206579371957,
+            0.04288841561283872
+          ],
+          "upper_wilson": [
+            0.28550515398161175,
+            0.1749242797182788,
+            0.13579543257282292,
+            0.11612627754583031,
+            0.10518729051910039,
+            0.08308746820397973,
+            0.0681756116197886,
+            0.05837737490145155,
+            0.05570652104743165
+          ],
+          "covers_benford_wilson": [
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        "mantissa_mean": 0.5205188745564401,
+        "mantissa_mad_from_half": 0.25075284096340966
+      }
+    },
+    "reserved_fold_statistics": {
+      "vs_benford": {
+        "n": 8732,
+        "n_entities": 236,
+        "digit_counts": [
+          2361,
+          1438,
+          1101,
+          919,
+          864,
+          636,
+          533,
+          448,
+          432
+        ],
+        "digit_proportions": [
+          0.27038479157123224,
+          0.1646816307833257,
+          0.1260879523591388,
+          0.10524507558405863,
+          0.09894640403114979,
+          0.0728355474118186,
+          0.06103985341273477,
+          0.05130554283096656,
+          0.049473202015574896
+        ],
+        "reference": "benford",
+        "residuals_pp": [
+          -3.0645204092748957,
+          -1.1409628272355532,
+          0.11492157508388723,
+          0.8335062576002208,
+          1.9765157983524975,
+          0.5888757781205373,
+          0.30479064350480356,
+          0.015302038358527142,
+          0.37157114548997533
+        ],
+        "MAD": 0.009345518303356552,
+        "MAD_nigrini_band": "acceptable conformity",
+        "M": 0.030645204092748957,
+        "chi2": {
+          "chi2": 91.69101509261303,
+          "df": 8,
+          "n": 8732.0,
+          "expected_count_digit9": 399.55440757581533,
+          "min_expected_count": 399.55440757581533,
+          "asymptotics_marginal": false,
+          "caveat": "df=8 is nominal; with min expected count < 5 the asymptotic p-value is unreliable and is reported for completeness only"
+        },
+        "kuiper_V": 0.04205483236510449,
+        "harmonics": {
+          "c1_re": 0.0002938325742932894,
+          "c1_im": -0.0752120722872838,
+          "c1_modulus": 0.07521264624602247,
+          "c1_phase_deg": -89.77616251979866,
+          "c2_modulus": 0.009740923809689587,
+          "c2_phase_deg": -60.920527670584434
+        },
+        "simultaneous_intervals": {
+          "method": "clopper_pearson",
+          "alpha_familywise": 0.05,
+          "alpha_per_digit": 0.005555555555555556,
+          "z_bonferroni": 2.772921294608663,
+          "n_nominal": 8732.0,
+          "n_eff_used": 966.9162240539906,
+          "lower": [
+            0.23165609112938818,
+            0.13306582499717703,
+            0.09815254281647601,
+            0.07965678606971115,
+            0.07412956682911576,
+            0.051607692128085386,
+            0.041696834036592856,
+            0.03368612305751171,
+            0.032198670177800835
+          ],
+          "upper": [
+            0.3117460439111427,
+            0.2001546837667058,
+            0.15833459532714902,
+            0.1353930897171013,
+            0.12839875031899933,
+            0.09901836087620315,
+            0.08548644382201331,
+            0.07415458003969982,
+            0.07200154601382547
+          ],
+          "covers_benford": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "lower_wilson": [
+            0.23270346672227415,
+            0.13427740395441823,
+            0.09940620094614397,
+            0.08092524480293348,
+            0.07540089404499704,
+            0.05287891962099049,
+            0.042958426375494026,
+            0.034932272408187866,
+            0.03344088742925939
+          ],
+          "upper_wilson": [
+            0.3116891883415428,
+            0.20037680753029813,
+            0.1586696188959322,
+            0.13579369884044679,
+            0.12882009250537074,
+            0.09953235388925276,
+            0.08604758203328944,
+            0.07475871140230356,
+            0.07261432704508294
+          ],
+          "covers_benford_wilson": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "mantissa_mean": 0.5208210268052947,
+        "mantissa_mad_from_half": 0.2508478068117766
+      },
+      "vs_model": {
+        "n": 8732,
+        "n_entities": 236,
+        "digit_counts": [
+          2361,
+          1438,
+          1101,
+          919,
+          864,
+          636,
+          533,
+          448,
+          432
+        ],
+        "digit_proportions": [
+          0.27038479157123224,
+          0.1646816307833257,
+          0.1260879523591388,
+          0.10524507558405863,
+          0.09894640403114979,
+          0.0728355474118186,
+          0.06103985341273477,
+          0.05130554283096656,
+          0.049473202015574896
+        ],
+        "reference": "fitted_law",
+        "residuals_pp": [
+          -1.41664225666156,
+          -0.5887466233533561,
+          -0.2593991996734907,
+          0.2135828237159368,
+          1.4250588401749211,
+          0.202515639053083,
+          0.08702170435674547,
+          -0.062438656838277595,
+          0.39904772922597986
+        ],
+        "MAD": 0.005171614970059278,
+        "MAD_nigrini_band": "close conformity",
+        "M": 0.014250588401749212,
+        "chi2": {
+          "chi2": 33.45136948023152,
+          "df": 8,
+          "n": 8732.0,
+          "expected_count_digit9": 397.15515228398743,
+          "min_expected_count": 397.15515228398743,
+          "asymptotics_marginal": false,
+          "caveat": "df=8 is nominal; with min expected count < 5 the asymptotic p-value is unreliable and is reported for completeness only"
+        },
+        "kuiper_V": 0.022647880796883846,
+        "harmonics": {
+          "c1_re": 0.0002938325742932894,
+          "c1_im": -0.0752120722872838,
+          "c1_modulus": 0.07521264624602247,
+          "c1_phase_deg": -89.77616251979866,
+          "c2_modulus": 0.009740923809689587,
+          "c2_phase_deg": -60.920527670584434
+        },
+        "simultaneous_intervals": {
+          "method": "clopper_pearson",
+          "alpha_familywise": 0.05,
+          "alpha_per_digit": 0.005555555555555556,
+          "z_bonferroni": 2.772921294608663,
+          "n_nominal": 8732.0,
+          "n_eff_used": 8732.0,
+          "lower": [
+            0.25729469878206723,
+            0.15383114740617748,
+            0.11641689483643608,
+            0.09633102722991388,
+            0.09028188361253162,
+            0.065336059510594,
+            0.05415474890581914,
+            0.044983696890631274,
+            0.04326422333192607
+          ],
+          "upper": [
+            0.28376366310554096,
+            0.17595432799584693,
+            0.13623021076846387,
+            0.1146569122203974,
+            0.10811677503324507,
+            0.08087452158361313,
+            0.06847981514594069,
+            0.05819507218756053,
+            0.056252298111411636
+          ],
+          "covers_benford": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "lower_wilson": [
+            0.25741095387034774,
+            0.15397153423456178,
+            0.11656541394291557,
+            0.09648363501186491,
+            0.09043566527616234,
+            0.06549424298927577,
+            0.054314546437088315,
+            0.04514453060883131,
+            0.04342521131267261
+          ],
+          "upper_wilson": [
+            0.28376265567619763,
+            0.1759817469386476,
+            0.13626841905931414,
+            0.11470111915618583,
+            0.10816282880463654,
+            0.08092848200255172,
+            0.06853754602770384,
+            0.05825606899384432,
+            0.05631393081007519
+          ],
+          "covers_benford_wilson": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "mantissa_mean": 0.5208210268052947,
+        "mantissa_mad_from_half": 0.2508478068117766
+      }
+    },
+    "size_law_fits": {
+      "table": [
+        {
+          "name": "lognormal_mixture_k3",
+          "family": "lognormal_mixture",
+          "params": {
+            "weights": [
+              0.37120451806519594,
+              0.14121141560098788,
+              0.4875840663338162
+            ],
+            "mus": [
+              4.956875664776377,
+              6.715701955051014,
+              7.016728717346697
+            ],
+            "sigmas": [
+              0.8428661916327863,
+              0.26569427726391603,
+              0.7069001148770059
+            ]
+          },
+          "n_params": 8.0,
+          "loglik": -13384.018595397658,
+          "aic": 26784.037190795316,
+          "bic": 26840.635188536675,
+          "n": 8732.0,
+          "digit_proportions": [
+            0.28455121413784784,
+            0.17056909701685927,
+            0.1286819443558737,
+            0.10310924734689926,
+            0.08469581562940058,
+            0.07081039102128776,
+            0.06016963636916731,
+            0.05192992939934934,
+            0.0454827247233151
+          ],
+          "mad_vs_benford": 0.004950157644958992,
+          "c1_modulus": 0.03576732354796224,
+          "c1_phase_deg": -102.74733898367703,
+          "ks_gof": null
+        },
+        {
+          "name": "lognormal_mixture_k2",
+          "family": "lognormal_mixture",
+          "params": {
+            "weights": [
+              0.32052217934239224,
+              0.6794778206576076
+            ],
+            "mus": [
+              4.797219570037816,
+              6.875836309933652
+            ],
+            "sigmas": [
+              0.7682313856382162,
+              0.6900312827055609
+            ]
+          },
+          "n_params": 5.0,
+          "loglik": -13450.598524153338,
+          "aic": 26911.197048306676,
+          "bic": 26946.570796895026,
+          "n": 8732.0,
+          "digit_proportions": [
+            0.3010246360170723,
+            0.1760717143626098,
+            0.12493163521478598,
+            0.09691199430456343,
+            0.0791873933103997,
+            0.06695403954080256,
+            0.057998724003591795,
+            0.051158135793564236,
+            0.045761727452610076
+          ],
+          "mad_vs_benford": 7.1123852209412705e-06,
+          "c1_modulus": 0.00046306999796757894,
+          "c1_phase_deg": -120.1643658910316,
+          "ks_gof": null
+        },
+        {
+          "name": "lognormal",
+          "family": "lognormal",
+          "params": {
+            "mu": 6.209593542444667,
+            "sigma": 1.205644340449926
+          },
+          "n_params": 2.0,
+          "loglik": -14023.178798261213,
+          "aic": 28050.357596522426,
+          "bic": 28064.507095957764,
+          "n": 8732.0,
+          "digit_proportions": [
+            0.3010299956641478,
+            0.17609125905573098,
+            0.12493873660825928,
+            0.0969100130079945,
+            0.07918124604757182,
+            0.06694678963057638,
+            0.05799194697766621,
+            0.051152522447374754,
+            0.0457574905606783
+          ],
+          "mad_vs_benford": 4.877348525056391e-14,
+          "c1_modulus": 0.0035422913764808386,
+          "c1_phase_deg": -107.53644129873591,
+          "ks_gof": null
+        },
+        {
+          "name": "dpln",
+          "family": "dpln",
+          "params": {
+            "alpha": 9.70779339758384,
+            "beta": 0.4055846064438451,
+            "mu_ln": 16.660685052343496,
+            "sigma_ln": 1.6366996855192673
+          },
+          "n_params": 4.0,
+          "loglik": -21143.415317110987,
+          "aic": 42294.83063422197,
+          "bic": 42323.12963309265,
+          "n": 8732.0,
+          "digit_proportions": [
+            0.3010404497423534,
+            0.17609204289197433,
+            0.12493711938893386,
+            0.09690807936602563,
+            0.07917946581930695,
+            0.06694519589536521,
+            0.057990474645599636,
+            0.0511511020788006,
+            0.04575607017164037
+          ],
+          "mad_vs_benford": 2.497314370064927e-06,
+          "c1_modulus": 1.5087019420085518e-05,
+          "c1_phase_deg": 72.97899114645163,
+          "ks_gof": null
+        },
+        {
+          "name": "truncated_power_law",
+          "family": "truncated_power_law",
+          "params": {
+            "alpha": 0.05000531921999756,
+            "L": 512.9999999999999,
+            "U": 1426106092.9999979
+          },
+          "n_params": 1.0,
+          "loglik": -148881.35242252142,
+          "aic": 297764.70484504284,
+          "bic": 297771.7795947605,
+          "n": 8732.0,
+          "digit_proportions": [
+            0.3132331687307844,
+            0.1782592886980218,
+            0.12430289285375962,
+            0.09519288239859092,
+            0.07699360566997497,
+            0.0645517564473889,
+            0.05551648085782156,
+            0.04866225303170346,
+            0.043287671311954434
+          ],
+          "mad_vs_benford": 0.0031936006020319378,
+          "c1_modulus": 0.018322263154989533,
+          "c1_phase_deg": 88.95015291757818,
+          "ks_gof": null
+        }
+      ],
+      "winner": "lognormal_mixture_k3",
+      "bic_ranking": [
+        "lognormal_mixture_k3",
+        "lognormal_mixture_k2",
+        "lognormal",
+        "dpln",
+        "truncated_power_law"
+      ],
+      "harmonic_budget": [
+        {
+          "weight": 0.37120451806519594,
+          "mu": 4.956875664776377,
+          "sigma": 0.8428661916327863,
+          "phase_deg": 344.4752393194957,
+          "attenuation_n1": 8.124624281634824e-07,
+          "v_modulus": 3.0158972409250436e-07,
+          "v_phase_deg": -15.524760680504368,
+          "cumulative_modulus": 3.0158972409250436e-07
+        },
+        {
+          "weight": 0.14121141560098788,
+          "mu": 6.715701955051014,
+          "sigma": 0.26569427726391603,
+          "phase_deg": 257.6527038183652,
+          "attenuation_n1": 0.24821528385991298,
+          "v_modulus": 0.03505083160765935,
+          "v_phase_deg": -102.3472961816349,
+          "cumulative_modulus": 0.03505084832570793
+        },
+        {
+          "weight": 0.4875840663338162,
+          "mu": 7.016728717346697,
+          "sigma": 0.7069001148770059,
+          "phase_deg": 6.0223382448108715,
+          "attenuation_n1": 5.2022405367268274e-05,
+          "v_modulus": 2.536529594943881e-05,
+          "v_phase_deg": 6.022338244810773,
+          "cumulative_modulus": 0.0350428630266844
+        }
+      ],
+      "periodise_vs_closed_form_max_abs_error": 2.914335439641036e-16,
+      "periodise_vs_closed_form_tolerance": 0.0001,
+      "periodise_vs_closed_form_passes": true,
+      "digit_resolution_transfer_gap": 0.00341252888220088,
+      "digit_resolution_note": "The transfer gap compares the exact mantissa coefficient with its reconstruction from the nine cell probabilities, assuming a uniform mantissa inside each bin. ~1e-3 here is the nine-cell resolution floor, not a modelling error.",
+      "excluded_family_note": "The discrete generalised beta / rank-size family (Fontanelli et al. 2016) is cited but not refitted: the rival set used here is {single lognormal, lognormal mixture, DPLN, truncated power law}. Excluding it is stated rather than silent."
+    },
+    "design_effect": {
+      "screen_fold_complex": {
+        "icc": 0.22062100575248855,
+        "n_groups": 236,
+        "mean_rows_per_group": 37.0,
+        "design_effect": 8.942356207089588,
+        "n_effective": 976.4764227438384,
+        "ss_between": 176.04274651357218,
+        "ss_within": 554.704268886682
+      },
+      "screen_fold_digit_indicator": {
+        "icc": 0.23291407936755276,
+        "n_groups": 236,
+        "mean_rows_per_group": 37.0,
+        "design_effect": 9.384906857231899,
+        "n_effective": 930.4301185761075,
+        "ss_between": 13386.886280348142,
+        "ss_within": 39558.54054054055
+      },
+      "reserved_fold_complex": {
+        "icc": 0.22307700107637427,
+        "n_groups": 236,
+        "mean_rows_per_group": 37.0,
+        "design_effect": 9.030772038749474,
+        "n_effective": 966.9162240539906,
+        "ss_between": 177.97735367367406,
+        "ss_within": 553.559724741632
+      },
+      "within_country_movement": {
+        "detrended_within_country_sd_decades": {
+          "n": 236,
+          "mean": 0.032597690389544326,
+          "sd": 0.02387868317870085,
+          "p2_5": 0.0068944468087443365,
+          "p5": 0.007875484693535948,
+          "p50": 0.027981953227980444,
+          "p95": 0.07669002325250603,
+          "p97_5": 0.09916785950238349,
+          "min": 0.005774887262886041,
+          "max": 0.14801718968787742
+        },
+        "median_per_year_step_decades": 0.008188694988845224,
+        "marginal_sd_decades": 1.2058270830811249,
+        "ratio_within_to_marginal": 0.02320561017462061,
+        "interpretation": "A country's mantissa moves by ~0.03 decades detrended against a marginal spread of ~1.2 decades, so its years are near-replicates of one draw from the size law. Nominal n therefore overstates independent information by roughly the number of years per country."
+      }
+    },
+    "matched_null_calibration": {
+      "envelopes": {
+        "matched_law_reserved_fold": {
+          "M": {
+            "observed": 0.014250588401749212,
+            "percentile": 3.55,
+            "two_sided_p": 0.071,
+            "null_mean": 0.03168724647027478,
+            "null_p2_5": 0.013351423204694617,
+            "null_p97_5": 0.062003739271498735
+          },
+          "abs_c1": {
+            "observed": 0.07521264624602247,
+            "percentile": 65.625,
+            "two_sided_p": 0.6875,
+            "null_mean": 0.06418073771662543,
+            "null_p2_5": 0.011294834241041725,
+            "null_p97_5": 0.13621202147403363
+          },
+          "abs_c2": {
+            "observed": 0.009740923809689587,
+            "percentile": 2.375,
+            "two_sided_p": 0.0475,
+            "null_mean": 0.054548861628141966,
+            "null_p2_5": 0.009997372017731597,
+            "null_p97_5": 0.11710238725717458
+          },
+          "projection_P": {
+            "observed": 3.7825620873136776,
+            "percentile": 92.5,
+            "two_sided_p": 0.15,
+            "null_mean": -0.029517367080240574,
+            "null_p2_5": -5.522469442949406,
+            "null_p97_5": 5.347994083120461
+          },
+          "cosine_with_observed": {
+            "observed": 1.0,
+            "null_mean": -0.0019941313209639175,
+            "null_p95": 0.7593933819534979,
+            "null_p97_5": 0.8303063927885046,
+            "self_consistency": 1.0000000000000002
+          },
+          "sign_prob_positive": [
+            0.48975,
+            0.505,
+            0.48325,
+            0.47775,
+            0.482,
+            0.50225,
+            0.4815,
+            0.48225,
+            0.47625
+          ]
+        },
+        "matched_law_screen_fold": {
+          "M": {
+            "observed": 0.012448603052185925,
+            "percentile": 2.075,
+            "two_sided_p": 0.042,
+            "null_mean": 0.03194228127767254,
+            "null_p2_5": 0.0130090552487057,
+            "null_p97_5": 0.06405277808530659
+          },
+          "abs_c1": {
+            "observed": 0.07492631043347074,
+            "percentile": 62.775000000000006,
+            "two_sided_p": 0.7445,
+            "null_mean": 0.06587600510773188,
+            "null_p2_5": 0.013536644034647556,
+            "null_p97_5": 0.13748363709354117
+          },
+          "abs_c2": {
+            "observed": 0.010120375009232756,
+            "percentile": 2.9250000000000003,
+            "two_sided_p": 0.0585,
+            "null_mean": 0.054219770304855835,
+            "null_p2_5": 0.009173476887119758,
+            "null_p97_5": 0.11684403762248571
+          },
+          "projection_P": {
+            "observed": 3.662660174746875,
+            "percentile": 90.725,
+            "two_sided_p": 0.1855,
+            "null_mean": 0.05429001075455791,
+            "null_p2_5": -5.325068030766568,
+            "null_p97_5": 5.359655854643083
+          },
+          "cosine_with_observed": {
+            "observed": 1.0,
+            "null_mean": 0.009202234904407384,
+            "null_p95": 0.7569383570894639,
+            "null_p97_5": 0.836567702588162,
+            "self_consistency": 1.0000000000000002
+          },
+          "sign_prob_positive": [
+            0.4845,
+            0.49475,
+            0.49025,
+            0.49875,
+            0.49175,
+            0.494,
+            0.48875,
+            0.4885,
+            0.487
+          ]
+        },
+        "benford_cluster_reserved_fold": {
+          "M": {
+            "observed": 0.014250588401749212,
+            "percentile": 3.34,
+            "two_sided_p": 0.0668,
+            "null_mean": 0.03336206443024903,
+            "null_p2_5": 0.013351965129654156,
+            "null_p97_5": 0.05939005063420567
+          },
+          "abs_c1": {
+            "observed": 0.07521264624602247,
+            "percentile": 41.38,
+            "two_sided_p": 0.8276,
+            "null_mean": 0.08100151295968674,
+            "null_p2_5": 0.02869155717090667,
+            "null_p97_5": 0.13279560819190148
+          },
+          "abs_c2": {
+            "observed": 0.009740923809689587,
+            "percentile": 8.260000000000002,
+            "two_sided_p": 0.1652,
+            "null_mean": 0.02933945801390008,
+            "null_p2_5": 0.005428106137082863,
+            "null_p97_5": 0.06438594784051853
+          },
+          "cosine_with_observed": {
+            "observed": 1.0,
+            "null_mean": 0.8477475549283694,
+            "null_p95": 0.9754173124137615,
+            "null_p97_5": 0.9810141221849783,
+            "self_consistency": 1.0000000000000002
+          },
+          "sign_prob_positive": [
+            0.0203,
+            0.1532,
+            0.5489,
+            0.8364,
+            0.9952,
+            0.8269,
+            0.6678,
+            0.4969,
+            0.7764
+          ]
+        },
+        "benford_cluster_screen_fold": {
+          "M": {
+            "observed": 0.012448603052185925,
+            "percentile": 2.68,
+            "two_sided_p": 0.0536,
+            "null_mean": 0.03172583234006486,
+            "null_p2_5": 0.012320861811147638,
+            "null_p97_5": 0.05756057285133801
+          },
+          "abs_c1": {
+            "observed": 0.07492631043347074,
+            "percentile": 40.94,
+            "two_sided_p": 0.8188,
+            "null_mean": 0.08115444198177625,
+            "null_p2_5": 0.02947587764177859,
+            "null_p97_5": 0.1332214658352767
+          },
+          "abs_c2": {
+            "observed": 0.010120375009232756,
+            "percentile": 8.870000000000001,
+            "two_sided_p": 0.1774,
+            "null_mean": 0.02929925546279551,
+            "null_p2_5": 0.005254570686856108,
+            "null_p97_5": 0.06241736897502011
+          },
+          "cosine_with_observed": {
+            "observed": 1.0,
+            "null_mean": 0.8331507531699499,
+            "null_p95": 0.9744564021305832,
+            "null_p97_5": 0.9810384732009071,
+            "self_consistency": 1.0000000000000002
+          },
+          "sign_prob_positive": [
+            0.0273,
+            0.1304,
+            0.5282,
+            0.8669,
+            0.9828,
+            0.895,
+            0.6514,
+            0.5131,
+            0.7316
+          ]
+        },
+        "entity_resample_screen_fold": {
+          "M": {
+            "observed": 0.012448603052185925,
+            "percentile": 3.0300000000000002,
+            "two_sided_p": 0.0606,
+            "null_mean": 0.03170762943400211,
+            "null_p2_5": 0.011976646972514347,
+            "null_p97_5": 0.057672231119775985
+          },
+          "abs_c1": {
+            "observed": 0.07492631043347074,
+            "percentile": 41.74,
+            "two_sided_p": 0.8348,
+            "null_mean": 0.08086631042573093,
+            "null_p2_5": 0.030097636793151406,
+            "null_p97_5": 0.134384008776459
+          },
+          "cosine_with_observed": {
+            "observed": 1.0,
+            "null_mean": 0.8349830815497516,
+            "null_p95": 0.9748272000826251,
+            "null_p97_5": 0.9814023430033132,
+            "self_consistency": 1.0000000000000002
+          },
+          "sign_prob_positive": [
+            0.0271,
+            0.1241,
+            0.5277,
+            0.8776,
+            0.9862,
+            0.8971,
+            0.6517,
+            0.504,
+            0.7365
+          ]
+        },
+        "law_iid_reserved_fold": {
+          "M": {
+            "observed": 0.014250588401749212,
+            "percentile": 99.7,
+            "two_sided_p": 0.006,
+            "null_mean": 0.00625410399013676,
+            "null_p2_5": 0.003011361314899751,
+            "null_p97_5": 0.01153497914871903
+          },
+          "abs_c1": {
+            "observed": 0.07521264624602247,
+            "percentile": 100.0,
+            "two_sided_p": 0.0,
+            "null_mean": 0.036131725341388005,
+            "null_p2_5": 0.021814689133035112,
+            "null_p97_5": 0.050165514282532304
+          },
+          "abs_c2": {
+            "observed": 0.009740923809689587,
+            "percentile": 53.5,
+            "two_sided_p": 0.93,
+            "null_mean": 0.0097141484312484,
+            "null_p2_5": 0.0017041198793885574,
+            "null_p97_5": 0.02103994316970543
+          },
+          "cosine_with_observed": {
+            "observed": 1.0,
+            "null_mean": 0.012181112590698142,
+            "null_p95": 0.7183117452781261,
+            "null_p97_5": 0.7840126465892773,
+            "self_consistency": 1.0000000000000002
+          },
+          "sign_prob_positive": [
+            0.493,
+            0.495,
+            0.493,
+            0.509,
+            0.501,
+            0.486,
+            0.505,
+            0.503,
+            0.488
+          ]
+        }
+      },
+      "nulls": {
+        "matched_law_reserved": {
+          "M": {
+            "n": 4000,
+            "mean": 0.03168724647027478,
+            "sd": 0.012934795427589697,
+            "p2_5": 0.013351423204694617,
+            "p5": 0.015080392227479766,
+            "p50": 0.02927152477392105,
+            "p95": 0.055584844123095445,
+            "p97_5": 0.062003739271498735,
+            "min": 0.0066784624825795705,
+            "max": 0.11203605109348519
+          },
+          "abs_c1": {
+            "n": 4000,
+            "mean": 0.06418073771662543,
+            "sd": 0.03293816497653458,
+            "p2_5": 0.011294834241041725,
+            "p5": 0.016450744664569392,
+            "p50": 0.06062349238236289,
+            "p95": 0.12391211179512751,
+            "p97_5": 0.13621202147403363,
+            "min": 0.000634083390736694,
+            "max": 0.1836247879692762
+          },
+          "abs_c2": {
+            "n": 4000,
+            "mean": 0.054548861628141966,
+            "sd": 0.02842090496822161,
+            "p2_5": 0.009997372017731597,
+            "p5": 0.013702745503172277,
+            "p50": 0.05101154300593218,
+            "p95": 0.10546393435068073,
+            "p97_5": 0.11710238725717458,
+            "min": 0.0009885128363469596,
+            "max": 0.1919764435135355
+          },
+          "projection_P": {
+            "n": 4000,
+            "mean": -0.029517367080240574,
+            "sd": 2.713399403278417,
+            "p2_5": -5.522469442949406,
+            "p5": -4.5655068708983375,
+            "p50": 0.034996159083575666,
+            "p95": 4.34457252469878,
+            "p97_5": 5.347994083120461,
+            "min": -10.777775212500888,
+            "max": 9.337398204634994
+          }
+        },
+        "matched_law_screen": {
+          "M": {
+            "n": 4000,
+            "mean": 0.03194228127767254,
+            "sd": 0.013173446305743608,
+            "p2_5": 0.0130090552487057,
+            "p5": 0.015159579010832702,
+            "p50": 0.029472011550483,
+            "p95": 0.05615745062790534,
+            "p97_5": 0.06405277808530659,
+            "min": 0.00601968186852106,
+            "max": 0.10585768001425913
+          },
+          "abs_c1": {
+            "n": 4000,
+            "mean": 0.06587600510773188,
+            "sd": 0.03294990279872608,
+            "p2_5": 0.013536644034647556,
+            "p5": 0.018086190697102107,
+            "p50": 0.06299795231857133,
+            "p95": 0.12478695456940114,
+            "p97_5": 0.13748363709354117,
+            "min": 0.0011068922563688493,
+            "max": 0.21618109515384215
+          },
+          "abs_c2": {
+            "n": 4000,
+            "mean": 0.054219770304855835,
+            "sd": 0.028373396465568967,
+            "p2_5": 0.009173476887119758,
+            "p5": 0.013132854735938488,
+            "p50": 0.051426364194267375,
+            "p95": 0.10534042181464047,
+            "p97_5": 0.11684403762248571,
+            "min": 0.0008147542628523766,
+            "max": 0.19814621385685363
+          },
+          "projection_P": {
+            "n": 4000,
+            "mean": 0.05429001075455791,
+            "sd": 2.7366272944174552,
+            "p2_5": -5.325068030766568,
+            "p5": -4.493950568945997,
+            "p50": 0.1085158173246512,
+            "p95": 4.40337823543349,
+            "p97_5": 5.359655854643083,
+            "min": -9.63097197858161,
+            "max": 10.488177819482605
+          }
+        },
+        "benford_cluster_reserved": {
+          "M": {
+            "n": 10000,
+            "mean": 0.03336206443024903,
+            "sd": 0.012072038685840563,
+            "p2_5": 0.013351965129654156,
+            "p5": 0.015642913666729708,
+            "p50": 0.03201945970429271,
+            "p95": 0.05504396726269848,
+            "p97_5": 0.05939005063420567,
+            "min": 0.005448851014030538,
+            "max": 0.08378308773910717
+          },
+          "abs_c1": {
+            "n": 10000,
+            "mean": 0.08100151295968674,
+            "sd": 0.02679541878840117,
+            "p2_5": 0.02869155717090667,
+            "p5": 0.03650675755482208,
+            "p50": 0.08080037148191752,
+            "p95": 0.12501799764675878,
+            "p97_5": 0.13279560819190148,
+            "min": 0.0036358397822298097,
+            "max": 0.1784437561165075
+          },
+          "abs_c2": {
+            "n": 10000,
+            "mean": 0.02933945801390008,
+            "sd": 0.015480896781917023,
+            "p2_5": 0.005428106137082863,
+            "p5": 0.007797232132324408,
+            "p50": 0.027392627194388904,
+            "p95": 0.05752839336526755,
+            "p97_5": 0.06438594784051853,
+            "min": 0.00015707179886362713,
+            "max": 0.0982267734827777
+          }
+        },
+        "benford_cluster_screen": {
+          "M": {
+            "n": 10000,
+            "mean": 0.03172583234006486,
+            "sd": 0.011882594584766898,
+            "p2_5": 0.012320861811147638,
+            "p5": 0.014383179356147968,
+            "p50": 0.030416161490824985,
+            "p95": 0.05297685778033484,
+            "p97_5": 0.05756057285133801,
+            "min": 0.003016052907634743,
+            "max": 0.08721872676796655
+          },
+          "abs_c1": {
+            "n": 10000,
+            "mean": 0.08115444198177625,
+            "sd": 0.026661963135330098,
+            "p2_5": 0.02947587764177859,
+            "p5": 0.03718155851409575,
+            "p50": 0.08089374574454873,
+            "p95": 0.12543732456125478,
+            "p97_5": 0.1332214658352767,
+            "min": 0.0025883005699738116,
+            "max": 0.18554203171828
+          },
+          "abs_c2": {
+            "n": 10000,
+            "mean": 0.02929925546279551,
+            "sd": 0.015071107267438507,
+            "p2_5": 0.005254570686856108,
+            "p5": 0.007482892890117152,
+            "p50": 0.027674744029581373,
+            "p95": 0.05654336281006251,
+            "p97_5": 0.06241736897502011,
+            "min": 0.0003518726584352857,
+            "max": 0.0973294173991416
+          }
+        },
+        "entity_resample_screen": {
+          "M": {
+            "n": 10000,
+            "mean": 0.03170762943400211,
+            "sd": 0.011842004249860049,
+            "p2_5": 0.011976646972514347,
+            "p5": 0.014272660796405016,
+            "p50": 0.030530682791786945,
+            "p95": 0.0532059003822588,
+            "p97_5": 0.057672231119775985,
+            "min": 0.003961218450771881,
+            "max": 0.07954579960351396
+          },
+          "abs_c1": {
+            "n": 10000,
+            "mean": 0.08086631042573093,
+            "sd": 0.02668607751491825,
+            "p2_5": 0.030097636793151406,
+            "p5": 0.037477153306730945,
+            "p50": 0.08080799053042845,
+            "p95": 0.12520906249565783,
+            "p97_5": 0.134384008776459,
+            "min": 0.0007683110121425441,
+            "max": 0.1902102795179339
+          }
+        },
+        "law_iid_reserved": {
+          "M": {
+            "n": 1000,
+            "mean": 0.00625410399013676,
+            "sd": 0.0021859817305560033,
+            "p2_5": 0.003011361314899751,
+            "p5": 0.0033527371308632206,
+            "p50": 0.005989326402692674,
+            "p95": 0.01038165479284428,
+            "p97_5": 0.01153497914871903,
+            "min": 0.0019810808690234327,
+            "max": 0.01503650917868904
+          },
+          "abs_c1": {
+            "n": 1000,
+            "mean": 0.036131725341388005,
+            "sd": 0.007458597515466924,
+            "p2_5": 0.021814689133035112,
+            "p5": 0.024140056478586164,
+            "p50": 0.036025220362311906,
+            "p95": 0.04821739445793519,
+            "p97_5": 0.050165514282532304,
+            "min": 0.00818310078527576,
+            "max": 0.0623393641759819
+          },
+          "abs_c2": {
+            "n": 1000,
+            "mean": 0.0097141484312484,
+            "sd": 0.005038881341900178,
+            "p2_5": 0.0017041198793885574,
+            "p5": 0.0025127207782912318,
+            "p50": 0.009308072202120012,
+            "p95": 0.01922385993414735,
+            "p97_5": 0.02103994316970543,
+            "min": 0.00029432955157705765,
+            "max": 0.028266684206095828
+          }
+        }
+      }
+    },
+    "reserved_fold_confirmation": {
+      "M_reserved": 0.014250588401749212,
+      "M_screen": 0.012448603052185925,
+      "replication_attenuation_ratio": 1.1447540211547564,
+      "attenuation_limit": 1.25,
+      "M_matched_null_percentile": 3.55,
+      "M_matched_null_in_band_2_5_97_5": true,
+      "margin_threshold_probability_units": 0.05,
+      "passes_margin": true,
+      "passes_attenuation": true,
+      "per_digit_abs_gap": [
+        0.0141664225666156,
+        0.0058874662335335615,
+        0.0025939919967349068,
+        0.002135828237159368,
+        0.014250588401749212,
+        0.00202515639053083,
+        0.0008702170435674547,
+        0.000624386568382776,
+        0.003990477292259799
+      ],
+      "largest_gap_digit": 5,
+      "largest_gap_value": 0.014250588401749212,
+      "n_reserved": 8732,
+      "n_screen": 8732,
+      "decision": "SURVIVOR CONFIRMED",
+      "rule_invoked": "M_reserved < 0.05 in probability units AND M_reserved's percentile in the matched-null envelope within [2.5, 97.5] AND M_reserved / M_screen <= 1.25",
+      "parameters_refit_by_evaluation": true,
+      "provenance_note": "The screen JSON was not staged, so the even-fold parameters were refitted here under the identical recipe. This is a refit-transfer, not a frozen carry-over: the even-fold M and the reserved-fold M are computed against the same parameter vector, but that vector is estimated from the even fold only and never sees an odd year."
+    },
+    "entity_disjoint_sensitivity": {
+      "design": "Countries assigned to 4 folds by a hash of their ISO3 code (population-independent). Each fold fits the winning family on ITS OWN countries' even years and computes the confirmation margin on ITS OWN countries' odd years. No country appears in a fold's training and test halves.",
+      "n_splits": 4,
+      "folds": [
+        {
+          "fold": 0,
+          "status": "run",
+          "n_train_rows": 1702,
+          "n_test_rows": 1702,
+          "n_train_countries": 46,
+          "n_test_countries": 46,
+          "M_train": 0.03808592140770278,
+          "M_test": 0.03867346547350772,
+          "attenuation_ratio": 1.0154268045537191,
+          "M_test_matched_null_percentile": 9.833333333333332,
+          "passes_margin": true,
+          "passes_attenuation": true,
+          "passes_envelope": true,
+          "confirmed": true
+        },
+        {
+          "fold": 1,
+          "status": "run",
+          "n_train_rows": 2886,
+          "n_test_rows": 2886,
+          "n_train_countries": 78,
+          "n_test_countries": 78,
+          "M_train": 0.05743557465056995,
+          "M_test": 0.05916807638307167,
+          "attenuation_ratio": 1.0301642621849267,
+          "M_test_matched_null_percentile": 62.0,
+          "passes_margin": false,
+          "passes_attenuation": true,
+          "passes_envelope": true,
+          "confirmed": false
+        },
+        {
+          "fold": 2,
+          "status": "run",
+          "n_train_rows": 2775,
+          "n_test_rows": 2775,
+          "n_train_countries": 75,
+          "n_test_countries": 75,
+          "M_train": 0.03720191437353654,
+          "M_test": 0.03936407653569868,
+          "attenuation_ratio": 1.05811964783458,
+          "M_test_matched_null_percentile": 21.666666666666668,
+          "passes_margin": true,
+          "passes_attenuation": true,
+          "passes_envelope": true,
+          "confirmed": true
+        },
+        {
+          "fold": 3,
+          "status": "run",
+          "n_train_rows": 1369,
+          "n_test_rows": 1369,
+          "n_train_countries": 37,
+          "n_test_countries": 37,
+          "M_train": 0.023411177523770074,
+          "M_test": 0.024872097903609378,
+          "attenuation_ratio": 1.0624026868514405,
+          "M_test_matched_null_percentile": 0.0,
+          "passes_margin": true,
+          "passes_attenuation": true,
+          "passes_envelope": false,
+          "confirmed": false
+        }
+      ],
+      "n_folds_run": 4,
+      "n_folds_confirmed": 2,
+      "M_test": {
+        "n": 4,
+        "mean": 0.040519429073971866,
+        "sd": 0.014110911148423711,
+        "p2_5": 0.025907200471351755,
+        "p5": 0.02694230303909413,
+        "p50": 0.0390187710046032,
+        "p95": 0.056197476405965716,
+        "p97_5": 0.057682776394518694,
+        "min": 0.024872097903609378,
+        "max": 0.05916807638307167
+      },
+      "attenuation_ratios": {
+        "n": 4,
+        "mean": 1.0415283503561665,
+        "sd": 0.022519933905883662,
+        "p2_5": 1.0165321138760597,
+        "p5": 1.0176374231984002,
+        "p50": 1.0441419550097533,
+        "p95": 1.0617602309989114,
+        "p97_5": 1.062081458925176,
+        "min": 1.0154268045537191,
+        "max": 1.0624026868514405
+      },
+      "status_label": "sensitivity check, NOT the primary decision -- the pre-registered split is year parity",
+      "interpretation": "If the confirmation holds here as well, the size law transfers to countries it was not fitted on, which the year-parity split alone cannot show because all 236 countries sit on both sides of it. If it does not hold, the primary confirmation rests on within-country mantissa stability and must be reported with that limitation stated."
+    },
+    "projected_residual_test": {
+      "direction": [
+        -0.8185879524773858,
+        -0.2743149006156101,
+        0.18594486254487588,
+        0.3079486511980955,
+        0.2739377432476414,
+        0.1919254494979133,
+        0.10817731258083471,
+        0.038617901696432706,
+        -0.013649067672788682
+      ],
+      "direction_norm": 0.02013074035143291,
+      "P": 3.7825620873136776,
+      "P_percentile": 92.5,
+      "P_two_sided_p": 0.15,
+      "P_null": {
+        "n": 4000,
+        "mean": -0.029517367080240556,
+        "sd": 2.713399403278417,
+        "p2_5": -5.522469442949406,
+        "p5": -4.5655068708983375,
+        "p50": 0.03499615908357567,
+        "p95": 4.34457252469878,
+        "p97_5": 5.347994083120461,
+        "min": -10.777775212500888,
+        "max": 9.337398204634994
+      },
+      "cosine": 0.9490392106297231,
+      "cosine_percentile": 99.85000000000001,
+      "cosine_null_mean": -0.0032355200087581196,
+      "cosine_null_p97_5": 0.848811253652967,
+      "cosine_null": {
+        "n": 4000,
+        "mean": -0.0032355200087581196,
+        "sd": 0.5066871551547255,
+        "p2_5": -0.8682873236022972,
+        "p5": -0.8095279395627951,
+        "p50": 0.008733198250015043,
+        "p95": 0.788326078832135,
+        "p97_5": 0.848811253652967,
+        "min": -0.99067119952927,
+        "max": 0.9668808091413987
+      },
+      "note": "The null means of both statistics are estimated from the matched envelope; assuming 0 (for P) or 4.5/9 (for the cosine) would misstate the test."
+    },
+    "width_dose_response": {
+      "status": "run",
+      "component_sigmas": [
+        0.8428661916327863,
+        0.26569427726391603,
+        0.7069001148770059
+      ],
+      "component_weights": [
+        0.37120451806519594,
+        0.14121141560098788,
+        0.4875840663338162
+      ],
+      "narrow_components": [
+        1
+      ],
+      "n_strata": 5,
+      "strata": [
+        {
+          "stratum": 0,
+          "n": 1747,
+          "n_countries": 65,
+          "mean_narrow_mass": 2.6646715392666566e-11,
+          "mean_log10_pop": 4.516243396225223,
+          "residuals_pp": [
+            -10.526582852030634,
+            -5.703001120221816,
+            -2.362219396376644,
+            0.5551349327375749,
+            6.50660350056093,
+            6.356265513183669,
+            2.386266092156914,
+            1.86814786974384,
+            0.9193854602461665
+          ],
+          "projection_P": 13.233131026013984,
+          "cosine": 0.8506773268528037,
+          "abs_c1": 0.26937929907513514,
+          "mad_vs_model": 0.037401818417861415
+        },
+        {
+          "stratum": 1,
+          "n": 1746,
+          "n_countries": 83,
+          "mean_narrow_mass": 0.00016081656548554962,
+          "mean_log10_pop": 6.280471167163979,
+          "residuals_pp": [
+            4.7767255195125315,
+            -0.25517401553376007,
+            0.22090297147241145,
+            -1.3863048517792964,
+            3.0784389691206795,
+            -1.9982299367153886,
+            -2.2482210437022356,
+            -1.9651949709695151,
+            -0.22294264140542974
+          ],
+          "projection_P": -4.082272676918722,
+          "cosine": -0.5936398402414416,
+          "abs_c1": 0.03323876950988616,
+          "mad_vs_model": 0.020552506380927593
+        },
+        {
+          "stratum": 2,
+          "n": 1746,
+          "n_countries": 118,
+          "mean_narrow_mass": 0.03446050503886328,
+          "mean_log10_pop": 6.853434125364605,
+          "residuals_pp": [
+            -2.4970430944622644,
+            5.815845457547569,
+            1.4236521123658834,
+            0.9046458927796958,
+            -2.190747743365002,
+            -0.4518381841380689,
+            -0.8163768283528654,
+            -1.1060884417598928,
+            -1.0820491706150515
+          ],
+          "projection_P": 0.18887456096554875,
+          "cosine": 0.02645584331063085,
+          "abs_c1": 0.12539770303395453,
+          "mad_vs_model": 0.017115812128741536
+        },
+        {
+          "stratum": 3,
+          "n": 1746,
+          "n_countries": 119,
+          "mean_narrow_mass": 0.25639965616915944,
+          "mean_log10_pop": 6.74849339626193,
+          "residuals_pp": [
+            23.047057707370495,
+            8.622260119632335,
+            -12.493873660829994,
+            -9.691001300805642,
+            -7.918124604762482,
+            -6.694678963061322,
+            -5.799194697768673,
+            4.1058245021118145,
+            6.82173089811347
+          ],
+          "projection_P": -30.554606298379824,
+          "cosine": -0.938449599988507,
+          "abs_c1": 0.5447945771876022,
+          "mad_vs_model": 0.09943711882725077
+        },
+        {
+          "stratum": 4,
+          "n": 1747,
+          "n_countries": 99,
+          "mean_narrow_mass": 0.41391752784332336,
+          "mean_log10_pop": 6.687615273171227,
+          "residuals_pp": [
+            -30.10299956639812,
+            -14.174666832872074,
+            13.779738245294789,
+            13.77780236261737,
+            10.398990449616454,
+            5.726614683189394,
+            7.995882577560462,
+            -2.825612862940762,
+            -4.575749056067514
+          ],
+          "projection_P": 40.10146992066515,
+          "cosine": 0.9667609945601822,
+          "abs_c1": 0.7024876722606787,
+          "mad_vs_model": 0.11006488460720827
+        }
+      ],
+      "spearman_rho_narrow_mass_vs_projection": 0.09999999999999999,
+      "spearman_p": 0.8728885715695384,
+      "interpretation": "A positive rho means strata dominated by narrow mixture components show a larger projected residual in the predicted direction, which is the graded signature the selectivity principle requires. Five strata over the same data are graded evidence, not five independent tests."
+    },
+    "per_year_series": {
+      "per_year_table": [
+        {
+          "year": 1951,
+          "n": 236,
+          "abs_c1_observed": 0.07648898082533169,
+          "phase_observed_deg": -126.43500207292313,
+          "abs_c1_ci_low": 0.018161063717094153,
+          "abs_c1_ci_high": 0.1764807660572436,
+          "mean_log10_pop": 5.912826385677483,
+          "mad_observed_vs_benford": 0.020150078988850913,
+          "abs_c1_predicted": 0.026544391254037153,
+          "phase_predicted_deg": -163.67357160593343,
+          "mad_predicted_vs_benford": 0.020150078988850913,
+          "growth_sd": 0.005886693842589318
+        },
+        {
+          "year": 1953,
+          "n": 236,
+          "abs_c1_observed": 0.07931297013964107,
+          "phase_observed_deg": -125.03777819520833,
+          "abs_c1_ci_low": 0.022577352108199097,
+          "abs_c1_ci_high": 0.17509220746612186,
+          "mean_log10_pop": 5.929696107693413,
+          "mad_observed_vs_benford": 0.01838853184205118,
+          "abs_c1_predicted": 0.028866229316124203,
+          "phase_predicted_deg": -159.14252701897462,
+          "mad_predicted_vs_benford": 0.01838853184205118,
+          "growth_sd": 0.00544560855572458
+        },
+        {
+          "year": 1955,
+          "n": 236,
+          "abs_c1_observed": 0.08049527108023924,
+          "phase_observed_deg": -121.77442316681757,
+          "abs_c1_ci_low": 0.02622237831784674,
+          "abs_c1_ci_high": 0.18037184870243894,
+          "mean_log10_pop": 5.947491759828441,
+          "mad_observed_vs_benford": 0.019397943610019144,
+          "abs_c1_predicted": 0.031088217011558155,
+          "phase_predicted_deg": -154.56954292907545,
+          "mad_predicted_vs_benford": 0.019397943610019144,
+          "growth_sd": 0.005956366507057984
+        },
+        {
+          "year": 1957,
+          "n": 236,
+          "abs_c1_observed": 0.08407936357869587,
+          "phase_observed_deg": -118.76459894916543,
+          "abs_c1_ci_low": 0.029449416336536027,
+          "abs_c1_ci_high": 0.19352525807923596,
+          "mean_log10_pop": 5.965868749353994,
+          "mad_observed_vs_benford": 0.021966161176161084,
+          "abs_c1_predicted": 0.033204280788506874,
+          "phase_predicted_deg": -150.36950014971654,
+          "mad_predicted_vs_benford": 0.021966161176161084,
+          "growth_sd": 0.006242724109974273
+        },
+        {
+          "year": 1959,
+          "n": 236,
+          "abs_c1_observed": 0.08867532454883346,
+          "phase_observed_deg": -115.56792610660324,
+          "abs_c1_ci_low": 0.03148436714145453,
+          "abs_c1_ci_high": 0.1854241091117994,
+          "mean_log10_pop": 5.984659600563751,
+          "mad_observed_vs_benford": 0.02479101993322323,
+          "abs_c1_predicted": 0.03525245859929318,
+          "phase_predicted_deg": -146.35352151767876,
+          "mad_predicted_vs_benford": 0.02479101993322323,
+          "growth_sd": 0.006411735400175015
+        },
+        {
+          "year": 1961,
+          "n": 236,
+          "abs_c1_observed": 0.09636885077952169,
+          "phase_observed_deg": -112.19124112539107,
+          "abs_c1_ci_low": 0.034093759588656146,
+          "abs_c1_ci_high": 0.19504262684489326,
+          "mean_log10_pop": 6.003758352960305,
+          "mad_observed_vs_benford": 0.023096629770488087,
+          "abs_c1_predicted": 0.03712240869918209,
+          "phase_predicted_deg": -142.5271108800479,
+          "mad_predicted_vs_benford": 0.023096629770488087,
+          "growth_sd": 0.006781172287037066
+        },
+        {
+          "year": 1963,
+          "n": 236,
+          "abs_c1_observed": 0.1017215105303855,
+          "phase_observed_deg": -106.82794193755457,
+          "abs_c1_ci_low": 0.04044743575904213,
+          "abs_c1_ci_high": 0.19681008017730972,
+          "mean_log10_pop": 6.023270511756912,
+          "mad_observed_vs_benford": 0.02644647641563006,
+          "abs_c1_predicted": 0.03845039254245441,
+          "phase_predicted_deg": -139.0059995735348,
+          "mad_predicted_vs_benford": 0.02644647641563006,
+          "growth_sd": 0.0074415136270131335
+        },
+        {
+          "year": 1965,
+          "n": 236,
+          "abs_c1_observed": 0.11183961708646924,
+          "phase_observed_deg": -101.71142100868384,
+          "abs_c1_ci_low": 0.04374422158365578,
+          "abs_c1_ci_high": 0.20876900161291756,
+          "mean_log10_pop": 6.044029309929676,
+          "mad_observed_vs_benford": 0.02463102942653588,
+          "abs_c1_predicted": 0.04194755603946711,
+          "phase_predicted_deg": -132.42554805811676,
+          "mad_predicted_vs_benford": 0.02463102942653588,
+          "growth_sd": 0.00960569217625791
+        },
+        {
+          "year": 1967,
+          "n": 236,
+          "abs_c1_observed": 0.11046286952156015,
+          "phase_observed_deg": -96.95803594508294,
+          "abs_c1_ci_low": 0.03910935588770254,
+          "abs_c1_ci_high": 0.21555330942730647,
+          "mean_log10_pop": 6.062553194654069,
+          "mad_observed_vs_benford": 0.020312335021617618,
+          "abs_c1_predicted": 0.04360139443772092,
+          "phase_predicted_deg": -130.06627956067743,
+          "mad_predicted_vs_benford": 0.020312335021617618,
+          "growth_sd": 0.008681680365980724
+        },
+        {
+          "year": 1969,
+          "n": 236,
+          "abs_c1_observed": 0.10898241961079408,
+          "phase_observed_deg": -94.09599633953523,
+          "abs_c1_ci_low": 0.030942817155744713,
+          "abs_c1_ci_high": 0.2115235540362956,
+          "mean_log10_pop": 6.08118934042621,
+          "mad_observed_vs_benford": 0.024562602046039297,
+          "abs_c1_predicted": 0.04570929193684479,
+          "phase_predicted_deg": -127.06962458381575,
+          "mad_predicted_vs_benford": 0.024562602046039297,
+          "growth_sd": 0.00918215654763813
+        },
+        {
+          "year": 1971,
+          "n": 236,
+          "abs_c1_observed": 0.10654536823288596,
+          "phase_observed_deg": -91.41130378239119,
+          "abs_c1_ci_low": 0.03767583175181712,
+          "abs_c1_ci_high": 0.19262513477714954,
+          "mean_log10_pop": 6.100200335839049,
+          "mad_observed_vs_benford": 0.018333996801540742,
+          "abs_c1_predicted": 0.04864464558665817,
+          "phase_predicted_deg": -123.15316126615444,
+          "mad_predicted_vs_benford": 0.018333996801540742,
+          "growth_sd": 0.008257396133065305
+        },
+        {
+          "year": 1973,
+          "n": 236,
+          "abs_c1_observed": 0.10091539557533363,
+          "phase_observed_deg": -89.7387096655848,
+          "abs_c1_ci_low": 0.03133820153255474,
+          "abs_c1_ci_high": 0.1984324962900975,
+          "mean_log10_pop": 6.118017586414537,
+          "mad_observed_vs_benford": 0.013816018278175444,
+          "abs_c1_predicted": 0.0496472597527341,
+          "phase_predicted_deg": -119.22688411983815,
+          "mad_predicted_vs_benford": 0.013816018278175444,
+          "growth_sd": 0.008093504895766868
+        },
+        {
+          "year": 1975,
+          "n": 236,
+          "abs_c1_observed": 0.0978915749490762,
+          "phase_observed_deg": -87.46514090851113,
+          "abs_c1_ci_low": 0.028082861074516956,
+          "abs_c1_ci_high": 0.1951835067411847,
+          "mean_log10_pop": 6.134843839967668,
+          "mad_observed_vs_benford": 0.017098072741036825,
+          "abs_c1_predicted": 0.050781767804512046,
+          "phase_predicted_deg": -115.3957024392727,
+          "mad_predicted_vs_benford": 0.017098072741036825,
+          "growth_sd": 0.00868294083072737
+        },
+        {
+          "year": 1977,
+          "n": 236,
+          "abs_c1_observed": 0.09337940646437637,
+          "phase_observed_deg": -84.27542533564018,
+          "abs_c1_ci_low": 0.023649268456276965,
+          "abs_c1_ci_high": 0.1886775917641086,
+          "mean_log10_pop": 6.152241370643667,
+          "mad_observed_vs_benford": 0.01746080459634994,
+          "abs_c1_predicted": 0.0516692872646382,
+          "phase_predicted_deg": -112.66489488903369,
+          "mad_predicted_vs_benford": 0.01746080459634994,
+          "growth_sd": 0.009316353440617885
+        },
+        {
+          "year": 1979,
+          "n": 236,
+          "abs_c1_observed": 0.08691891734289962,
+          "phase_observed_deg": -79.83190491258243,
+          "abs_c1_ci_low": 0.030145172029993606,
+          "abs_c1_ci_high": 0.17715406232406392,
+          "mean_log10_pop": 6.16996471278493,
+          "mad_observed_vs_benford": 0.020285663353412087,
+          "abs_c1_predicted": 0.05120167649952823,
+          "phase_predicted_deg": -108.83718896158203,
+          "mad_predicted_vs_benford": 0.020285663353412087,
+          "growth_sd": 0.008468304522223302
+        },
+        {
+          "year": 1981,
+          "n": 236,
+          "abs_c1_observed": 0.08338195281092174,
+          "phase_observed_deg": -76.6753893339135,
+          "abs_c1_ci_low": 0.02720467976794966,
+          "abs_c1_ci_high": 0.18349511755260642,
+          "mean_log10_pop": 6.18720035599707,
+          "mad_observed_vs_benford": 0.024993761281849002,
+          "abs_c1_predicted": 0.04967917178080889,
+          "phase_predicted_deg": -103.49284523847899,
+          "mad_predicted_vs_benford": 0.024993761281849002,
+          "growth_sd": 0.008178259926667469
+        },
+        {
+          "year": 1983,
+          "n": 236,
+          "abs_c1_observed": 0.0812497221421016,
+          "phase_observed_deg": -74.8526119322462,
+          "abs_c1_ci_low": 0.024896391625730447,
+          "abs_c1_ci_high": 0.1726815030183388,
+          "mean_log10_pop": 6.205150464126049,
+          "mad_observed_vs_benford": 0.018402424182037316,
+          "abs_c1_predicted": 0.049101283141013856,
+          "phase_predicted_deg": -99.43801867290595,
+          "mad_predicted_vs_benford": 0.018402424182037316,
+          "growth_sd": 0.008969885520363608
+        },
+        {
+          "year": 1985,
+          "n": 236,
+          "abs_c1_observed": 0.07842711950077332,
+          "phase_observed_deg": -73.3980783664654,
+          "abs_c1_ci_low": 0.017468847298726314,
+          "abs_c1_ci_high": 0.1842225955916309,
+          "mean_log10_pop": 6.222901203147457,
+          "mad_observed_vs_benford": 0.016261908621526353,
+          "abs_c1_predicted": 0.046870590259355964,
+          "phase_predicted_deg": -95.66096576131733,
+          "mad_predicted_vs_benford": 0.016261908621526353,
+          "growth_sd": 0.008183120649648825
+        },
+        {
+          "year": 1987,
+          "n": 236,
+          "abs_c1_observed": 0.07835707263493893,
+          "phase_observed_deg": -71.33430214161571,
+          "abs_c1_ci_low": 0.016808347080642553,
+          "abs_c1_ci_high": 0.18205305563013277,
+          "mean_log10_pop": 6.240472534990254,
+          "mad_observed_vs_benford": 0.011932779106800677,
+          "abs_c1_predicted": 0.0453446003469539,
+          "phase_predicted_deg": -92.06693325752654,
+          "mad_predicted_vs_benford": 0.011932779106800677,
+          "growth_sd": 0.007545100077573842
+        },
+        {
+          "year": 1989,
+          "n": 236,
+          "abs_c1_observed": 0.07885711695022303,
+          "phase_observed_deg": -70.73417821053837,
+          "abs_c1_ci_low": 0.021852464414637708,
+          "abs_c1_ci_high": 0.18936974219487895,
+          "mean_log10_pop": 6.257486419053287,
+          "mad_observed_vs_benford": 0.012885469000511464,
+          "abs_c1_predicted": 0.04457887606415566,
+          "phase_predicted_deg": -89.7633986370004,
+          "mad_predicted_vs_benford": 0.012885469000511464,
+          "growth_sd": 0.007242524694625022
+        },
+        {
+          "year": 1991,
+          "n": 236,
+          "abs_c1_observed": 0.08185706955901732,
+          "phase_observed_deg": -61.12163905725522,
+          "abs_c1_ci_low": 0.032084835604967436,
+          "abs_c1_ci_high": 0.18049484367068377,
+          "mean_log10_pop": 6.272062409127234,
+          "mad_observed_vs_benford": 0.012389974812599909,
+          "abs_c1_predicted": 0.04351944942024826,
+          "phase_predicted_deg": -80.42686400120867,
+          "mad_predicted_vs_benford": 0.012389974812599909,
+          "growth_sd": 0.01073680672913788
+        },
+        {
+          "year": 1993,
+          "n": 236,
+          "abs_c1_observed": 0.07164365923624115,
+          "phase_observed_deg": -63.203410712871964,
+          "abs_c1_ci_low": 0.01567204913073173,
+          "abs_c1_ci_high": 0.1654626419591026,
+          "mean_log10_pop": 6.286318874218297,
+          "mad_observed_vs_benford": 0.01107002201141729,
+          "abs_c1_predicted": 0.03826891510534385,
+          "phase_predicted_deg": -80.676870762022,
+          "mad_predicted_vs_benford": 0.01107002201141729,
+          "growth_sd": 0.00826611184565563
+        },
+        {
+          "year": 1995,
+          "n": 236,
+          "abs_c1_observed": 0.06738025950398939,
+          "phase_observed_deg": -68.49520583365877,
+          "abs_c1_ci_low": 0.019321899056672552,
+          "abs_c1_ci_high": 0.16409874891647822,
+          "mean_log10_pop": 6.298865337702453,
+          "mad_observed_vs_benford": 0.014836500354166818,
+          "abs_c1_predicted": 0.03788085904812958,
+          "phase_predicted_deg": -81.84115687510472,
+          "mad_predicted_vs_benford": 0.014836500354166818,
+          "growth_sd": 0.009088152786865429
+        },
+        {
+          "year": 1997,
+          "n": 236,
+          "abs_c1_observed": 0.06587505223725598,
+          "phase_observed_deg": -68.37045654036439,
+          "abs_c1_ci_low": 0.021550577429337532,
+          "abs_c1_ci_high": 0.1664984396770629,
+          "mean_log10_pop": 6.312624125705129,
+          "mad_observed_vs_benford": 0.014083729777119062,
+          "abs_c1_predicted": 0.036363060425580525,
+          "phase_predicted_deg": -76.96999981456652,
+          "mad_predicted_vs_benford": 0.014083729777119062,
+          "growth_sd": 0.008298331821981596
+        },
+        {
+          "year": 1999,
+          "n": 236,
+          "abs_c1_observed": 0.06559790497228041,
+          "phase_observed_deg": -71.08042646819676,
+          "abs_c1_ci_low": 0.016088620651522827,
+          "abs_c1_ci_high": 0.17792043388049925,
+          "mean_log10_pop": 6.324789677771638,
+          "mad_observed_vs_benford": 0.012778743137902565,
+          "abs_c1_predicted": 0.03769664220210058,
+          "phase_predicted_deg": -77.09584906103547,
+          "mad_predicted_vs_benford": 0.012778743137902565,
+          "growth_sd": 0.008152342000243428
+        },
+        {
+          "year": 2001,
+          "n": 236,
+          "abs_c1_observed": 0.06367661970846937,
+          "phase_observed_deg": -72.97965211791602,
+          "abs_c1_ci_low": 0.014012564467257498,
+          "abs_c1_ci_high": 0.15980568303146972,
+          "mean_log10_pop": 6.336358346400132,
+          "mad_observed_vs_benford": 0.013720362723589945,
+          "abs_c1_predicted": 0.03887266114475113,
+          "phase_predicted_deg": -76.9111998444568,
+          "mad_predicted_vs_benford": 0.013720362723589945,
+          "growth_sd": 0.007400690218648022
+        },
+        {
+          "year": 2003,
+          "n": 236,
+          "abs_c1_observed": 0.06018580504849272,
+          "phase_observed_deg": -73.25232363505684,
+          "abs_c1_ci_low": 0.012841024069385911,
+          "abs_c1_ci_high": 0.1686468518563506,
+          "mean_log10_pop": 6.348532607877668,
+          "mad_observed_vs_benford": 0.013074318009151086,
+          "abs_c1_predicted": 0.039018819965052944,
+          "phase_predicted_deg": -76.82356237006341,
+          "mad_predicted_vs_benford": 0.013074318009151086,
+          "growth_sd": 0.006653156980268475
+        },
+        {
+          "year": 2005,
+          "n": 236,
+          "abs_c1_observed": 0.057631199993614775,
+          "phase_observed_deg": -73.15329894459673,
+          "abs_c1_ci_low": 0.016412939318132716,
+          "abs_c1_ci_high": 0.1502859911159661,
+          "mean_log10_pop": 6.360292968154228,
+          "mad_observed_vs_benford": 0.011084988173383417,
+          "abs_c1_predicted": 0.03788283464459834,
+          "phase_predicted_deg": -75.19026667758729,
+          "mad_predicted_vs_benford": 0.011084988173383417,
+          "growth_sd": 0.006676826118838821
+        },
+        {
+          "year": 2007,
+          "n": 236,
+          "abs_c1_observed": 0.053258520718678655,
+          "phase_observed_deg": -73.41752625363758,
+          "abs_c1_ci_low": 0.01658398435398863,
+          "abs_c1_ci_high": 0.17398726001450499,
+          "mean_log10_pop": 6.37294729734187,
+          "mad_observed_vs_benford": 0.010143368587696029,
+          "abs_c1_predicted": 0.007915937646356948,
+          "phase_predicted_deg": 52.159203362297276,
+          "mad_predicted_vs_benford": 0.010143368587696029,
+          "growth_sd": 0.009182757874626992
+        },
+        {
+          "year": 2009,
+          "n": 236,
+          "abs_c1_observed": 0.04981085869558946,
+          "phase_observed_deg": -79.10751542164074,
+          "abs_c1_ci_low": 0.011962426388486673,
+          "abs_c1_ci_high": 0.15134547085701514,
+          "mean_log10_pop": 6.385295617708663,
+          "mad_observed_vs_benford": 0.006929106307115244,
+          "abs_c1_predicted": 0.0012678098111326111,
+          "phase_predicted_deg": 30.62636861884899,
+          "mad_predicted_vs_benford": 0.006929106307115244,
+          "growth_sd": 0.0067789063869192045
+        },
+        {
+          "year": 2011,
+          "n": 236,
+          "abs_c1_observed": 0.05251809398037284,
+          "phase_observed_deg": -86.51765809136137,
+          "abs_c1_ci_low": 0.011837801036537166,
+          "abs_c1_ci_high": 0.14731859422526838,
+          "mean_log10_pop": 6.396594407581656,
+          "mad_observed_vs_benford": 0.010049539935425915,
+          "abs_c1_predicted": 0.007960257449926997,
+          "phase_predicted_deg": 52.933647788038186,
+          "mad_predicted_vs_benford": 0.010049539935425915,
+          "growth_sd": 0.007042156779552465
+        },
+        {
+          "year": 2013,
+          "n": 236,
+          "abs_c1_observed": 0.05943016422050173,
+          "phase_observed_deg": -89.86848525383104,
+          "abs_c1_ci_low": 0.008766475526689962,
+          "abs_c1_ci_high": 0.14654364388892227,
+          "mean_log10_pop": 6.408142018479934,
+          "mad_observed_vs_benford": 0.010385043616650116,
+          "abs_c1_predicted": 0.007986364654312168,
+          "phase_predicted_deg": 53.34120973718778,
+          "mad_predicted_vs_benford": 0.010385043616650116,
+          "growth_sd": 0.007229546819942395
+        },
+        {
+          "year": 2015,
+          "n": 236,
+          "abs_c1_observed": 0.06225453427325193,
+          "phase_observed_deg": -90.6485797493908,
+          "abs_c1_ci_low": 0.01881868254702014,
+          "abs_c1_ci_high": 0.16496876633444466,
+          "mean_log10_pop": 6.419245161278805,
+          "mad_observed_vs_benford": 0.008514505081162126,
+          "abs_c1_predicted": 0.00799656009875218,
+          "phase_predicted_deg": 53.746318330974646,
+          "mad_predicted_vs_benford": 0.008514505081162126,
+          "growth_sd": 0.006898598260454817
+        },
+        {
+          "year": 2017,
+          "n": 236,
+          "abs_c1_observed": 0.06656424841607282,
+          "phase_observed_deg": -92.24045239773697,
+          "abs_c1_ci_low": 0.01678442862270292,
+          "abs_c1_ci_high": 0.16196197709270688,
+          "mean_log10_pop": 6.4287966056650125,
+          "mad_observed_vs_benford": 0.012538259813047861,
+          "abs_c1_predicted": 0.007968440989201245,
+          "phase_predicted_deg": 54.07978898467349,
+          "mad_predicted_vs_benford": 0.012538259813047861,
+          "growth_sd": 0.006447066461481926
+        },
+        {
+          "year": 2019,
+          "n": 236,
+          "abs_c1_observed": 0.07008699704133597,
+          "phase_observed_deg": -95.35142055947438,
+          "abs_c1_ci_low": 0.017964710215133742,
+          "abs_c1_ci_high": 0.1708956714664548,
+          "mean_log10_pop": 6.4381207839724235,
+          "mad_observed_vs_benford": 0.010506100443009156,
+          "abs_c1_predicted": 0.007935827293806449,
+          "phase_predicted_deg": 54.396191773058575,
+          "mad_predicted_vs_benford": 0.010506100443009156,
+          "growth_sd": 0.006479320145564745
+        },
+        {
+          "year": 2021,
+          "n": 236,
+          "abs_c1_observed": 0.07218236306898107,
+          "phase_observed_deg": -97.69006546380638,
+          "abs_c1_ci_low": 0.021206004581363173,
+          "abs_c1_ci_high": 0.17121687359963741,
+          "mean_log10_pop": 6.4458463500804735,
+          "mad_observed_vs_benford": 0.011326028004121505,
+          "abs_c1_predicted": 0.007904454334376237,
+          "phase_predicted_deg": 54.69063332393088,
+          "mad_predicted_vs_benford": 0.011326028004121505,
+          "growth_sd": 0.005951168840205159
+        },
+        {
+          "year": 2023,
+          "n": 236,
+          "abs_c1_observed": 0.07636161071075881,
+          "phase_observed_deg": -98.52077089099363,
+          "abs_c1_ci_low": 0.028959222400723968,
+          "abs_c1_ci_high": 0.1806490232096389,
+          "mean_log10_pop": 6.454435131328848,
+          "mad_observed_vs_benford": 0.0169757455182458,
+          "abs_c1_predicted": 0.00791082566232439,
+          "phase_predicted_deg": 55.05972950424454,
+          "mad_predicted_vs_benford": 0.0169757455182458,
+          "growth_sd": 0.006773907548065707
+        }
+      ],
+      "pooled_prediction_abs_c1_replaced": 0.032591309541757006,
+      "modulus_correlation": {
+        "pearson": {
+          "stat": 0.6358961018276347,
+          "ci_low": 0.2365780307272022,
+          "ci_high": 0.8492479543154149,
+          "boot_sd": 0.14845649849329862,
+          "n": 37,
+          "block_length": 5,
+          "n_replicates": 1000
+        },
+        "spearman": {
+          "stat": 0.6228070175438595,
+          "ci_low": 0.14317441358176805,
+          "ci_high": 0.869006747771345,
+          "boot_sd": 0.18422779511030088,
+          "n": 37,
+          "block_length": 5,
+          "n_replicates": 1000
+        },
+        "label": "observed vs year-specific predicted |c1(y)|",
+        "n": 37
+      },
+      "constant_prediction_correlation": {
+        "status": "undefined_constant_series",
+        "label": "observed vs a pooled constant prediction (what the single-fold fit gives; differs only through the level trend)",
+        "n": 37,
+        "note": "this prediction has no year-to-year variation, so a correlation with it is undefined -- which is itself the finding: a pooled-fit prediction cannot be compared to a per-year observed series"
+      },
+      "growth_mechanism_check": {
+        "pearson": {
+          "stat": 0.3457310152792195,
+          "ci_low": -0.03263605304381979,
+          "ci_high": 0.6488802940396208,
+          "boot_sd": 0.17806946276371835,
+          "n": 37,
+          "block_length": 5,
+          "n_replicates": 1000
+        },
+        "spearman": {
+          "stat": 0.32361308677098144,
+          "ci_low": -0.13405022924669874,
+          "ci_high": 0.6712855790459501,
+          "boot_sd": 0.19456879485649922,
+          "n": 37,
+          "block_length": 5,
+          "n_replicates": 1000
+        },
+        "label": "observed |c1(y)| vs cross-country sd of log growth",
+        "n": 37
+      },
+      "year_trend_check": {
+        "pearson": {
+          "stat": -0.7167012245724473,
+          "ci_low": -0.9781212921376827,
+          "ci_high": -0.5377364306295438,
+          "boot_sd": 0.11702322496223838,
+          "n": 37,
+          "block_length": 5,
+          "n_replicates": 1000
+        },
+        "spearman": {
+          "stat": -0.7572309151256519,
+          "ci_low": -0.9822007198845877,
+          "ci_high": -0.3649402966945269,
+          "boot_sd": 0.16365212436749565,
+          "n": 37,
+          "block_length": 5,
+          "n_replicates": 1000
+        },
+        "label": "observed |c1(y)| vs calendar year",
+        "n": 37
+      },
+      "circular_linear_phase_correlation": 29.428306006369308,
+      "mean_absolute_phase_error_deg": 52.01342516987791,
+      "pre_registered_criterion": {
+        "stated_as": "r > 0 with one-sided p < 0.05 AND r >= r_screen - 0.2",
+        "r_observed": 0.6358961018276347,
+        "one_sided_95_lower_bound_above_zero": true,
+        "note": "With 37 reserved years a correlation must exceed roughly 0.27 to reach one-sided p < 0.05; the criterion is reported as trend evidence with its block-bootstrap interval, never upgraded to a confirmation. The prediction is each year's OWN fitted size law, not the pooled fit: the pooled prediction is constant to six decimals and correlating with it would measure the level trend."
+      },
+      "status": "trend evidence, wide intervals"
+    },
+    "ablation_suite": {
+      "ablations": {
+        "microstates_le_1e6": {
+          "definition": "microstates_le_1e6",
+          "n_rows_deleted_even": 3228,
+          "n_rows_deleted_odd": 3216,
+          "fraction_deleted_odd": 0.3683005038937242,
+          "plugin": {
+            "available": true,
+            "component_deletion_share": [
+              0.8982583263534838,
+              0.0012365008172592399,
+              0.10050517282925749
+            ],
+            "weights_ablated": [
+              0.0611726618179839,
+              0.22844292716902564,
+              0.7103844110129905
+            ],
+            "digit_proportions_ablated": [
+              0.274370178787603,
+              0.16715893529235812,
+              0.13099533769415483,
+              0.10693929172186435,
+              0.08810246807966844,
+              0.07319689391230945,
+              0.06151453793167709,
+              0.05240976501073162,
+              0.04531259156963297
+            ],
+            "delta_pp": [
+              -1.0181035350244838,
+              -0.34101617245011484,
+              0.23133933382811223,
+              0.38300443749650914,
+              0.3406652450267861,
+              0.23865028910216857,
+              0.13449015625097774,
+              0.0479835611382283,
+              -0.017013315368212545
+            ]
+          },
+          "refit": {
+            "available": true,
+            "digit_proportions": [
+              0.2650500426850959,
+              0.1796627949419266,
+              0.1409145699958329,
+              0.11018724880816597,
+              0.08674822794338143,
+              0.06965468697120167,
+              0.05738924417885398,
+              0.04849889925852713,
+              0.04189428521701444
+            ],
+            "params": {
+              "weights": [
+                0.5187377393611133,
+                0.47113742449173807,
+                0.010124836147148543
+              ],
+              "mus": [
+                6.615100465002929,
+                7.362885516825237,
+                9.010470877359062
+              ],
+              "sigmas": [
+                0.3106608458659343,
+                0.4860267886486856,
+                0.12072150586827908
+              ]
+            },
+            "delta_pp": [
+              -1.950117145275193,
+              0.909369792506734,
+              1.2232625639959194,
+              0.7078001461266705,
+              0.20524123139808448,
+              -0.11557040500860954,
+              -0.27803921903133344,
+              -0.343103014082221,
+              -0.358843950630066
+            ]
+          },
+          "observed_shift_pp": {
+            "reserved_odd": [
+              2.493790603572932,
+              1.2439471464680107,
+              0.3353672006343428,
+              0.3529398672649134,
+              -1.2289406206639277,
+              -1.717927475046979,
+              -0.5202289960958117,
+              -0.3807355738870838,
+              -0.5782121522463948
+            ],
+            "screen_even": [
+              2.54991331003846,
+              1.1312723716029787,
+              0.46390281935463074,
+              0.25739827578859925,
+              -1.232610406523986,
+              -1.6030651759366779,
+              -0.6735533695895344,
+              -0.2183145527277379,
+              -0.6749432720067332
+            ]
+          },
+          "agreement": {
+            "plugin": {
+              "sign_agreement_count": 3,
+              "sign_agreement_of_nine": "3/9",
+              "cosine": -0.8089769380834025,
+              "cosine_null_mean": -0.0032351233374879377,
+              "cosine_null_p97_5": 0.84876332609919,
+              "cosine_above_null_p97_5": false,
+              "projection_ratio": -2.3646249224699534,
+              "projection_ratio_in_0_5_1_5": false,
+              "observed_shift_norm": 3.6352346174748287,
+              "predicted_shift_norm": 1.2436733378364975
+            },
+            "plugin_even": {
+              "sign_agreement_count": 3,
+              "sign_agreement_of_nine": "3/9",
+              "cosine": -0.8145810928917885,
+              "cosine_null_mean": null,
+              "cosine_null_p97_5": null,
+              "cosine_above_null_p97_5": false,
+              "projection_ratio": -2.371472898775183,
+              "projection_ratio_in_0_5_1_5": false,
+              "observed_shift_norm": 3.620680177019926,
+              "predicted_shift_norm": 1.2436733378364975
+            },
+            "refit": {
+              "sign_agreement_count": 7,
+              "sign_agreement_of_nine": "7/9",
+              "cosine": -0.2746552155426841,
+              "cosine_null_mean": -0.0006927564484603686,
+              "cosine_null_p97_5": 0.8537127216743292,
+              "cosine_above_null_p97_5": false,
+              "projection_ratio": -0.3771972931662587,
+              "projection_ratio_in_0_5_1_5": false,
+              "observed_shift_norm": 3.6352346174748287,
+              "predicted_shift_norm": 2.6469865120975067
+            }
+          }
+        },
+        "sids": {
+          "definition": "UN OHRLLS 39 UN member States",
+          "n_rows_deleted_even": 1443,
+          "n_rows_deleted_odd": 1443,
+          "fraction_deleted_odd": 0.1652542372881356,
+          "plugin": {
+            "available": true,
+            "component_deletion_share": [
+              0.720035168941597,
+              0.062034317914046094,
+              0.21793051314435652
+            ],
+            "weights_ablated": [
+              0.16824374449955912,
+              0.2144267428091875,
+              0.6173295126912534
+            ],
+            "digit_proportions_ablated": [
+              0.2760050298095136,
+              0.16770755172854138,
+              0.13062433430600634,
+              0.10632426394476163,
+              0.08755517763127033,
+              0.0728133289966954,
+              0.06129823192021506,
+              0.052332412509918914,
+              0.04533966915307741
+            ],
+            "delta_pp": [
+              -0.8546184328334261,
+              -0.28615452883178905,
+              0.1942389950132628,
+              0.3215016597862372,
+              0.28593620018697447,
+              0.20029379754076398,
+              0.11285955510477452,
+              0.04024831105695764,
+              -0.01430555702376865
+            ]
+          },
+          "refit": {
+            "available": true,
+            "digit_proportions": [
+              0.2812024802181701,
+              0.1707236784703663,
+              0.13010236525736185,
+              0.10443971719698956,
+              0.08552339049828396,
+              0.07114032590617693,
+              0.06013100577031485,
+              0.051656939520664406,
+              0.0450800971616721
+            ],
+            "params": {
+              "weights": [
+                0.25825737779152863,
+                0.14886501128782095,
+                0.5928776109206503
+              ],
+              "mus": [
+                4.734048856674307,
+                6.7010415422039635,
+                7.01468449951472
+              ],
+              "sigmas": [
+                0.8029543715688953,
+                0.2559073222046278,
+                0.7057273545187343
+              ]
+            },
+            "delta_pp": [
+              -0.33487339196777155,
+              0.015458145350702446,
+              0.14204209014881397,
+              0.13304698500903045,
+              0.08275748688833795,
+              0.03299348848891659,
+              -0.0038630598852465448,
+              -0.027298987868493163,
+              -0.04026275616429986
+            ]
+          },
+          "observed_shift_pp": {
+            "reserved_odd": [
+              -1.205031496264397,
+              0.6672464428637531,
+              1.0419113081936797,
+              0.32746116158316185,
+              0.07929292107215213,
+              -0.039762725816240574,
+              -0.2321236318483154,
+              -0.10928936335457898,
+              -0.5297046164292142
+            ],
+            "screen_even": [
+              -1.2533397201727248,
+              0.7703156137295358,
+              1.0191233132814475,
+              0.2586321157258098,
+              0.06377150617019878,
+              -0.040111521656734095,
+              -0.2114865446191265,
+              -0.0933028873319676,
+              -0.5136018751264391
+            ]
+          },
+          "agreement": {
+            "plugin": {
+              "sign_agreement_count": 5,
+              "sign_agreement_of_nine": "5/9",
+              "cosine": 0.5875048023944829,
+              "cosine_null_mean": -0.0032348181321611145,
+              "cosine_null_p97_5": 0.8488143802695518,
+              "cosine_above_null_p97_5": false,
+              "projection_ratio": 1.0444743513351191,
+              "projection_ratio_in_0_5_1_5": true,
+              "observed_shift_norm": 1.8559120875619666,
+              "predicted_shift_norm": 1.0439291906697905
+            },
+            "plugin_even": {
+              "sign_agreement_count": 5,
+              "sign_agreement_of_nine": "5/9",
+              "cosine": 0.5669030398756366,
+              "cosine_null_mean": null,
+              "cosine_null_p97_5": null,
+              "cosine_above_null_p97_5": false,
+              "projection_ratio": 1.0293068028197667,
+              "projection_ratio_in_0_5_1_5": true,
+              "observed_shift_norm": 1.895427157798043,
+              "predicted_shift_norm": 1.0439291906697905
+            },
+            "refit": {
+              "sign_agreement_count": 8,
+              "sign_agreement_of_nine": "8/9",
+              "cosine": 0.8550083836376222,
+              "cosine_null_mean": -0.0021830591038251345,
+              "cosine_null_p97_5": 0.8558480765491124,
+              "cosine_above_null_p97_5": false,
+              "projection_ratio": 3.9599391591914803,
+              "projection_ratio_in_0_5_1_5": false,
+              "observed_shift_norm": 1.8559120875619666,
+              "predicted_shift_norm": 0.40071837732069376
+            }
+          }
+        },
+        "top20": {
+          "definition": "20 largest countries by mean population over the primary window",
+          "n_rows_deleted_even": 740,
+          "n_rows_deleted_odd": 740,
+          "fraction_deleted_odd": 0.0847457627118644,
+          "plugin": {
+            "available": true,
+            "component_deletion_share": [
+              0.003410299754177057,
+              0.0025895528461104423,
+              0.9940001473997128
+            ],
+            "weights_ablated": [
+              0.7201315193207283,
+              0.274173762218634,
+              0.005694718460637681
+            ],
+            "digit_proportions_ablated": [
+              0.2690182079549277,
+              0.1653809039321196,
+              0.1322182850167447,
+              0.10895257577997843,
+              0.08988959449273867,
+              0.07444648341994947,
+              0.06221658622751449,
+              0.05265768043739022,
+              0.04521968273863679
+            ],
+            "delta_pp": [
+              -1.553300618292014,
+              -0.5188193084739667,
+              0.3536340660870996,
+              0.5843328433079165,
+              0.5193778863338092,
+              0.36360923986617083,
+              0.20469498583471774,
+              0.07277510380408816,
+              -0.02630419846783097
+            ]
+          },
+          "refit": {
+            "available": true,
+            "digit_proportions": [
+              0.27969610640366016,
+              0.17679304818921676,
+              0.13500154052251448,
+              0.10443803086512399,
+              0.08312306384147776,
+              0.06850454328844949,
+              0.05806177924692326,
+              0.05023309728867839,
+              0.04414879035395569
+            ],
+            "params": {
+              "weights": [
+                0.4703089095798732,
+                0.4709045187436978,
+                0.058786571676429096
+              ],
+              "mus": [
+                5.114161530986283,
+                6.787295387551612,
+                7.514319669808863
+              ],
+              "sigmas": [
+                0.9025980501198907,
+                0.3790564580911077,
+                0.16334676413236987
+              ]
+            },
+            "delta_pp": [
+              -0.485510773418768,
+              0.6223951172357495,
+              0.6319596166640767,
+              0.1328783518224727,
+              -0.15727517879228214,
+              -0.2305847732838276,
+              -0.21078571222440529,
+              -0.1696832110670947,
+              -0.1333934369359406
+            ]
+          },
+          "observed_shift_pp": {
+            "reserved_odd": [
+              -0.2742148928589594,
+              0.49880388863439706,
+              0.554367927249283,
+              0.22374068984238604,
+              -0.4476934561680329,
+              -0.18896014658726507,
+              -0.13551687280500824,
+              -0.20062435316672636,
+              -0.029902784140072025
+            ],
+            "screen_even": [
+              -0.24579664410172564,
+              0.4767479343750547,
+              0.5376138850715112,
+              0.24897779135067272,
+              -0.48671552908841065,
+              -0.18238577560611424,
+              -0.17623555759148993,
+              -0.17453894572538667,
+              0.0023328413158919814
+            ]
+          },
+          "agreement": {
+            "plugin": {
+              "sign_agreement_count": 4,
+              "sign_agreement_of_nine": "4/9",
+              "cosine": 0.08061257327503348,
+              "cosine_null_mean": -0.003232712155228387,
+              "cosine_null_p97_5": 0.84915685660738,
+              "cosine_above_null_p97_5": false,
+              "projection_ratio": 0.042005792002952555,
+              "projection_ratio_in_0_5_1_5": false,
+              "observed_shift_norm": 0.9884469231718831,
+              "predicted_shift_norm": 1.8969110263906959
+            },
+            "plugin_even": {
+              "sign_agreement_count": 3,
+              "sign_agreement_of_nine": "3/9",
+              "cosine": 0.05464426287749031,
+              "cosine_null_mean": null,
+              "cosine_null_p97_5": null,
+              "cosine_above_null_p97_5": false,
+              "projection_ratio": 0.028377544002239533,
+              "projection_ratio_in_0_5_1_5": false,
+              "observed_shift_norm": 0.9850929134210987,
+              "predicted_shift_norm": 1.8969110263906959
+            },
+            "refit": {
+              "sign_agreement_count": 9,
+              "sign_agreement_of_nine": "9/9",
+              "cosine": 0.923974846062674,
+              "cosine_null_mean": -0.0004612371873253975,
+              "cosine_null_p97_5": 0.8085107576712824,
+              "cosine_above_null_p97_5": true,
+              "projection_ratio": 0.8305997474024872,
+              "projection_ratio_in_0_5_1_5": true,
+              "observed_shift_norm": 0.9884469231718831,
+              "predicted_shift_norm": 1.0995670255559356
+            }
+          }
+        }
+      },
+      "pooled_sign_agreement": {
+        "count": "12/27",
+        "numerator": 12,
+        "denominator": 27,
+        "status": "descriptive only, no p-value attached (three ablations give a sign test no power)"
+      },
+      "criterion_c_pass_count": 0,
+      "criterion_c_passing_ablations": [],
+      "criterion_c_met": false,
+      "criterion_c_statement": "at least 2 of 3 ablations have plug-in cosine above the matched null's 95th percentile AND projection ratio in [0.5, 1.5]",
+      "taglists": {
+        "microstate_rule": "published population <= 1,000,000 in the row's year",
+        "microstate_countries_ever": [
+          "ABW",
+          "AIA",
+          "AND",
+          "ARE",
+          "ASM",
+          "ATG",
+          "BES",
+          "BHR",
+          "BHS",
+          "BLM",
+          "BLZ",
+          "BMU",
+          "BRB",
+          "BRN",
+          "BTN",
+          "BWA",
+          "COG",
+          "COK",
+          "COM",
+          "CPV",
+          "CRI",
+          "CUW",
+          "CYM",
+          "CYP",
+          "DJI",
+          "DMA",
+          "ERI",
+          "ESH",
+          "FJI",
+          "FLK",
+          "FRO",
+          "FSM",
+          "GAB",
+          "GGY",
+          "GIB",
+          "GLP",
+          "GMB",
+          "GNB",
+          "GNQ",
+          "GRD",
+          "GRL",
+          "GUF",
+          "GUM",
+          "GUY",
+          "IMN",
+          "ISL",
+          "JEY",
+          "JOR",
+          "KIR",
+          "KNA",
+          "KWT",
+          "LBR",
+          "LCA",
+          "LIE",
+          "LSO",
+          "LUX",
+          "MAC",
+          "MAF",
+          "MCO",
+          "MDV",
+          "MHL",
+          "MLT",
+          "MNE",
+          "MNG",
+          "MNP",
+          "MRT",
+          "MSR",
+          "MTQ",
+          "MUS",
+          "MYT",
+          "NAM",
+          "NCL",
+          "NIU",
+          "NRU",
+          "OMN",
+          "PAN",
+          "PLW",
+          "PSE",
+          "PYF",
+          "QAT",
+          "REU",
+          "SHN",
+          "SLB",
+          "SMR",
+          "SPM",
+          "STP",
+          "SUR",
+          "SWZ",
+          "SXM",
+          "SYC",
+          "TCA",
+          "TKL",
+          "TLS",
+          "TON",
+          "TTO",
+          "TUV",
+          "VAT",
+          "VCT",
+          "VGB",
+          "VIR",
+          "VUT",
+          "WLF",
+          "WSM"
+        ],
+        "microstate_row_fraction": 0.3689876316994961,
+        "sids_rule": "UN OHRLLS 39 UN member States",
+        "sids_countries_present": [
+          "ATG",
+          "BHS",
+          "BLZ",
+          "BRB",
+          "COG",
+          "COK",
+          "COM",
+          "CPV",
+          "CUB",
+          "DMA",
+          "DOM",
+          "FJI",
+          "FSM",
+          "GNB",
+          "GRD",
+          "GUY",
+          "HTI",
+          "JAM",
+          "KIR",
+          "KNA",
+          "LCA",
+          "MDV",
+          "MHL",
+          "MUS",
+          "NIU",
+          "NRU",
+          "PLW",
+          "PNG",
+          "SGP",
+          "SLB",
+          "STP",
+          "SUR",
+          "TLS",
+          "TON",
+          "TTO",
+          "TUV",
+          "VCT",
+          "VUT",
+          "WSM"
+        ],
+        "sids_row_fraction": 0.1652542372881356,
+        "top20_rule": "20 largest countries by mean population over the primary window",
+        "top20_countries": [
+          "CHN",
+          "IND",
+          "USA",
+          "IDN",
+          "BRA",
+          "RUS",
+          "PAK",
+          "JPN",
+          "BGD",
+          "NGA",
+          "DEU",
+          "MEX",
+          "PHL",
+          "VNM",
+          "EGY",
+          "GBR",
+          "FRA",
+          "ITA",
+          "ETH",
+          "TUR"
+        ],
+        "top20_row_fraction": 0.0847457627118644
+      }
+    },
+    "source_invariance": {
+      "overlap_country_years": 13730,
+      "overlap_entities": 215,
+      "fraction_exactly_identical": 0.03852876911871814,
+      "fraction_near_identical_1e_6": 0.3584850691915513,
+      "median_relative_difference": 1.1358064169213488e-05,
+      "p95_relative_difference": 0.02690106190158426,
+      "provenance": "OWID population-unwpp is a redistribution of the UN World Population Prospects; World Bank SP.POP.TOTL reports national estimates from the same upstream statistical system. The two labels are therefore NOT independent measurements of the same quantity, and the invariance check below is a consistency check unless the non-identical subset is large.",
+      "owid_overlap_subset": {
+        "label": "OWID full overlap",
+        "status": "run",
+        "n": 13730,
+        "n_entities": 215,
+        "c1_re": 0.004329512766395717,
+        "c1_im": -0.0765428736731579,
+        "c1_modulus": 0.07666522152149169,
+        "c1_phase_deg": -86.76261482030684,
+        "c2_modulus": 0.02539868589514185,
+        "MAD_vs_benford": 0.009002168171943202,
+        "M_vs_benford": 0.025064955605714645,
+        "modulus_ci_low": 0.030025675504222495,
+        "modulus_ci_high": 0.14223275086353557
+      },
+      "wdi_overlap_subset": {
+        "label": "WDI full overlap",
+        "status": "run",
+        "n": 13730,
+        "n_entities": 215,
+        "c1_re": 0.003926737868786461,
+        "c1_im": -0.07189494227102221,
+        "c1_modulus": 0.07200209715309533,
+        "c1_phase_deg": -86.87374129718367,
+        "c2_modulus": 0.028312720709166,
+        "MAD_vs_benford": 0.008228993971144278,
+        "M_vs_benford": 0.024263790274323516,
+        "modulus_ci_low": 0.024004800711359464,
+        "modulus_ci_high": 0.13935767327725393
+      },
+      "owid_non_identical_subset": {
+        "label": "OWID non-identical subset",
+        "status": "run",
+        "n": 8808,
+        "n_entities": 187,
+        "c1_re": -0.015420971527979955,
+        "c1_im": -0.10643164352835063,
+        "c1_modulus": 0.10754301979678954,
+        "c1_phase_deg": -98.2442622003406,
+        "c2_modulus": 0.036688813291637805,
+        "MAD_vs_benford": 0.013725790425050994,
+        "M_vs_benford": 0.04592100383836811,
+        "modulus_ci_low": 0.04120057723831947,
+        "modulus_ci_high": 0.19616063131802597
+      },
+      "wdi_non_identical_subset": {
+        "label": "WDI non-identical subset",
+        "status": "run",
+        "n": 8808,
+        "n_entities": 187,
+        "c1_re": -0.01604879233568731,
+        "c1_im": -0.09918636404732255,
+        "c1_modulus": 0.1004763581563445,
+        "c1_phase_deg": -99.19105361856185,
+        "c2_modulus": 0.043156809401214614,
+        "MAD_vs_benford": 0.012338163015625217,
+        "M_vs_benford": 0.04467213916988494,
+        "modulus_ci_low": 0.035143905351660905,
+        "modulus_ci_high": 0.1868817486758513
+      },
+      "sign_agreement_re_c1": true,
+      "sign_agreement_im_c1": true,
+      "modulus_difference": 0.00466312436839636,
+      "per_year_rank_correlation": {
+        "spearman_rho": 0.9902014652014651,
+        "p": 9.998579123899872e-55,
+        "n_years": 64,
+        "pearson": 0.9898345095202289
+      },
+      "n_genuinely_non_identical": 8808,
+      "genuinely_independent_subset_usable": true,
+      "criterion": {
+        "stated_as": "sign agreement of Re(c1) and per-year rank correlation >= 0.7",
+        "sign_agreement_met": true,
+        "rank_correlation_met": true
+      },
+      "verdict": "consistency across sources within the shared upstream series, NOT demonstrated independence"
+    },
+    "robustness": {
+      "rounding": {
+        "observed_projection_P": 3.7825620873136776,
+        "observed_residuals_pp": [
+          -3.0645204092748957,
+          -1.1409628272355532,
+          0.11492157508388723,
+          0.8335062576002208,
+          1.9765157983524975,
+          0.5888757781205373,
+          0.30479064350480356,
+          0.015302038358527142,
+          0.37157114548997533
+        ],
+        "variants": {
+          "round_3_significant_figures": {
+            "residuals_pp": [
+              -3.167589580140678,
+              -1.0951543068507625,
+              0.18363435566107478,
+              0.7991498673116284,
+              1.9307072779677068,
+              0.6461364286015279,
+              0.3162427736010012,
+              0.015302038358527142,
+              0.37157114548997533
+            ],
+            "MAD": 0.009472764193314314,
+            "abs_c1": 0.07520606559084425,
+            "projection_P_of_rounded_data": 3.8562440476731497,
+            "projection_shift_from_rounding": 0.07368196035947205,
+            "share_of_observed_projection": 0.019479378965541302,
+            "identity_share_superseded": 1.0194793789655412,
+            "n_zeroed": 0,
+            "n_leading_digit_changed": 40
+          },
+          "round_nearest_1000": {
+            "residuals_pp": [
+              -3.098876799563488,
+              -0.6370691030028464,
+              0.11492157508388723,
+              0.638820045964858,
+              1.724568936236144,
+              0.7721098596597045,
+              0.14446082215803305,
+              0.06111055874331861,
+              0.2799541047203924
+            ],
+            "MAD": 0.008302102005702968,
+            "abs_c1": 0.0718843130126965,
+            "projection_P_of_rounded_data": 3.5643318968937567,
+            "projection_shift_from_rounding": -0.21823019041992087,
+            "share_of_observed_projection": 0.057693749734298444,
+            "identity_share_superseded": 0.9423062502657016,
+            "n_zeroed": 0,
+            "n_leading_digit_changed": 320
+          }
+        },
+        "grain_audit": {
+          "median_significant_figures": 7.0,
+          "sigfig_distribution": {
+            "2": 9,
+            "3": 75,
+            "4": 522,
+            "5": 1311,
+            "6": 1629,
+            "7": 2989,
+            "8": 1915,
+            "9": 253,
+            "10": 29
+          },
+          "fraction_integer_values": 1.0,
+          "fraction_divisible_1e1": 0.10318369216674302,
+          "fraction_divisible_1e3": 0.0011452130096197893,
+          "fraction_divisible_1e6": 0.0,
+          "expected_divisible_1e1_under_smooth_law": 0.1,
+          "expected_divisible_1e3_under_smooth_law": 0.001
+        },
+        "max_share_explained_by_rounding": 0.057693749734298444,
+        "max_fraction_of_leading_digits_changed": 0.03664681630783326,
+        "threshold": 0.5,
+        "demographic_account_survives": true,
+        "interpretation": "The numerator is the CHANGE rounding makes to the predicted-direction projection, |P(rounded) - P(observed)|, not the projection of the rounded data -- the latter is ~1 by construction and measures nothing. Rounding to 3 significant figures cannot move the leading digit at all, so its share is exactly zero; rounding to the nearest 1,000 moves the leading digit of a small state and is the informative variant. A share above 0.5 would mean the published grain, not demography, carries the signal."
+      },
+      "inclusion_thresholds": {
+        "rows": [
+          {
+            "threshold": 0,
+            "n": 8732,
+            "n_entities": 236,
+            "MAD_vs_benford": 0.009345518303356552,
+            "abs_c1": 0.07521264624602247,
+            "c1_phase_deg": -89.77616251979866,
+            "projection_P": 3.7825620873136776,
+            "projection_sign_stable": true,
+            "c1_re_sign_stable": true,
+            "c1_im_sign_stable": true
+          },
+          {
+            "threshold": 100000,
+            "n": 7021,
+            "n_entities": 200,
+            "MAD_vs_benford": 0.005680368432581248,
+            "abs_c1": 0.03362663339156529,
+            "c1_phase_deg": -119.69901419211347,
+            "projection_P": 1.2182182425600225,
+            "projection_sign_stable": true,
+            "c1_re_sign_stable": false,
+            "c1_im_sign_stable": true
+          },
+          {
+            "threshold": 500000,
+            "n": 5983,
+            "n_entities": 174,
+            "MAD_vs_benford": 0.010478761235173696,
+            "abs_c1": 0.07840586026577588,
+            "c1_phase_deg": -74.27349194138944,
+            "projection_P": 3.5121480354045573,
+            "projection_sign_stable": true,
+            "c1_re_sign_stable": true,
+            "c1_im_sign_stable": true
+          },
+          {
+            "threshold": 1000000,
+            "n": 5516,
+            "n_entities": 160,
+            "MAD_vs_benford": 0.005527320883343091,
+            "abs_c1": 0.025785769185576103,
+            "c1_phase_deg": -127.86943545137905,
+            "projection_P": 0.8415337195184256,
+            "projection_sign_stable": true,
+            "c1_re_sign_stable": false,
+            "c1_im_sign_stable": true
+          },
+          {
+            "threshold": 5000000,
+            "n": 3591,
+            "n_entities": 128,
+            "MAD_vs_benford": 0.032488788090057674,
+            "abs_c1": 0.23101463888810436,
+            "c1_phase_deg": -27.218137522877896,
+            "projection_P": 0.9272584938161164,
+            "projection_sign_stable": true,
+            "c1_re_sign_stable": true,
+            "c1_im_sign_stable": true
+          }
+        ],
+        "projection_sign_stable_across_thresholds": true
+      },
+      "scale_rotation": {
+        "rows": [
+          {
+            "factor": 1.5,
+            "expected_rotation_deg": 63.39285326004524,
+            "phase_before_deg": -89.95849294064696,
+            "phase_after_deg": 333.4343603193983,
+            "phase_error_deg": 5.684341886080802e-14,
+            "modulus_before": 0.0750690967799878,
+            "modulus_after": 0.07506909677998776,
+            "modulus_abs_change": 4.163336342344337e-17
+          },
+          {
+            "factor": 3.0,
+            "expected_rotation_deg": 171.76365169907848,
+            "phase_before_deg": -89.95849294064696,
+            "phase_after_deg": 81.80515875843157,
+            "phase_error_deg": 5.684341886080802e-14,
+            "modulus_before": 0.0750690967799878,
+            "modulus_after": 0.07506909677998778,
+            "modulus_abs_change": 1.3877787807814457e-17
+          },
+          {
+            "factor": 7.0,
+            "expected_rotation_deg": 304.23529440513244,
+            "phase_before_deg": -89.95849294064696,
+            "phase_after_deg": 214.27680146448552,
+            "phase_error_deg": 5.684341886080802e-14,
+            "modulus_before": 0.0750690967799878,
+            "modulus_after": 0.07506909677998783,
+            "modulus_abs_change": 2.7755575615628914e-17
+          }
+        ],
+        "identity_holds": true
+      }
+    },
+    "multiplicity": {
+      "family": "per-year conformity on the reserved (odd) fold, exact-Benford null",
+      "n_tests": 37,
+      "n_rejected_raw_0_05": 0,
+      "n_rejected_bh_0_05": 0,
+      "expected_false_positives_at_raw_0_05": 1.85,
+      "rows": [
+        {
+          "year": 1951,
+          "n": 236,
+          "abs_c1": 0.07648898082533169,
+          "p_exact_benford": 0.865,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1953,
+          "n": 236,
+          "abs_c1": 0.07931297013964107,
+          "p_exact_benford": 0.71,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1955,
+          "n": 236,
+          "abs_c1": 0.08049527108023924,
+          "p_exact_benford": 0.605,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1957,
+          "n": 236,
+          "abs_c1": 0.08407936357869587,
+          "p_exact_benford": 0.635,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1959,
+          "n": 236,
+          "abs_c1": 0.08867532454883346,
+          "p_exact_benford": 0.47,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1961,
+          "n": 236,
+          "abs_c1": 0.09636885077952169,
+          "p_exact_benford": 0.4,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1963,
+          "n": 236,
+          "abs_c1": 0.1017215105303855,
+          "p_exact_benford": 0.215,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1965,
+          "n": 236,
+          "abs_c1": 0.11183961708646924,
+          "p_exact_benford": 0.2,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1967,
+          "n": 236,
+          "abs_c1": 0.11046286952156015,
+          "p_exact_benford": 0.26,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1969,
+          "n": 236,
+          "abs_c1": 0.10898241961079408,
+          "p_exact_benford": 0.28,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1971,
+          "n": 236,
+          "abs_c1": 0.10654536823288596,
+          "p_exact_benford": 0.365,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1973,
+          "n": 236,
+          "abs_c1": 0.10091539557533363,
+          "p_exact_benford": 0.33,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1975,
+          "n": 236,
+          "abs_c1": 0.0978915749490762,
+          "p_exact_benford": 0.42,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1977,
+          "n": 236,
+          "abs_c1": 0.09337940646437637,
+          "p_exact_benford": 0.39,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1979,
+          "n": 236,
+          "abs_c1": 0.08691891734289962,
+          "p_exact_benford": 0.665,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1981,
+          "n": 236,
+          "abs_c1": 0.08338195281092174,
+          "p_exact_benford": 0.585,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1983,
+          "n": 236,
+          "abs_c1": 0.0812497221421016,
+          "p_exact_benford": 0.63,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1985,
+          "n": 236,
+          "abs_c1": 0.07842711950077332,
+          "p_exact_benford": 0.68,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1987,
+          "n": 236,
+          "abs_c1": 0.07835707263493893,
+          "p_exact_benford": 0.67,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1989,
+          "n": 236,
+          "abs_c1": 0.07885711695022303,
+          "p_exact_benford": 0.72,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1991,
+          "n": 236,
+          "abs_c1": 0.08185706955901732,
+          "p_exact_benford": 0.675,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1993,
+          "n": 236,
+          "abs_c1": 0.07164365923624115,
+          "p_exact_benford": 0.865,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1995,
+          "n": 236,
+          "abs_c1": 0.06738025950398939,
+          "p_exact_benford": 0.86,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1997,
+          "n": 236,
+          "abs_c1": 0.06587505223725598,
+          "p_exact_benford": 0.94,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 1999,
+          "n": 236,
+          "abs_c1": 0.06559790497228041,
+          "p_exact_benford": 0.965,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2001,
+          "n": 236,
+          "abs_c1": 0.06367661970846937,
+          "p_exact_benford": 0.955,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2003,
+          "n": 236,
+          "abs_c1": 0.06018580504849272,
+          "p_exact_benford": 0.855,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2005,
+          "n": 236,
+          "abs_c1": 0.057631199993614775,
+          "p_exact_benford": 0.885,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2007,
+          "n": 236,
+          "abs_c1": 0.053258520718678655,
+          "p_exact_benford": 0.69,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2009,
+          "n": 236,
+          "abs_c1": 0.04981085869558946,
+          "p_exact_benford": 0.635,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2011,
+          "n": 236,
+          "abs_c1": 0.05251809398037284,
+          "p_exact_benford": 0.74,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2013,
+          "n": 236,
+          "abs_c1": 0.05943016422050173,
+          "p_exact_benford": 0.865,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2015,
+          "n": 236,
+          "abs_c1": 0.06225453427325193,
+          "p_exact_benford": 0.95,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2017,
+          "n": 236,
+          "abs_c1": 0.06656424841607282,
+          "p_exact_benford": 0.97,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2019,
+          "n": 236,
+          "abs_c1": 0.07008699704133597,
+          "p_exact_benford": 0.81,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2021,
+          "n": 236,
+          "abs_c1": 0.07218236306898107,
+          "p_exact_benford": 0.845,
+          "p_bh_adjusted": 0.97
+        },
+        {
+          "year": 2023,
+          "n": 236,
+          "abs_c1": 0.07636161071075881,
+          "p_exact_benford": 0.755,
+          "p_bh_adjusted": 0.97
+        }
+      ],
+      "note": "BH over years is the multiplicity control the field expects; with ~37 years about 1.9 raw rejections are expected by chance under the null."
+    },
+    "honest_negative_branch": {
+      "distance_from_exact_benford": {
+        "residuals_pp": [
+          -3.0645204092748957,
+          -1.1409628272355532,
+          0.11492157508388723,
+          0.8335062576002208,
+          1.9765157983524975,
+          0.5888757781205373,
+          0.30479064350480356,
+          0.015302038358527142,
+          0.37157114548997533
+        ],
+        "MAD": 0.009345518303356552,
+        "MAD_nigrini_band": "acceptable conformity",
+        "M": 0.030645204092748957,
+        "chi2": {
+          "chi2": 91.69101509261303,
+          "df": 8,
+          "n": 8732.0,
+          "expected_count_digit9": 399.55440757581533,
+          "min_expected_count": 399.55440757581533,
+          "asymptotics_marginal": false,
+          "caveat": "df=8 is nominal; with min expected count < 5 the asymptotic p-value is unreliable and is reported for completeness only"
+        },
+        "kuiper_V": 0.04205483236510449,
+        "abs_c1": 0.07521264624602247,
+        "interpretation": "Measured against the POINT null on the nominal n, the panel looks far from exact Benford: this is the descriptive finding every prior study of population digits reports. It is not evidence of anything on its own, because the nominal n treats 236 near-replicated countries as 8,732 independent draws; the cluster-calibrated test in conformity_headline finds no departure at all."
+      },
+      "distance_from_fitted_law": {
+        "residuals_pp": [
+          -1.41664225666156,
+          -0.5887466233533561,
+          -0.2593991996734907,
+          0.2135828237159368,
+          1.4250588401749211,
+          0.202515639053083,
+          0.08702170435674547,
+          -0.062438656838277595,
+          0.39904772922597986
+        ],
+        "MAD": 0.005171614970059278,
+        "M": 0.014250588401749212,
+        "matched_null": {
+          "observed": 0.014250588401749212,
+          "percentile": 3.55,
+          "two_sided_p": 0.071,
+          "null_mean": 0.03168724647027478,
+          "null_p2_5": 0.013351423204694617,
+          "null_p97_5": 0.062003739271498735
+        },
+        "interpretation": "Measured against the MATCHED null -- the fitted size law -- the same panel is inside its own sampling envelope. Together with the cluster-calibrated Benford result this says something stronger than either alone: these digits are equally compatible with exact Benford and with the fitted size law, and a 236-country panel cannot separate the two (see discrimination_between_nulls). The digit pattern therefore carries no evidence that discriminates a demographic size mechanism from Benford."
+      },
+      "headline": "The leading digits of world-country populations conform to their own fitted size law AND to exact Benford inside the sampling envelope once the country-clustering is respected; the widely-reported 'departure from Benford' is an aggregation artefact of the nominal-n chi-square, not a demographic digit mechanism.",
+      "two_null_note": "These two negatives are not in tension, they are the same fact seen twice. The fitted three-component lognormal mixture has a digit law whose own MAD from exact Benford is ~0.005, so for THESE data the two nulls are nearly indistinguishable, and a panel of 236 countries cannot tell them apart. That indistinguishability is the sharpened negative: the digit pattern carries no information that discriminates a size law from Benford at this sample size.",
+      "rescheduling_note": "The temporal axis (per-year harmonic drift) becomes the lead for the next round: it is the only place where the fitted law predicts a year-specific signal that the pooled fit cannot absorb."
+    },
+    "decisions": {
+      "survivor_confirmation": "SURVIVOR CONFIRMED",
+      "confirmation_rule": "M_reserved < 0.05 in probability units AND M_reserved's percentile in the matched-null envelope within [2.5, 97.5] AND M_reserved / M_screen <= 1.25",
+      "conformity_verdict": "the panel is inside its cluster-calibrated exact-Benford envelope on all five readouts",
+      "conformity_inside_envelope_all_five": true,
+      "power_gate_demoted_aggregate_test": true,
+      "ablation_criterion_c_met": false,
+      "source_invariance_status": "partial independence",
+      "rounding_rival_bounded": true,
+      "entity_disjoint_folds_confirmed": 2,
+      "branch_taken": "honest negative: the panel conforms to exact Benford and to its own fitted size law inside the sampling envelope, so the apparent Benford departure is the aggregation artefact the nominal-n statistic manufactures"
+    },
+    "per_digit_table": [
+      {
+        "digit": 1,
+        "benford": 0.3010299956639812,
+        "model": 0.28455121413784784,
+        "screen_obs": 0.2721026110856619,
+        "reserved_obs": 0.27038479157123224,
+        "screen_residual_pp": -2.8927384578319284,
+        "reserved_residual_pp": -3.0645204092748957,
+        "reserved_ci_low": 0.23165609112938818,
+        "reserved_ci_high": 0.3117460439111427,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": -1.41664225666156,
+        "sign_prob_positive_under_cluster_benford": 0.0203
+      },
+      {
+        "digit": 2,
+        "benford": 0.17609125905568124,
+        "model": 0.17056909701685927,
+        "screen_obs": 0.16365093907466788,
+        "reserved_obs": 0.1646816307833257,
+        "screen_residual_pp": -1.244031998101336,
+        "reserved_residual_pp": -1.1409628272355532,
+        "reserved_ci_low": 0.13306582499717703,
+        "reserved_ci_high": 0.2001546837667058,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": -0.5887466233533561,
+        "sign_prob_positive_under_cluster_benford": 0.1532
+      },
+      {
+        "digit": 3,
+        "benford": 0.12493873660829993,
+        "model": 0.1286819443558737,
+        "screen_obs": 0.1256298671552909,
+        "reserved_obs": 0.1260879523591388,
+        "screen_residual_pp": 0.06911305469909645,
+        "reserved_residual_pp": 0.11492157508388723,
+        "reserved_ci_low": 0.09815254281647601,
+        "reserved_ci_high": 0.15833459532714902,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": -0.2593991996734907,
+        "sign_prob_positive_under_cluster_benford": 0.5489
+      },
+      {
+        "digit": 4,
+        "benford": 0.09691001300805642,
+        "model": 0.10310924734689926,
+        "screen_obs": 0.10661933119560238,
+        "reserved_obs": 0.10524507558405863,
+        "screen_residual_pp": 0.9709318187545959,
+        "reserved_residual_pp": 0.8335062576002208,
+        "reserved_ci_low": 0.07965678606971115,
+        "reserved_ci_high": 0.1353930897171013,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": 0.2135828237159368,
+        "sign_prob_positive_under_cluster_benford": 0.8364
+      },
+      {
+        "digit": 5,
+        "benford": 0.07918124604762482,
+        "model": 0.08469581562940058,
+        "screen_obs": 0.09608337150710032,
+        "reserved_obs": 0.09894640403114979,
+        "screen_residual_pp": 1.6902125459475503,
+        "reserved_residual_pp": 1.9765157983524975,
+        "reserved_ci_low": 0.07412956682911576,
+        "reserved_ci_high": 0.12839875031899933,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": 1.4250588401749211,
+        "sign_prob_positive_under_cluster_benford": 0.9952
+      },
+      {
+        "digit": 6,
+        "benford": 0.06694678963061322,
+        "model": 0.07081039102128776,
+        "screen_obs": 0.07489693082913422,
+        "reserved_obs": 0.0728355474118186,
+        "screen_residual_pp": 0.7950141198520999,
+        "reserved_residual_pp": 0.5888757781205373,
+        "reserved_ci_low": 0.051607692128085386,
+        "reserved_ci_high": 0.09901836087620315,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": 0.202515639053083,
+        "sign_prob_positive_under_cluster_benford": 0.8269
+      },
+      {
+        "digit": 7,
+        "benford": 0.05799194697768673,
+        "model": 0.06016963636916731,
+        "screen_obs": 0.06069628950984883,
+        "reserved_obs": 0.06103985341273477,
+        "screen_residual_pp": 0.27043425321620973,
+        "reserved_residual_pp": 0.30479064350480356,
+        "reserved_ci_low": 0.041696834036592856,
+        "reserved_ci_high": 0.08548644382201331,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": 0.08702170435674547,
+        "sign_prob_positive_under_cluster_benford": 0.6678
+      },
+      {
+        "digit": 8,
+        "benford": 0.05115252244738129,
+        "model": 0.05192992939934934,
+        "screen_obs": 0.05142006413192854,
+        "reserved_obs": 0.05130554283096656,
+        "screen_residual_pp": 0.026754168454724836,
+        "reserved_residual_pp": 0.015302038358527142,
+        "reserved_ci_low": 0.03368612305751171,
+        "reserved_ci_high": 0.07415458003969982,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": -0.062438656838277595,
+        "sign_prob_positive_under_cluster_benford": 0.4969
+      },
+      {
+        "digit": 9,
+        "benford": 0.04575749056067514,
+        "model": 0.0454827247233151,
+        "screen_obs": 0.048900595510765005,
+        "reserved_obs": 0.049473202015574896,
+        "screen_residual_pp": 0.31431049500898617,
+        "reserved_residual_pp": 0.37157114548997533,
+        "reserved_ci_low": 0.032198670177800835,
+        "reserved_ci_high": 0.07200154601382547,
+        "reserved_covers_benford": true,
+        "reserved_residual_vs_model_pp": 0.39904772922597986,
+        "sign_prob_positive_under_cluster_benford": 0.7764
+      }
+    ],
+    "runtime_seconds": 107.53172302246094,
+    "timestamp_utc": "2026-11-20T04:34:25.240144+00:00"
+  },
+  "metrics_agg": {
+    "n_country_years_screen_fold": 8732.0,
+    "n_country_years_reserved_fold": 8732.0,
+    "n_countries": 236.0,
+    "n_effective_icc": 976.4764227438384,
+    "design_effect_icc": 8.942356207089588,
+    "icc_within_country_mantissa": 0.22062100575248855,
+    "within_country_sd_decades": 0.027981953227980444,
+    "observed_MAD_vs_benford_screen": 0.009192823235407252,
+    "observed_MAD_vs_benford_reserved": 0.009345518303356552,
+    "observed_M_vs_benford_reserved": 0.030645204092748957,
+    "observed_abs_c1_screen": 0.07492631043347074,
+    "observed_abs_c1_reserved": 0.07521264624602247,
+    "observed_phase_deg_reserved": -89.77616251979866,
+    "observed_chi2_vs_benford_reserved": 91.69101509261303,
+    "observed_kuiper_V_reserved": 0.04205483236510449,
+    "p_cluster_MAD": 0.47,
+    "p_cluster_M": 0.9266,
+    "p_cluster_abs_c1": 0.4934,
+    "p_cluster_chi2": 0.3646,
+    "p_cluster_kuiper_V": 0.8866,
+    "p_naive_iid_MAD": 0.0,
+    "p_naive_iid_chi2": 0.0,
+    "conformity_inside_all_five": 1.0,
+    "entity_level_n": 236.0,
+    "entity_level_chi2": 12.308464761795317,
+    "entity_level_chi2_p": 0.13796247136274337,
+    "entity_level_MAD": 0.0169757455182458,
+    "winner_bic": 26840.635188536675,
+    "winner_mad_vs_benford": 0.004950157644958992,
+    "winner_abs_c1": 0.03576732354796224,
+    "winner_is_mixture": 1.0,
+    "observed_M_vs_model_screen": 0.012448603052185925,
+    "observed_M_vs_model_reserved": 0.014250588401749212,
+    "replication_attenuation_ratio": 1.1447540211547564,
+    "M_reserved_matched_null_percentile": 3.55,
+    "confirmation_margin_threshold": 0.05,
+    "confirmation_confirmed": 1.0,
+    "projected_P_reserved": 3.7825620873136776,
+    "projected_P_percentile": 92.5,
+    "projected_P_two_sided_p": 0.15,
+    "cosine_reserved": 0.9490392106297231,
+    "cosine_null_mean": -0.0032355200087581196,
+    "dose_response_spearman_rho": 0.09999999999999999,
+    "per_year_modulus_pearson_r": 0.6358961018276347,
+    "per_year_modulus_pearson_ci_low": 0.2365780307272022,
+    "per_year_growth_pearson_r": 0.3457310152792195,
+    "per_year_year_trend_r": -0.7167012245724473,
+    "ablation_plug_in_passes": 0.0,
+    "ablation_pooled_sign_agreement": 12.0,
+    "source_invariance_sign_agreement": 1.0,
+    "source_overlap_near_identical_fraction": 0.3584850691915513,
+    "source_per_year_rank_correlation": 0.9902014652014651,
+    "rounding_max_share_explained": 0.057693749734298444,
+    "scale_rotation_identity_holds": 1.0,
+    "per_year_bh_rejections": 0.0,
+    "entity_disjoint_folds_confirmed": 2.0,
+    "entity_disjoint_folds_run": 4.0,
+    "entity_disjoint_M_test_median": 0.0390187710046032,
+    "self_test_rotation_error": 8.716877585302702e-17,
+    "self_test_periodise_error": 6.800116025829084e-16,
+    "periodise_closed_form_passes": 1.0,
+    "discrimination_overlap_share": 0.8866,
+    "discrimination_p_vs_benford": 0.0754,
+    "discrimination_p_vs_model": 0.7656,
+    "discrimination_llr_observed": 28.410337025041798,
+    "discrimination_llr_predicted_model": 9.962531995666577
+  },
+  "datasets": [
+    {
+      "dataset": "benford_country_population_reserved_fold",
+      "examples": [
+        {
+          "input": "For leading digit 1, how close is the observed first-digit proportion of world-country populations (reserved odd years, n=8732) to Benford's log10(1+1/d)?",
+          "output": "observed 0.27038 vs Benford 0.30103; residual -3.065 percentage points; fitted-law prediction 0.28455; simultaneous interval [0.2317, 0.3117]",
+          "metadata_digit": "1",
+          "metadata_fold": "reserved_odd",
+          "predict_fitted_size_law": "0.284551",
+          "predict_exact_benford": "0.301030",
+          "eval_reserved_proportion": 0.27038479157123224,
+          "eval_model_proportion": 0.28455121413784784,
+          "eval_residual_vs_benford_pp": -3.0645204092748957,
+          "eval_residual_vs_model_pp": -1.41664225666156,
+          "eval_abs_residual_vs_benford_pp": 3.0645204092748957,
+          "eval_abs_residual_vs_model_pp": 1.41664225666156,
+          "eval_simultaneous_ci_low": 0.23165609112938818,
+          "eval_simultaneous_ci_high": 0.3117460439111427,
+          "eval_screen_proportion": 0.2721026110856619
+        },
+        {
+          "input": "For leading digit 2, how close is the observed first-digit proportion of world-country populations (reserved odd years, n=8732) to Benford's log10(1+1/d)?",
+          "output": "observed 0.16468 vs Benford 0.17609; residual -1.141 percentage points; fitted-law prediction 0.17057; simultaneous interval [0.1331, 0.2002]",
+          "metadata_digit": "2",
+          "metadata_fold": "reserved_odd",
+          "predict_fitted_size_law": "0.170569",
+          "predict_exact_benford": "0.176091",
+          "eval_reserved_proportion": 0.1646816307833257,
+          "eval_model_proportion": 0.17056909701685927,
+          "eval_residual_vs_benford_pp": -1.1409628272355532,
+          "eval_residual_vs_model_pp": -0.5887466233533561,
+          "eval_abs_residual_vs_benford_pp": 1.1409628272355532,
+          "eval_abs_residual_vs_model_pp": 0.5887466233533561,
+          "eval_simultaneous_ci_low": 0.13306582499717703,
+          "eval_simultaneous_ci_high": 0.2001546837667058,
+          "eval_screen_proportion": 0.16365093907466788
+        },
+        {
+          "input": "For leading digit 3, how close is the observed first-digit proportion of world-country populations (reserved odd years, n=8732) to Benford's log10(1+1/d)?",
+          "output": "observed 0.12609 vs Benford 0.12494; residual +0.115 percentage points; fitted-law prediction 0.12868; simultaneous interval [0.0982, 0.1583]",
+          "metadata_digit": "3",
+          "metadata_fold": "reserved_odd",
+          "predict_fitted_size_law": "0.128682",
+          "predict_exact_benford": "0.124939",
+          "eval_reserved_proportion": 0.1260879523591388,
+          "eval_model_proportion": 0.1286819443558737,
+          "eval_residual_vs_benford_pp": 0.11492157508388723,
+          "eval_residual_vs_model_pp": -0.2593991996734907,
+          "eval_abs_residual_vs_benford_pp": 0.11492157508388723,
+          "eval_abs_residual_vs_model_pp": 0.2593991996734907,
+          "eval_simultaneous_ci_low": 0.09815254281647601,
+          "eval_simultaneous_ci_high": 0.15833459532714902,
+          "eval_screen_proportion": 0.1256298671552909
+        }
+      ]
+    },
+    {
+      "dataset": "benford_country_population_screen_fold",
+      "examples": [
+        {
+          "input": "For leading digit 1, what is the proportion on the screen (even) fold that the fitted law was estimated from?",
+          "output": "observed 0.27210 vs Benford 0.30103; residual -2.893 percentage points",
+          "metadata_digit": "1",
+          "metadata_fold": "screen_even",
+          "predict_fitted_size_law": "0.284551",
+          "predict_exact_benford": "0.301030",
+          "eval_screen_proportion": 0.2721026110856619,
+          "eval_residual_vs_benford_pp": -2.8927384578319284,
+          "eval_residual_vs_model_pp": -1.2448603052185925,
+          "eval_abs_residual_vs_benford_pp": 2.8927384578319284
+        },
+        {
+          "input": "For leading digit 2, what is the proportion on the screen (even) fold that the fitted law was estimated from?",
+          "output": "observed 0.16365 vs Benford 0.17609; residual -1.244 percentage points",
+          "metadata_digit": "2",
+          "metadata_fold": "screen_even",
+          "predict_fitted_size_law": "0.170569",
+          "predict_exact_benford": "0.176091",
+          "eval_screen_proportion": 0.16365093907466788,
+          "eval_residual_vs_benford_pp": -1.244031998101336,
+          "eval_residual_vs_model_pp": -0.6918157942191389,
+          "eval_abs_residual_vs_benford_pp": 1.244031998101336
+        },
+        {
+          "input": "For leading digit 3, what is the proportion on the screen (even) fold that the fitted law was estimated from?",
+          "output": "observed 0.12563 vs Benford 0.12494; residual +0.069 percentage points",
+          "metadata_digit": "3",
+          "metadata_fold": "screen_even",
+          "predict_fitted_size_law": "0.128682",
+          "predict_exact_benford": "0.124939",
+          "eval_screen_proportion": 0.1256298671552909,
+          "eval_residual_vs_benford_pp": 0.06911305469909645,
+          "eval_residual_vs_model_pp": -0.30520772005828145,
+          "eval_abs_residual_vs_benford_pp": 0.06911305469909645
+        }
+      ]
+    }
+  ]
+}
