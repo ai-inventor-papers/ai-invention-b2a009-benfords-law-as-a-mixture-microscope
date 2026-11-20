@@ -1,0 +1,21 @@
+[project]
+name = "country-population-panel"
+version = "1.0.0"
+description = "Country-year total population panels (UN WPP 2024 via OWID, and World Bank WDI SP.POP.TOTL) with per-row leading-digit encodings for testing Benford's law"
+requires-python = ">=3.12"
+dependencies = [
+    # Runtime dependency of build_panel.py and data.py (logging to stdout + rotating file).
+    "loguru==0.8.0",
+    # Used only by the verification scripts under build/ (jsonschema.validate against the
+    # pipeline's exp_sel_data_out schema). Not imported by data.py itself.
+    "jsonschema==4.26.0",
+    "jsonschema-specifications==2025.9.1",
+    "referencing==0.37.0",
+    "rpds-py==2026.9.1",
+    "attrs==26.1.0",
+    "typing_extensions==4.16.0",
+]
+
+[build-system]
+requires = []
+build-backend = "setuptools.build_meta"
