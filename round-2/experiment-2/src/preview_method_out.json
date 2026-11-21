@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "description": "Pre-registered re-derivation of how closely Benford's law fits the leading digits of world country populations, on the 236-country x 74-year UN WPP panel (17,464 country-years, 8,732 per fold). Establishes that the intraclass correlation, not a ratio of mean squares, governs the frequency-type digit statistics; that the circular-mean statistic's degrees of freedom are the country count rather than any effective row count; and that a country-rotation randomization null supplies an exact cluster null whose kappa_i are the observed ones by construction.",
+    "method_name": "country-rotation randomization null for Benford conformity on clustered panel data",
+    "panel_md5": "a338376ff319aa913078df4669fde237",
+    "n_examples": 320,
+    "scale": {
+      "B_rotation": 10000,
+      "B_placebo": 4000,
+      "n_panels_v1": 500,
+      "n_panels_v2": 200,
+      "n_panels_power": 200,
+      "n_panels_cal": 100,
+      "n_boot": 10000,
+      "B_disjoint": 2000
+    },
+    "created_utc": "2026-11-21T15:48:07.440313+00:00",
+    "openrouter_spend_usd": 0.0
+  },
+  "datasets": [
+    {
+      "dataset": "benford_population_panel_1950_2023",
+      "examples": [
+        {
+          "input": "even|rho = MSB/(MSB+MSW)  [defective]",
+          "output": "rho = MSB/(MSB+MSW)  [defective] = 0.876329; DE = 33.1040; n_eff = 263.77; governs: frequency-type only (MAD, chi-square, sup-distance, Kuiper V). a ratio of mean squares, not an intraclass correlatio",
+          "metadata_row_type": "reconciliation_estimator",
+          "metadata_fold": "even",
+          "metadata_estimator": "rho = MSB/(MSB+MSW)  [defective]",
+          "metadata_value": 0.8763285401610554,
+          "metadata_design_effect": 33.104035451218046,
+          "metadata_effective_n": 263.7744879432429,
+          "metadata_statistic_class_governed": "frequency-type only (MAD, chi-square, sup-distance, Kuiper V)",
+          "metadata_note": "a ratio of mean squares, not an intraclass correlation; overstates dependence. Value is the unweighted mean over the nine first-digit indicators.",
+          "predict_country_rotation_null": "declared value 0.876329; governs: frequency-type only (MAD, chi-square, sup-distance, Kuiper V)",
+          "predict_nominal_baseline": "the ratio of mean squares rho = MSB/(MSB+MSW), the conventional screen"
+        },
+        {
+          "input": "even|ICC1 one-way ANOVA  [declared]",
+          "output": "ICC1 one-way ANOVA  [declared] = 0.151175; DE = 7.2820; n_eff = 1199.12; governs: frequency-type only (MAD, chi-square, sup-distance, Kuiper V). Searle/McGraw-Wong (1-x)/(1+(k-1)x), x = MSW/MSB, per d",
+          "metadata_row_type": "reconciliation_estimator",
+          "metadata_fold": "even",
+          "metadata_estimator": "ICC1 one-way ANOVA  [declared]",
+          "metadata_value": 0.15117517060106925,
+          "metadata_design_effect": 7.282015933800794,
+          "metadata_effective_n": 1199.1184967707695,
+          "metadata_statistic_class_governed": "frequency-type only (MAD, chi-square, sup-distance, Kuiper V)",
+          "metadata_note": "Searle/McGraw-Wong (1-x)/(1+(k-1)x), x = MSW/MSB, per digit then pooled. The declared estimator.",
+          "predict_country_rotation_null": "declared value 0.151175; governs: frequency-type only (MAD, chi-square, sup-distance, Kuiper V)",
+          "predict_nominal_baseline": "the ratio of mean squares rho = MSB/(MSB+MSW), the conventional screen"
+        },
+        {
+          "input": "even|ICC1 on continuous mantissa  [descriptive]",
+          "output": "ICC1 on continuous mantissa  [descriptive] = 0.220621; DE = 8.9424; n_eff = 976.48; governs: descriptive only; not used for any p-value. same estimator, different variate; reported so the variate is e",
+          "metadata_row_type": "reconciliation_estimator",
+          "metadata_fold": "even",
+          "metadata_estimator": "ICC1 on continuous mantissa  [descriptive]",
+          "metadata_value": 0.2206210116146365,
+          "metadata_design_effect": 8.942356418126913,
+          "metadata_effective_n": 976.4763996992446,
+          "metadata_statistic_class_governed": "descriptive only; not used for any p-value",
+          "metadata_note": "same estimator, different variate; reported so the variate is explicit",
+          "predict_country_rotation_null": "declared value 0.220621; governs: descriptive only; not used for any p-value",
+          "predict_nominal_baseline": "the ratio of mean squares rho = MSB/(MSB+MSW), the conventional screen"
+        }
+      ]
+    }
+  ]
+}
