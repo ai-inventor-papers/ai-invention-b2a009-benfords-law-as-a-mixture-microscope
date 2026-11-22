@@ -169,6 +169,6 @@ acquires its own panel rather than reading a staged dataset. Nothing outside
 this folder is needed to reproduce it. The **evaluation artifact** consumes
 `results/screen_results.json` → `extras.odd_fold_for_evaluation` and
 `extras.ablation_predictions`, and it lives in the sibling folder
-`round-1/evaluation-1/src`; it finds this one
+`3_invention_loop/iter_1/gen_art/gen_art_evaluation_1`; it finds this one
 through that relative path. No user-uploaded private data is used anywhere in
 this artifact.
